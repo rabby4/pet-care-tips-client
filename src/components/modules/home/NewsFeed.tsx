@@ -1,7 +1,11 @@
+import { getAllPosts } from "@/src/services/postServices"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import Image from "next/image"
 
-const RightSidebar = () => {
+const NewsFeed = async () => {
+	const { data: allPosts } = await getAllPosts()
+	console.log(allPosts)
+
 	return (
 		<div>
 			<Card className="py-4">
@@ -14,9 +18,9 @@ const RightSidebar = () => {
 					<Image
 						alt="Card background"
 						className="object-cover rounded-xl"
+						height={270}
 						src="https://nextui.org/images/hero-card-complete.jpeg"
 						width={270}
-						height={270}
 					/>
 				</CardBody>
 			</Card>
@@ -24,4 +28,4 @@ const RightSidebar = () => {
 	)
 }
 
-export default RightSidebar
+export default NewsFeed

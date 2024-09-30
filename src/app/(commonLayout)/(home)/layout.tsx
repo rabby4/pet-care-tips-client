@@ -12,10 +12,10 @@ const layout = ({
 }) => {
 	return (
 		<Container>
-			<div className="flex">
-				{leftSidebar}
-				{children}
-				{rightSidebar}
+			<div className="grid grid-cols-12 gap-5">
+				<div className="col-span-3">{leftSidebar}</div>
+				<div className="col-span-6">{children}</div>
+				<div className="col-span-3">{rightSidebar}</div>
 			</div>
 		</Container>
 	)
