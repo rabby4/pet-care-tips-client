@@ -1,6 +1,6 @@
 "use client"
 import Container from "@/src/components/ui/Container"
-import { useLogin } from "@/src/hooks/auth.hooks"
+import { useRegistrations } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Input } from "@nextui-org/input"
 import React from "react"
@@ -11,8 +11,8 @@ import {
 	useForm,
 } from "react-hook-form"
 
-const LoginPage = () => {
-	const { mutate: handleRegistration } = useLogin()
+const RegisterPage = () => {
+	const { mutate: handleRegistration, data, isError } = useRegistrations()
 	const { handleSubmit, control } = useForm({})
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -22,6 +22,32 @@ const LoginPage = () => {
 	return (
 		<Container>
 			<form onSubmit={handleSubmit(onSubmit)}>
+				<Controller
+					control={control}
+					name="firstName"
+					render={({ field }) => (
+						<Input
+							label="Fist Name"
+							type="text"
+							variant={"underlined"}
+							{...field}
+						/>
+					)}
+					rules={{ required: true }}
+				/>
+				<Controller
+					control={control}
+					name="lastName"
+					render={({ field }) => (
+						<Input
+							label="Last Name"
+							type="text"
+							variant={"underlined"}
+							{...field}
+						/>
+					)}
+					rules={{ required: true }}
+				/>
 				<Controller
 					control={control}
 					name="email"
@@ -48,10 +74,10 @@ const LoginPage = () => {
 					)}
 					rules={{ required: true }}
 				/>
-				<Button type="submit">Login</Button>
+				<Button type="submit">Register</Button>
 			</form>
 		</Container>
 	)
 }
 
-export default LoginPage
+export default RegisterPage
