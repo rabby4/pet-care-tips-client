@@ -1,7 +1,5 @@
 "use server"
-
 import axiosInstance from "@/src/lib/AxiosInstance"
-import { jwtDecode } from "jwt-decode"
 import { cookies } from "next/headers"
 import { FieldValues } from "react-hook-form"
 
@@ -10,7 +8,7 @@ export const registerUser = async (userData: FieldValues) => {
 		const { data } = await axiosInstance.post("/auth/signup", userData)
 
 		if (data.success) {
-			cookies().set("accessToken", data?.data?.accessToken)
+			cookies().set("accessToken", data?.token)
 		}
 
 		return data
@@ -23,7 +21,7 @@ export const loginUser = async (userData: FieldValues) => {
 		const { data } = await axiosInstance.post("/auth/login", userData)
 
 		if (data.success) {
-			cookies().set("accessToken", data?.data?.accessToken)
+			cookies().set("accessToken", data?.token)
 		}
 
 		return data
@@ -39,17 +37,13 @@ export const logOut = () => {
 export const getCurrentUser = async () => {
 	const accessToken = cookies().get("accessToken")?.value
 
-	let decodedToken = null
+	let user = null
 
 	if (accessToken) {
-		decodedToken = await jwtDecode(accessToken)
+		const currentUser = await axiosInstance.get(`/auth/me`)
 
-		return {
-			_id: decodedToken._id,
-			email: decodedToken.email,
-			role: decodedToken.role,
-		}
+		user = currentUser?.data?.data
 	}
 
-	return decodedToken
+	return user
 }

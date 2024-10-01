@@ -3,6 +3,7 @@ import Container from "@/src/components/ui/Container"
 import { useLogin } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Input } from "@nextui-org/input"
+import { useRouter } from "next/navigation"
 import React from "react"
 import {
 	Controller,
@@ -12,11 +13,16 @@ import {
 } from "react-hook-form"
 
 const LoginPage = () => {
-	const { mutate: handleRegistration } = useLogin()
+	const { mutate: handleLogin, isPending, isSuccess } = useLogin()
+	const router = useRouter()
 	const { handleSubmit, control } = useForm({})
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		handleRegistration(data)
+		handleLogin(data)
+	}
+
+	if (!isPending && isSuccess) {
+		router.push("/")
 	}
 
 	return (

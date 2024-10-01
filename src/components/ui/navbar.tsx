@@ -26,8 +26,13 @@ import {
 	Logo,
 } from "@/src/components/icons"
 import { ThemeSwitch } from "./theme-switch"
+import AvatarDropdown from "./AvatarDropdown"
+import { getCurrentUser, logOut } from "@/src/services/authServices"
+import envConfig from "@/src/config/envConfig"
 
-export const Navbar = () => {
+export const Navbar = async () => {
+	const user = await getCurrentUser()
+
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -35,11 +40,11 @@ export const Navbar = () => {
 				inputWrapper: "bg-default-100",
 				input: "text-sm",
 			}}
-			endContent={
-				<Kbd className="hidden lg:inline-block" keys={["command"]}>
-					K
-				</Kbd>
-			}
+			// endContent={
+			// 	<Kbd className="hidden lg:inline-block" keys={["command"]}>
+			// 		K
+			// 	</Kbd>
+			// }
 			labelPlacement="outside"
 			placeholder="Search..."
 			startContent={
@@ -58,7 +63,30 @@ export const Navbar = () => {
 						<p className="font-bold text-inherit">ACME</p>
 					</NextLink>
 				</NavbarBrand>
-				<ul className="hidden lg:flex gap-4 justify-start ml-2">
+				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+				{/* <ul className="hidden lg:flex gap-4 justify-start ml-2">
+					{siteConfig.navItems.map((item) => (
+						<NavbarItem key={item.href}>
+							<NextLink
+								className={clsx(
+									linkStyles({ color: "foreground" }),
+									"data-[active=true]:text-primary data-[active=true]:font-medium"
+								)}
+								color="foreground"
+								href={item.href}
+							>
+								{item.label}
+							</NextLink>
+						</NavbarItem>
+					))}
+				</ul> */}
+			</NavbarContent>
+
+			<NavbarContent
+				className="hidden sm:flex basis-1/5 sm:basis-full"
+				justify="end"
+			>
+				<ul className="hidden md:flex gap-4 justify-start ml-2">
 					{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href}>
 							<NextLink
@@ -74,12 +102,6 @@ export const Navbar = () => {
 						</NavbarItem>
 					))}
 				</ul>
-			</NavbarContent>
-
-			<NavbarContent
-				className="hidden sm:flex basis-1/5 sm:basis-full"
-				justify="end"
-			>
 				<NavbarItem className="hidden sm:flex gap-2">
 					<Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
 						<TwitterIcon className="text-default-500" />
@@ -91,9 +113,21 @@ export const Navbar = () => {
 						<GithubIcon className="text-default-500" />
 					</Link>
 					<ThemeSwitch />
+					{user ? (
+						<AvatarDropdown />
+					) : (
+						<Button
+							as={Link}
+							className="text-sm font-normal text-default-600 bg-default-100"
+							href={`/login`}
+							variant="flat"
+						>
+							Login
+						</Button>
+					)}
 				</NavbarItem>
-				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-				<NavbarItem className="hidden md:flex">
+				{/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
+				{/* <NavbarItem className="hidden md:flex">
 					<Button
 						isExternal
 						as={Link}
@@ -104,13 +138,13 @@ export const Navbar = () => {
 					>
 						Sponsor
 					</Button>
-				</NavbarItem>
+				</NavbarItem> */}
 			</NavbarContent>
 
 			<NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-				<Link isExternal aria-label="Github" href={siteConfig.links.github}>
+				{/* <Link isExternal aria-label="Github" href={siteConfig.links.github}>
 					<GithubIcon className="text-default-500" />
-				</Link>
+				</Link> */}
 				<ThemeSwitch />
 				<NavbarMenuToggle />
 			</NavbarContent>
