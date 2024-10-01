@@ -1,14 +1,13 @@
-import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Divider } from "@nextui-org/divider"
 import Image from "next/image"
-import { Comment, DownArrow, UpArrow } from "../../icons"
 import { Avatar } from "@nextui-org/avatar"
 import Link from "next/link"
 import { TPost } from "@/src/types"
 import moment from "moment"
+import PostActions from "./PostActions"
 
-const PostCard = ({ post }: { post: TPost }) => {
+const PostCard = async ({ post }: { post: TPost }) => {
 	return (
 		<Card className="py-4 rounded-md">
 			<CardHeader className="flex gap-3">
@@ -35,13 +34,19 @@ const PostCard = ({ post }: { post: TPost }) => {
 
 			<CardBody className="overflow-visible py-2 gap-5">
 				<p className="text-sm">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-					perspiciatis dolores quia et aliquam voluptates nemo doloribus
-					deserunt officiis voluptatum vero, eveniet, ipsum corrupti laudantium
-					officia explicabo saepe sit sed.
-					<Link href={`/posts/${post._id}`} className="hover:text-[#2d5be3]">
-						Read more..
-					</Link>
+					{post.content.length > 100 ? (
+						<>
+							{post.content.slice(0, 100)}...
+							<Link
+								className="hover:text-[#2d5be3]"
+								href={`/posts/${post._id}`}
+							>
+								Read more
+							</Link>
+						</>
+					) : (
+						post.content
+					)}
 				</p>
 				{post.image && (
 					<Image
@@ -56,22 +61,7 @@ const PostCard = ({ post }: { post: TPost }) => {
 			</CardBody>
 			<Divider />
 			<CardFooter className="flex justify-between">
-				<div className="flex gap-5">
-					<Button className="flex justify-center items-center rounded-full">
-						<UpArrow />
-						<p>12k</p>
-					</Button>
-					<Button className="flex justify-center items-center rounded-full">
-						<DownArrow />
-						<p>12k</p>
-					</Button>
-				</div>
-				<div>
-					<Button className="flex justify-center items-center rounded-full">
-						<Comment />
-						<p>12k</p>
-					</Button>
-				</div>
+				<PostActions id={post._id} />
 			</CardFooter>
 		</Card>
 	)
