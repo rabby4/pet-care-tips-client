@@ -8,7 +8,6 @@ import {
 	NavbarMenuItem,
 } from "@nextui-org/navbar"
 import { Button } from "@nextui-org/button"
-import { Kbd } from "@nextui-org/kbd"
 import { Link } from "@nextui-org/link"
 import { Input } from "@nextui-org/input"
 import { link as linkStyles } from "@nextui-org/theme"
@@ -21,14 +20,13 @@ import {
 	TwitterIcon,
 	GithubIcon,
 	DiscordIcon,
-	HeartFilledIcon,
 	SearchIcon,
 	Logo,
 } from "@/src/components/icons"
 import { ThemeSwitch } from "./theme-switch"
 import AvatarDropdown from "./AvatarDropdown"
-import { getCurrentUser, logOut } from "@/src/services/authServices"
-import envConfig from "@/src/config/envConfig"
+import { getCurrentUser } from "@/src/services/authServices"
+import Image from "next/image"
 
 export const Navbar = async () => {
 	const user = await getCurrentUser()
@@ -59,8 +57,17 @@ export const Navbar = async () => {
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
-						<Logo />
-						<p className="font-bold text-inherit">ACME</p>
+						<Image
+							src={
+								"https://www.radiustheme.com/demo/wordpress/themes/cirkle/wp-content/uploads/2021/11/dark_logo.svg"
+							}
+							alt="site logo"
+							className="size-24"
+							height={50}
+							width={200}
+						/>
+						{/* <Logo />
+						<p className="font-bold text-inherit">ACME</p> */}
 					</NextLink>
 				</NavbarBrand>
 				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>

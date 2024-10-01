@@ -10,6 +10,7 @@ export const getAllPosts = async () => {
 	}
 	const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
 	const data = await res.json()
+
 	return data
 }
 

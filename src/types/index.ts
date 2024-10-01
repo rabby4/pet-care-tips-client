@@ -6,12 +6,23 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 
 export type TUser = {
 	_id: string
-	// firstName: string
-	// lastName: string
+	firstName: string
+	lastName: string
 	email: string
-	role: "user" | "admin"
-	// premium: boolean
-	// createdAt: string
-	// updatedAt: string
-	// __v: number
+	role: "superAdmin" | "user" | "admin"
+	premium: boolean
+	createdAt: string
+	updatedAt: string
+	image: string
+	__v: number
+}
+
+export type TPost = {
+	_id: string
+	content: string
+	image: string
+	user: TUser
+	premium: boolean
+	createdAt: string
+	updatedAt: string
 }

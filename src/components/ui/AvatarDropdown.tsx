@@ -1,5 +1,5 @@
 "use client"
-import { getCurrentUser, logOut } from "@/src/services/authServices"
+import { logOut } from "@/src/services/authServices"
 import { Avatar } from "@nextui-org/avatar"
 import {
 	Dropdown,
