@@ -6,13 +6,20 @@ import Link from "next/link"
 import { TPost } from "@/src/types"
 import moment from "moment"
 import PostActions from "./PostActions"
-import { getDownVoteCount, getUpVoteCount } from "@/src/services/postServices"
+import {
+	getDownVoteCount,
+	getPostComments,
+	getUpVoteCount,
+} from "@/src/services/postServices"
+import { getCurrentUser } from "@/src/services/authServices"
 
 const PostCard = async ({ post }: { post: TPost }) => {
+	const user = await getCurrentUser()
 	const upVote = await getUpVoteCount(post._id)
 	const upVotes = upVote.data.length
 	const downVote = await getDownVoteCount(post._id)
 	const downVotes = downVote.data.length
+	const allComments = await getPostComments(post._id)
 
 	return (
 		<Card className="py-4 rounded-md">
@@ -67,7 +74,13 @@ const PostCard = async ({ post }: { post: TPost }) => {
 			</CardBody>
 			<Divider />
 			<CardFooter className="flex justify-between">
-				<PostActions downVote={downVotes} id={post._id} upVotes={upVotes} />
+				<PostActions
+					comments={allComments.data}
+					downVote={downVotes}
+					id={post._id}
+					upVotes={upVotes}
+					userId={user._id}
+				/>
 			</CardFooter>
 		</Card>
 	)

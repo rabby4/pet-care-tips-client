@@ -2,8 +2,8 @@
 import envConfig from "@/src/config/envConfig"
 import axiosInstance from "@/src/lib/AxiosInstance"
 import { revalidateTag } from "next/cache"
+import { FieldValues } from "react-hook-form"
 
-// get all posts from the server
 export const getAllPosts = async () => {
 	const fetchOptions = {
 		next: {
@@ -16,7 +16,6 @@ export const getAllPosts = async () => {
 	return data
 }
 
-// get a single post from the server
 export const getSinglePost = async (postId: string) => {
 	let fetchOptions = {}
 
@@ -33,7 +32,6 @@ export const getSinglePost = async (postId: string) => {
 	return res.json()
 }
 
-// add upvote for post
 export const upVote = async (postId: string) => {
 	try {
 		await axiosInstance.post(`${envConfig.baseApi}/upvote`, {
@@ -45,7 +43,6 @@ export const upVote = async (postId: string) => {
 	}
 }
 
-// get upvote count
 export const getUpVoteCount = async (postId: string) => {
 	const fetchOptions = {
 		next: {
@@ -59,7 +56,6 @@ export const getUpVoteCount = async (postId: string) => {
 	return data
 }
 
-// add downvote for post
 export const downVote = async (postId: string) => {
 	try {
 		await axiosInstance.post(`${envConfig.baseApi}/downvote`, {
@@ -70,7 +66,7 @@ export const downVote = async (postId: string) => {
 		throw new Error(error)
 	}
 }
-// get upvote count
+
 export const getDownVoteCount = async (postId: string) => {
 	const fetchOptions = {
 		next: {
@@ -79,6 +75,32 @@ export const getDownVoteCount = async (postId: string) => {
 	}
 	const res = await fetch(
 		`${envConfig.baseApi}/downvote/${postId}`,
+		fetchOptions
+	)
+
+	const data = await res.json()
+
+	return data
+}
+
+export const commentOnPost = async (formData: FieldValues) => {
+	try {
+		await axiosInstance.post("/comments", formData)
+
+		revalidateTag("comments")
+	} catch (error: any) {
+		throw new Error(error)
+	}
+}
+
+export const getPostComments = async (postId: string) => {
+	const fetchOptions = {
+		next: {
+			tags: ["comments"],
+		},
+	}
+	const res = await fetch(
+		`${envConfig.baseApi}/comments/${postId}`,
 		fetchOptions
 	)
 

@@ -26,3 +26,18 @@ export type TPost = {
 	createdAt: string
 	updatedAt: string
 }
+
+export type TComment = {
+	_id: string
+	user: TUser
+	content: string
+	post: string
+}
+
+export type PostActionsProps = {
+	id: string
+	upVotes: number
+	downVote: number
+	userId: string | null
+	comments: TComment[]
+}

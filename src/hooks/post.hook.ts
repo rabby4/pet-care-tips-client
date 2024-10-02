@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
-import { downVote, upVote } from "../services/postServices"
+import { commentOnPost, downVote, upVote } from "../services/postServices"
 import { toast } from "sonner"
+import { FieldValues } from "react-hook-form"
 
 export const useUpVote = () => {
 	return useMutation<any, Error, string>({
@@ -18,6 +19,16 @@ export const useDownVote = () => {
 		mutationFn: async (postId) => await downVote(postId),
 		onSuccess: () => {
 			toast.success(`DownVote successfully!`)
+		},
+		onError: (error) => toast.error(error.message),
+	})
+}
+export const useCommentOnPost = () => {
+	return useMutation<any, Error, FieldValues>({
+		mutationKey: ["COMMENT"],
+		mutationFn: async (formData) => await commentOnPost(formData),
+		onSuccess: () => {
+			toast.success(`Comment successfully!`)
 		},
 		onError: (error) => toast.error(error.message),
 	})
