@@ -4,7 +4,15 @@ import React from "react"
 import { Comment, DownArrow, UpArrow } from "../../icons"
 import { useDownVote, useUpVote } from "@/src/hooks/post.hook"
 
-const PostActions = async ({ id }: { id: string }) => {
+const PostActions = ({
+	id,
+	upVotes,
+	downVote,
+}: {
+	id: string
+	upVotes: number
+	downVote: number
+}) => {
 	const { mutate: handleAddUpVote } = useUpVote()
 	const { mutate: handleAddDownVote } = useDownVote()
 
@@ -19,18 +27,18 @@ const PostActions = async ({ id }: { id: string }) => {
 		<>
 			<div className="flex gap-5">
 				<Button
-					onClick={() => handleUpVote(id)}
 					className="flex justify-center items-center rounded-full"
+					onClick={() => handleUpVote(id)}
 				>
 					<UpArrow />
-					<p>12k</p>
+					<p>{upVotes}</p>
 				</Button>
 				<Button
-					onClick={() => handleDownVote(id)}
 					className="flex justify-center items-center rounded-full"
+					onClick={() => handleDownVote(id)}
 				>
 					<DownArrow />
-					<p>12k</p>
+					<p>{downVote}</p>
 				</Button>
 			</div>
 			<div>

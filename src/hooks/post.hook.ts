@@ -14,7 +14,7 @@ export const useUpVote = () => {
 }
 export const useDownVote = () => {
 	return useMutation<any, Error, string>({
-		mutationKey: ["UPVOTE"],
+		mutationKey: ["DOWNVOTE"],
 		mutationFn: async (postId) => await downVote(postId),
 		onSuccess: () => {
 			toast.success(`DownVote successfully!`)
