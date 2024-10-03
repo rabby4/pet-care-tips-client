@@ -102,7 +102,7 @@ const PostActions = ({
 										/>
 									</ModalBody>
 									<ModalFooter>
-										<Button type="submit" color="primary" onPress={onClose}>
+										<Button color="primary" type="submit" onPress={onClose}>
 											Comment
 										</Button>
 									</ModalFooter>

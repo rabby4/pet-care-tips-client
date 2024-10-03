@@ -9,12 +9,16 @@ export type TUser = {
 	firstName: string
 	lastName: string
 	email: string
-	role: "superAdmin" | "user" | "admin"
+	phone: string
+	address: string
+	occupation: string
+	about: string
+	image: string
+	role: "superAdmin" | "admin" | "user"
 	premium: boolean
+	__v: number
 	createdAt: string
 	updatedAt: string
-	image: string
-	__v: number
 }
 
 export type TPost = {

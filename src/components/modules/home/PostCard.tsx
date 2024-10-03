@@ -15,11 +15,11 @@ import { getCurrentUser } from "@/src/services/authServices"
 
 const PostCard = async ({ post }: { post: TPost }) => {
 	const user = await getCurrentUser()
-	const upVote = await getUpVoteCount(post._id)
+	const upVote = await getUpVoteCount(post?._id)
 	const upVotes = upVote.data.length
-	const downVote = await getDownVoteCount(post._id)
+	const downVote = await getDownVoteCount(post?._id)
 	const downVotes = downVote.data.length
-	const allComments = await getPostComments(post._id)
+	const allComments = await getPostComments(post?._id)
 
 	return (
 		<Card className="py-4 rounded-md">
@@ -52,7 +52,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 							{post.content.slice(0, 100)}...
 							<Link
 								className="hover:text-[#2d5be3]"
-								href={`/posts/${post._id}`}
+								href={`/posts/${post?._id}`}
 							>
 								Read more
 							</Link>
@@ -77,9 +77,9 @@ const PostCard = async ({ post }: { post: TPost }) => {
 				<PostActions
 					comments={allComments.data}
 					downVote={downVotes}
-					id={post._id}
+					id={post?._id}
 					upVotes={upVotes}
-					userId={user._id}
+					userId={user?._id}
 				/>
 			</CardFooter>
 		</Card>

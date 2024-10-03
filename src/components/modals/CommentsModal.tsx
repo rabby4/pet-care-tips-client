@@ -18,10 +18,10 @@ const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 			<div className="flex flex-col gap-2">
 				<Button onPress={onOpen}>Open Modal</Button>
 				<Modal
-					isOpen={isOpen}
-					onOpenChange={onOpenChange}
-					scrollBehavior="inside"
 					className="pb-5"
+					isOpen={isOpen}
+					scrollBehavior="inside"
+					onOpenChange={onOpenChange}
 				>
 					<ModalContent>
 						<ModalHeader className="flex flex-col gap-1">
@@ -30,7 +30,7 @@ const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 						<ModalBody>
 							{comments.length > 0
 								? comments?.map((comment) => (
-										<div key={comment._id}>
+										<div key={comment?._id}>
 											<div className="flex gap-3">
 												<Avatar
 													className="transition-transform"
