@@ -1,4 +1,5 @@
 "use server"
+import { TFollowing } from "@/src/components/modules/home/Following"
 import envConfig from "@/src/config/envConfig"
 import axiosInstance from "@/src/lib/AxiosInstance"
 import { revalidateTag } from "next/cache"
@@ -11,6 +12,17 @@ export const getAllPosts = async () => {
 		},
 	}
 	const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
+	const data = await res.json()
+
+	return data
+}
+export const getPostsForUser = async (userId: string) => {
+	const fetchOptions = {
+		next: {
+			tags: ["posts"],
+		},
+	}
+	const res = await fetch(`${envConfig.baseApi}/posts/${userId}`, fetchOptions)
 	const data = await res.json()
 
 	return data
@@ -101,6 +113,46 @@ export const getPostComments = async (postId: string) => {
 	}
 	const res = await fetch(
 		`${envConfig.baseApi}/comments/${postId}`,
+		fetchOptions
+	)
+
+	const data = await res.json()
+
+	return data
+}
+
+export const addFollowing = async (formData: TFollowing) => {
+	try {
+		await axiosInstance.post(`${envConfig.baseApi}/following`, formData)
+
+		revalidateTag("following")
+	} catch (error: any) {
+		throw new Error(error)
+	}
+}
+export const getFollowing = async (userId: string) => {
+	const fetchOptions = {
+		next: {
+			tags: ["following"],
+		},
+	}
+	const res = await fetch(
+		`${envConfig.baseApi}/following/${userId}`,
+		fetchOptions
+	)
+
+	const data = await res.json()
+
+	return data
+}
+export const getFollower = async (userId: string) => {
+	const fetchOptions = {
+		next: {
+			tags: ["follower"],
+		},
+	}
+	const res = await fetch(
+		`${envConfig.baseApi}/following/follower/${userId}`,
 		fetchOptions
 	)
 

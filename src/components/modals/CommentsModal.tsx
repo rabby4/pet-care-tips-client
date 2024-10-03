@@ -16,7 +16,9 @@ const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 	return (
 		<>
 			<div className="flex flex-col gap-2">
-				<Button onPress={onOpen}>Open Modal</Button>
+				<Button variant="light" onPress={onOpen}>
+					All comments
+				</Button>
 				<Modal
 					className="pb-5"
 					isOpen={isOpen}

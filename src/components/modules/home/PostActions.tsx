@@ -53,27 +53,32 @@ const PostActions = ({
 
 	return (
 		<>
-			<div className="flex gap-5">
+			<div className="flex gap-1 items-center">
 				<Button
-					className="flex justify-center items-center rounded-full"
+					isIconOnly
+					color="primary"
+					variant="light"
+					// className="flex justify-center items-center"
 					onClick={() => handleUpVote(id)}
 				>
 					<UpArrow />
-					<p>{upVotes}</p>
 				</Button>
+				<p className="text-sm">{upVotes} Up Votes</p>
 				<Button
-					className="flex justify-center items-center rounded-full"
+					isIconOnly
+					color="primary"
+					variant="light"
+					className="ml-3"
 					onClick={() => handleDownVote(id)}
 				>
 					<DownArrow />
-					<p>{downVote}</p>
 				</Button>
+				<p className="text-sm">{downVote} Down Votes</p>
 			</div>
-			<CommentsModal comments={comments} />
-			<div>
-				<Button onPress={onOpen}>
+
+			<div className="flex gap-1">
+				<Button isIconOnly color="primary" variant="light" onPress={onOpen}>
 					<Comment />
-					<p>12k</p>
 				</Button>
 				<Modal
 					isOpen={isOpen}
@@ -111,6 +116,7 @@ const PostActions = ({
 						)}
 					</ModalContent>
 				</Modal>
+				<CommentsModal comments={comments} />
 			</div>
 		</>
 	)

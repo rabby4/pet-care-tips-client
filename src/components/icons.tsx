@@ -89,7 +89,7 @@ export const DownArrow: React.FC<IconSvgProps> = ({
 )
 
 export const UpArrow: React.FC<IconSvgProps> = ({
-	size = 28,
+	size = 24,
 	width,
 	height,
 	...props

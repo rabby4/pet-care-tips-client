@@ -12,6 +12,7 @@ import {
 	getUpVoteCount,
 } from "@/src/services/postServices"
 import { getCurrentUser } from "@/src/services/authServices"
+import Following from "./Following"
 
 const PostCard = async ({ post }: { post: TPost }) => {
 	const user = await getCurrentUser()
@@ -34,13 +35,13 @@ const PostCard = async ({ post }: { post: TPost }) => {
 				/>
 				<div className="flex flex-col">
 					<div className="flex gap-2 items-center">
-						<div className="text-sm font-semibold capitalize">
+						<div className="text-base font-semibold capitalize">
 							{post?.user?.firstName} {post?.user?.lastName}
 						</div>
-						• <small>Follow</small>
+						• <Following user={user?._id} following={post?.user?._id} />
 					</div>
 					<small className=" text-default-500">
-						{moment(post.createdAt).fromNow()}{" "}
+						{moment(post.createdAt).fromNow()}
 					</small>
 				</div>
 			</CardHeader>

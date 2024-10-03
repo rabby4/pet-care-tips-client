@@ -1,5 +1,10 @@
 import UserMenu from "@/src/components/modules/leftSidebar/UserMenu"
 import { getCurrentUser } from "@/src/services/authServices"
+import {
+	getFollower,
+	getFollowing,
+	getPostsForUser,
+} from "@/src/services/postServices"
 import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
@@ -10,6 +15,9 @@ import Image from "next/image"
 const LeftSidebar = async () => {
 	const user: TUser = await getCurrentUser()
 	const date = new Date().getFullYear()
+	const following = await getFollowing(user?._id)
+	const follower = await getFollower(user?._id)
+	const myPosts = await getPostsForUser(user?._id)
 
 	return (
 		<div>
@@ -41,17 +49,17 @@ const LeftSidebar = async () => {
 					<div className="max-w-md mx-auto">
 						<div className="flex h-5 items-center space-x-4 text-small text-center">
 							<div>
-								<b>50</b>
+								<b>{myPosts?.data?.length}</b>
 								<p>Posts</p>
 							</div>
 							<Divider orientation="vertical" />
 							<div>
-								<b>50</b>
+								<b>{follower?.data?.length}</b>
 								<p>Followers</p>
 							</div>
 							<Divider orientation="vertical" />
 							<div>
-								<b>50</b>
+								<b>{following?.data?.length}</b>
 								<p>Following</p>
 							</div>
 						</div>
