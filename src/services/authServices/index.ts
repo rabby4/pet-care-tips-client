@@ -16,6 +16,7 @@ export const registerUser = async (userData: FieldValues) => {
 		throw new Error(error)
 	}
 }
+
 export const loginUser = async (userData: FieldValues) => {
 	try {
 		const { data } = await axiosInstance.post("/auth/login", userData)

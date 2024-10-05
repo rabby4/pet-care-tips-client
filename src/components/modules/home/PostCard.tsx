@@ -47,9 +47,10 @@ const PostCard = async ({ post }: { post: TPost }) => {
 			</CardHeader>
 
 			<CardBody className="overflow-visible py-2 gap-5">
-				<p className="text-sm">
+				{/* <p className="text-sm">
 					{post.content.length > 100 ? (
 						<>
+							dangerouslySetInnerHTML={{ __html: post.content.slice(0, 100) }}
 							{post.content.slice(0, 100)}...
 							<Link
 								className="hover:text-[#2d5be3]"
@@ -61,7 +62,27 @@ const PostCard = async ({ post }: { post: TPost }) => {
 					) : (
 						post.content
 					)}
-				</p>
+				</p> */}
+				<div className="text-sm">
+					{post.content.length > 100 ? (
+						<>
+							{/* Render raw HTML using dangerouslySetInnerHTML */}
+							<div
+								dangerouslySetInnerHTML={{ __html: post.content.slice(0, 100) }}
+							/>
+							{/* Append "Read more" link */}
+							<Link
+								className="hover:text-[#2d5be3]"
+								href={`/posts/${post?._id}`}
+							>
+								Read more
+							</Link>
+						</>
+					) : (
+						// If content is less than 100 characters, render normally
+						<div dangerouslySetInnerHTML={{ __html: post.content }} />
+					)}
+				</div>
 				{post.image && (
 					<Image
 						alt={post.image && "post image"}
@@ -74,7 +95,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 				)}
 			</CardBody>
 			<Divider />
-			<CardFooter className="flex justify-between">
+			<CardFooter className="grid grid-cols-2 justify-between">
 				<PostActions
 					comments={allComments.data}
 					downVote={downVotes}

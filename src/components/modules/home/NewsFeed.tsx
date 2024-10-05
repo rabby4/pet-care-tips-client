@@ -6,11 +6,13 @@ const NewsFeed = async () => {
 	const { data: allPosts } = await getAllPosts()
 
 	return (
-		<div className="grid gap-5">
-			{allPosts.map((post: TPost) => (
-				<PostCard key={post?._id} post={post} />
-			))}
-		</div>
+		<>
+			<div className="grid gap-5">
+				{allPosts.map((post: TPost) => (
+					<PostCard key={post?._id} post={post} />
+				))}
+			</div>
+		</>
 	)
 }
 

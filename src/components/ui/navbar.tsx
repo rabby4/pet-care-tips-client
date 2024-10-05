@@ -62,8 +62,8 @@ export const Navbar = async () => {
 								"https://www.radiustheme.com/demo/wordpress/themes/cirkle/wp-content/uploads/2021/11/dark_logo.svg"
 							}
 							alt="site logo"
-							className="size-24"
-							height={50}
+							className="w-28"
+							height={0}
 							width={200}
 						/>
 						{/* <Logo />

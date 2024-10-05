@@ -6,6 +6,8 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Link } from "@nextui-org/link"
 import Image from "next/image"
 import ProfileNavbar from "./ProfileNavbar"
+import { Button } from "@nextui-org/button"
+import { PenBoxIcon } from "lucide-react"
 
 const Sidebar = async () => {
 	const user: TUser = await getCurrentUser()
@@ -40,14 +42,15 @@ const Sidebar = async () => {
 
 							<p>{follower?.data?.length} Followers</p>
 						</div>
-						<Link
+						<Button
+							as={Link}
 							className="rounded-md font-semibold"
 							color="danger"
-							// startContent={<PenBoxIcon size={15} />}
 							href="/profile/edit-profile"
+							startContent={<PenBoxIcon size={15} />}
 						>
 							Edit Profile
-						</Link>
+						</Button>
 					</div>
 				</CardHeader>
 				<CardBody className="overflow-visible py-2">

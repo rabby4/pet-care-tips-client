@@ -11,7 +11,7 @@ import {
 	ModalFooter,
 	useDisclosure,
 } from "@nextui-org/modal"
-import { Textarea } from "@nextui-org/input"
+import { Input, Textarea } from "@nextui-org/input"
 import {
 	Controller,
 	FieldValues,
@@ -28,11 +28,10 @@ const PostActions = ({
 	userId,
 	comments,
 }: PostActionsProps) => {
-	const { handleSubmit, control } = useForm({})
+	const { handleSubmit, control, reset } = useForm({})
 	const { mutate: handleAddUpVote } = useUpVote()
 	const { mutate: handleAddDownVote } = useDownVote()
-	const { mutate: handleAddComment } = useCommentOnPost()
-	const { isOpen, onOpen, onOpenChange } = useDisclosure()
+	const { mutate: handleAddComment, isSuccess, isPending } = useCommentOnPost()
 
 	const handleUpVote = (id: string) => {
 		handleAddUpVote(id)
@@ -49,6 +48,7 @@ const PostActions = ({
 		}
 
 		handleAddComment(formData)
+		reset()
 	}
 
 	return (
@@ -76,48 +76,34 @@ const PostActions = ({
 				<p className="text-sm">{downVote} Down Votes</p>
 			</div>
 
-			<div className="flex gap-1">
-				<Button isIconOnly color="primary" variant="light" onPress={onOpen}>
-					<Comment />
-				</Button>
-				<Modal
-					isOpen={isOpen}
-					placement="top-center"
-					onOpenChange={onOpenChange}
-				>
-					<ModalContent>
-						{(onClose) => (
-							<>
-								<ModalHeader className="flex flex-col gap-1">
-									Write your comment here
-								</ModalHeader>
-								<form onSubmit={handleSubmit(onSubmit)}>
-									<ModalBody>
-										<Controller
-											control={control}
-											name="content"
-											render={({ field }) => (
-												<Textarea
-													placeholder="What's on your mind?"
-													variant={"underlined"}
-													{...field}
-												/>
-											)}
-											rules={{ required: true }}
-										/>
-									</ModalBody>
-									<ModalFooter>
-										<Button color="primary" type="submit" onPress={onClose}>
-											Comment
-										</Button>
-									</ModalFooter>
-								</form>
-							</>
-						)}
-					</ModalContent>
-				</Modal>
+			<div className="flex justify-end">
 				<CommentsModal comments={comments} />
 			</div>
+			<form onSubmit={handleSubmit(onSubmit)} className="col-span-2 mt-2">
+				<div>
+					<Controller
+						control={control}
+						name="content"
+						render={({ field }) => (
+							<Input
+								placeholder="Write your comment here..."
+								variant={"underlined"}
+								{...field}
+							/>
+						)}
+						rules={{ required: true }}
+					/>
+				</div>
+				<div className="flex justify-end mt-2">
+					<Button
+						color="primary"
+						type="submit"
+						disabled={isPending ? true : false}
+					>
+						Comment
+					</Button>
+				</div>
+			</form>
 		</>
 	)
 }
