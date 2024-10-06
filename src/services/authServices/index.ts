@@ -48,3 +48,16 @@ export const getCurrentUser = async () => {
 
 	return user
 }
+
+export const updateUser = async (userInfo: FieldValues) => {
+	try {
+		const { data } = await axiosInstance.patch(
+			`/auth/${userInfo.id}`,
+			userInfo.formData
+		)
+
+		return data
+	} catch (error: any) {
+		throw new Error(error)
+	}
+}

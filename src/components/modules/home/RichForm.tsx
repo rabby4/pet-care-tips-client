@@ -58,18 +58,18 @@ const RichForm = () => {
 
 	return (
 		<>
-			<Card className="mb-5">
+			<Card className="mb-5 p-5">
 				<CardBody>
-					<form onSubmit={handleSubmit} className="flex flex-col">
+					<form className="flex flex-col" onSubmit={handleSubmit}>
 						<ReactQuill theme="snow" value={value} onChange={setValue} />
 						<div className="flex gap-3 justify-between items-center mt-5">
 							<div className="w-1/2">
 								<select
+									className="w-full border-[1px] size-full rounded-md block p-3 cursor-pointer border-default-300"
 									id="category"
 									name="category"
 									value={selectedValue}
 									onChange={handleCategoryChange}
-									className="w-full border-[1px] size-full rounded-md block p-3 cursor-pointer border-default-300"
 								>
 									<option>Select a category</option>
 									<option value="tip">Tip</option>
@@ -78,17 +78,17 @@ const RichForm = () => {
 							</div>
 							<div className="w-1/2">
 								<label
-									htmlFor="itemImages"
 									className="size-full rounded-md block text-center p-3 cursor-pointer border border-dashed border-default-300"
+									htmlFor="itemImages"
 								>
 									Upload Images
 								</label>
 								<input
-									type="file"
 									multiple
+									className="hidden"
 									id="itemImages"
 									name="itemImages"
-									className="hidden"
+									type="file"
 									onChange={(e) => handleImageChange(e)}
 								/>
 							</div>
@@ -96,13 +96,13 @@ const RichForm = () => {
 						<div className="flex gap-5 flex-wrap my-3">
 							{imagePreviews && (
 								<img
-									src={imagePreviews}
 									alt="preview"
 									className="w-24 h-24 object-cover rounded-md"
+									src={imagePreviews}
 								/>
 							)}
 						</div>
-						<Button color="primary" className="rounded-md" type="submit">
+						<Button className="rounded-md" color="primary" type="submit">
 							Post
 						</Button>
 					</form>

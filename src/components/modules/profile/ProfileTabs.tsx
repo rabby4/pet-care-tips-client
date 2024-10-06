@@ -1,17 +1,11 @@
 "use client"
 import { Tab, Tabs } from "@nextui-org/tabs"
 import {
-	Images,
 	LayoutList,
-	Music,
 	PenBox,
 	User,
-	UserPen,
 	UserRoundMinus,
 	UserRoundPlus,
-	Users,
-	Users2,
-	Video,
 } from "lucide-react"
 import Feed from "./Feed"
 import EditProfile from "./EditProfile"

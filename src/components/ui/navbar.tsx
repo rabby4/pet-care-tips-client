@@ -21,7 +21,6 @@ import {
 	GithubIcon,
 	DiscordIcon,
 	SearchIcon,
-	Logo,
 } from "@/src/components/icons"
 import { ThemeSwitch } from "./theme-switch"
 import AvatarDropdown from "./AvatarDropdown"
@@ -58,12 +57,12 @@ export const Navbar = async () => {
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
 						<Image
-							src={
-								"https://www.radiustheme.com/demo/wordpress/themes/cirkle/wp-content/uploads/2021/11/dark_logo.svg"
-							}
 							alt="site logo"
 							className="w-28"
 							height={0}
+							src={
+								"https://www.radiustheme.com/demo/wordpress/themes/cirkle/wp-content/uploads/2021/11/dark_logo.svg"
+							}
 							width={200}
 						/>
 						{/* <Logo />

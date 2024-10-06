@@ -16,6 +16,7 @@ const UserMenu = () => {
 				key="profile"
 				className="hover:border-0 border-0 py-2"
 				startContent={<User size={20} />}
+				textValue="profile"
 			>
 				<Link href={"/profile"}>Profile</Link>
 			</ListboxItem>
@@ -23,6 +24,7 @@ const UserMenu = () => {
 				key="messages"
 				className="hover:border-0 border-0 p-2"
 				startContent={<MessagesSquare size={20} />}
+				textValue="messages"
 			>
 				<Link href={"/profile"}>Messages</Link>
 			</ListboxItem>
@@ -30,6 +32,7 @@ const UserMenu = () => {
 				key="notifications"
 				className="hover:border-0 border-0 p-2"
 				startContent={<BellRing size={20} />}
+				textValue="notifications"
 			>
 				<Link href={"/profile"}>Notifications</Link>
 			</ListboxItem>
@@ -37,6 +40,7 @@ const UserMenu = () => {
 				key="settings"
 				className="hover:border-0 border-0 p-2"
 				startContent={<Cog size={20} />}
+				textValue="settings"
 			>
 				<Link href={"/profile"}>Settings</Link>
 			</ListboxItem>
@@ -46,6 +50,7 @@ const UserMenu = () => {
 				color="danger"
 				startContent={<User size={20} />}
 				onClick={() => handleLogout()}
+				textValue="logout"
 			>
 				<p className="p-0">Logout</p>
 			</ListboxItem>

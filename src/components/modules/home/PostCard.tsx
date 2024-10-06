@@ -38,7 +38,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 						<div className="text-base font-semibold capitalize">
 							{post?.user?.firstName} {post?.user?.lastName}
 						</div>
-						• <Following user={user?._id} following={post?.user?._id} />
+						• <Following following={post!.user!._id} user={user?._id} />
 					</div>
 					<small className=" text-default-500">
 						{moment(post.createdAt).fromNow()}

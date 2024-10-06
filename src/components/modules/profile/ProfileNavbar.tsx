@@ -31,6 +31,11 @@ const ProfileNavbar = () => {
 						</Link>
 					</NavbarItem>
 					<NavbarItem>
+						<Link color="foreground" href={"/profile/add-post"}>
+							Add Post
+						</Link>
+					</NavbarItem>
+					<NavbarItem>
 						<Link aria-current="page" href="/profile/edit-profile">
 							Edit Profile
 						</Link>

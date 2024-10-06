@@ -1,17 +1,10 @@
 "use client"
 import { Button } from "@nextui-org/button"
 import React from "react"
-import { Comment, DownArrow, UpArrow } from "../../icons"
+import { DownArrow, UpArrow } from "../../icons"
 import { useCommentOnPost, useDownVote, useUpVote } from "@/src/hooks/post.hook"
-import {
-	Modal,
-	ModalContent,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	useDisclosure,
-} from "@nextui-org/modal"
-import { Input, Textarea } from "@nextui-org/input"
+
+import { Input } from "@nextui-org/input"
 import {
 	Controller,
 	FieldValues,
@@ -31,7 +24,7 @@ const PostActions = ({
 	const { handleSubmit, control, reset } = useForm({})
 	const { mutate: handleAddUpVote } = useUpVote()
 	const { mutate: handleAddDownVote } = useDownVote()
-	const { mutate: handleAddComment, isSuccess, isPending } = useCommentOnPost()
+	const { mutate: handleAddComment, isPending } = useCommentOnPost()
 
 	const handleUpVote = (id: string) => {
 		handleAddUpVote(id)
@@ -66,9 +59,9 @@ const PostActions = ({
 				<p className="text-sm">{upVotes} Up Votes</p>
 				<Button
 					isIconOnly
+					className="ml-3"
 					color="primary"
 					variant="light"
-					className="ml-3"
 					onClick={() => handleDownVote(id)}
 				>
 					<DownArrow />
@@ -79,7 +72,7 @@ const PostActions = ({
 			<div className="flex justify-end">
 				<CommentsModal comments={comments} />
 			</div>
-			<form onSubmit={handleSubmit(onSubmit)} className="col-span-2 mt-2">
+			<form className="col-span-2 mt-2" onSubmit={handleSubmit(onSubmit)}>
 				<div>
 					<Controller
 						control={control}
@@ -97,8 +90,8 @@ const PostActions = ({
 				<div className="flex justify-end mt-2">
 					<Button
 						color="primary"
-						type="submit"
 						disabled={isPending ? true : false}
+						type="submit"
 					>
 						Comment
 					</Button>

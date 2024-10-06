@@ -4,9 +4,8 @@ import React from "react"
 
 const About = async () => {
 	const user = await getCurrentUser()
-	console.log(user)
 
-	return <div>this is about route</div>
+	return <>this is about route</>
 }
 
 export default About

@@ -48,6 +48,7 @@ const Sidebar = async () => {
 							color="danger"
 							href="/profile/edit-profile"
 							startContent={<PenBoxIcon size={15} />}
+							variant="flat"
 						>
 							Edit Profile
 						</Button>
@@ -57,11 +58,6 @@ const Sidebar = async () => {
 					<ProfileNavbar />
 				</CardBody>
 			</Card>
-			{/* <Card>
-				<CardBody>
-					<ProfileTabs />
-				</CardBody>
-			</Card> */}
 		</div>
 	)
 }

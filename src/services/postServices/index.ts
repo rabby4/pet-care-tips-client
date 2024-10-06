@@ -27,10 +27,41 @@ export const getAllPosts = async () => {
 			tags: ["posts"],
 		},
 	}
-	const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
-	const data = await res.json()
+	// 	const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
+	//
+	// 	const data = await res.json()
+	//
+	// 	return data
 
-	return data
+	try {
+		// Perform the fetch request
+		const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
+
+		// Check for HTTP error responses (e.g., 404, 500)
+		if (!res.ok) {
+			// Log or throw an error for non-successful HTTP response codes
+			// console.error(`HTTP Error: ${res.status} ${res.statusText}`)
+			throw new Error(`Failed to fetch posts: ${res.statusText}`)
+		}
+
+		// Ensure the content-type is JSON before parsing
+		const contentType = res.headers.get("content-type")
+
+		if (contentType && contentType.includes("application/json")) {
+			const data = await res.json() // Parse JSON data
+
+			return data
+		} else {
+			// Handle cases where the response is not JSON (e.g., HTML error page)
+			await res.text()
+			// console.error("Unexpected response format (not JSON):", text)
+
+			throw new Error("Response was not JSON")
+		}
+	} catch (error: any) {
+		// console.error("Error fetching posts:", error.message)
+		return { error: error.message } // You can customize the error return here
+	}
 }
 export const getPostsForUser = async (userId: string) => {
 	const fetchOptions = {
@@ -139,7 +170,7 @@ export const getPostComments = async (postId: string) => {
 
 export const addFollowing = async (formData: TFollowing) => {
 	try {
-		await axiosInstance.post(`${envConfig.baseApi}/following`, formData)
+		await axiosInstance.post(`/following`, formData)
 
 		revalidateTag("following")
 	} catch (error: any) {

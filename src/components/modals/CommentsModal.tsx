@@ -9,6 +9,7 @@ import {
 	ModalBody,
 	useDisclosure,
 } from "@nextui-org/modal"
+import { MessageCircle } from "lucide-react"
 
 const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 	const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -16,7 +17,11 @@ const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 	return (
 		<>
 			<div className="flex flex-col gap-2">
-				<Button variant="light" onPress={onOpen}>
+				<Button
+					variant="light"
+					onPress={onOpen}
+					startContent={<MessageCircle size={18} color="#006fee" />}
+				>
 					All comments
 				</Button>
 				<Modal

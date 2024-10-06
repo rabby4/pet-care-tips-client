@@ -1,9 +1,7 @@
 import { getCurrentUser } from "@/src/services/authServices"
 import { getFollower } from "@/src/services/postServices"
 import { TUser } from "@/src/types"
-import { Avatar } from "@nextui-org/avatar"
-import { Card, CardBody, CardHeader } from "@nextui-org/card"
-import Image from "next/image"
+import { Card, CardHeader } from "@nextui-org/card"
 
 const RightSidebar = async () => {
 	const user: TUser = await getCurrentUser()
