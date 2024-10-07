@@ -10,10 +10,10 @@ const ProfilePage = async () => {
 		<Card className="p-10">
 			<CardHeader className="justify-center">
 				<Image
-					src={"https://i.ibb.co.com/w4fXSWk/5578648.png"}
-					height={200}
-					width={200}
 					alt="Profile welcome message"
+					height={200}
+					src={"https://i.ibb.co.com/w4fXSWk/5578648.png"}
+					width={200}
 				/>
 			</CardHeader>
 			<CardBody className="text-center">

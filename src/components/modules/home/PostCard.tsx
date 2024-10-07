@@ -22,7 +22,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 	const downVote = await getDownVoteCount(post?._id)
 	const downVotes = downVote.data.length
 	const allComments = await getPostComments(post?._id)
-	const followingStatus = await getFollowingStatus(post.user._id, user._id)
+	const followingStatus = await getFollowingStatus(post.user?._id, user?._id)
 
 	return (
 		<Card className="py-4 rounded-md">
@@ -42,10 +42,10 @@ const PostCard = async ({ post }: { post: TPost }) => {
 						</div>
 						•{" "}
 						<Following
-							following={post!.user!._id}
+							fetchFollowingStatus={followingStatus?.data?.isFollowing}
 							follower={user?._id}
+							following={post!.user!._id}
 							isFollowingInitial={false}
-							fetchFollowingStatus={followingStatus.data.isFollowing}
 						/>
 					</div>
 					<small className=" text-default-500">
@@ -55,30 +55,13 @@ const PostCard = async ({ post }: { post: TPost }) => {
 			</CardHeader>
 
 			<CardBody className="overflow-visible py-2 gap-5">
-				{/* <p className="text-sm">
-					{post.content.length > 100 ? (
-						<>
-							dangerouslySetInnerHTML={{ __html: post.content.slice(0, 100) }}
-							{post.content.slice(0, 100)}...
-							<Link
-								className="hover:text-[#2d5be3]"
-								href={`/posts/${post?._id}`}
-							>
-								Read more
-							</Link>
-						</>
-					) : (
-						post.content
-					)}
-				</p> */}
 				<div className="text-sm">
 					{post.content.length > 100 ? (
 						<>
-							{/* Render raw HTML using dangerouslySetInnerHTML */}
 							<div
 								dangerouslySetInnerHTML={{ __html: post.content.slice(0, 100) }}
 							/>
-							{/* Append "Read more" link */}
+
 							<Link
 								className="hover:text-[#2d5be3]"
 								href={`/posts/${post?._id}`}
@@ -87,7 +70,6 @@ const PostCard = async ({ post }: { post: TPost }) => {
 							</Link>
 						</>
 					) : (
-						// If content is less than 100 characters, render normally
 						<div dangerouslySetInnerHTML={{ __html: post.content }} />
 					)}
 				</div>
@@ -110,6 +92,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 					id={post?._id}
 					upVotes={upVotes}
 					userId={user?._id}
+					user={user}
 				/>
 			</CardFooter>
 		</Card>

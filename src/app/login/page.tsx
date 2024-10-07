@@ -1,5 +1,4 @@
 "use client"
-import Container from "@/src/components/ui/Container"
 import Loading from "@/src/components/ui/Loading"
 import { useLogin } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
@@ -46,8 +45,8 @@ const LoginPage = () => {
 						</CardHeader>
 						<CardBody>
 							<form
-								onSubmit={handleSubmit(onSubmit)}
 								className="flex flex-col gap-2"
+								onSubmit={handleSubmit(onSubmit)}
 							>
 								<Controller
 									control={control}
@@ -90,9 +89,9 @@ const LoginPage = () => {
 									rules={{ required: true }}
 								/>
 								<Button
-									type="submit"
-									color="primary"
 									className="mt-5 rounded-md"
+									color="primary"
+									type="submit"
 								>
 									Login
 								</Button>
@@ -101,16 +100,16 @@ const LoginPage = () => {
 						<CardFooter className="flex-col gap-5">
 							<div className="flex gap-5">
 								<Button
-									variant="bordered"
 									className="rounded-md hover:text-[#d62d20]"
-									startContent={<Mail size={16} color="#d62d20" />}
+									startContent={<Mail color="#d62d20" size={16} />}
+									variant="bordered"
 								>
 									Login With Google
 								</Button>
 								<Button
-									variant="bordered"
 									className="rounded-md hover:text-[#2b3137]"
-									startContent={<Mail size={16} color="#2b3137" />}
+									startContent={<Mail color="#2b3137" size={16} />}
+									variant="bordered"
 								>
 									Login With Github
 								</Button>
@@ -118,8 +117,8 @@ const LoginPage = () => {
 							<p className="text-sm text-center">
 								Don&rsquo;t have an account?
 								<Link
-									href="/register"
 									className="underline hover:text-primary-500"
+									href="/register"
 								>
 									Register
 								</Link>

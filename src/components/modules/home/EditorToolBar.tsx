@@ -84,10 +84,12 @@ export const EditorToolBar: React.FC<QuillToolbarProps> = ({ toolbarId }) => {
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const Size = Quill.import("formats/size")
+
 			Size.whitelist = ["extra-small", "small", "medium", "large"]
 			Quill.register(Size, true)
 
 			const Font = Quill.import("formats/font")
+
 			Font.whitelist = [
 				"arial",
 				"comic-sans",
@@ -118,7 +120,7 @@ export const EditorToolBar: React.FC<QuillToolbarProps> = ({ toolbarId }) => {
 							<option value="courier-new">Courier New</option>
 							<option value="georgia">Georgia</option>
 							<option value="helvetica">Helvetica</option>
-							<option value="Inter" selected>
+							<option selected value="Inter">
 								Inter
 							</option>
 							<option value="lucida">Lucida</option>
@@ -126,7 +128,7 @@ export const EditorToolBar: React.FC<QuillToolbarProps> = ({ toolbarId }) => {
 						<select className="ql-size">
 							<option value="extra-small">Extra Small</option>
 							<option value="small">Small</option>
-							<option value="medium" selected>
+							<option selected value="medium">
 								Medium
 							</option>
 							<option value="large">Large</option>
@@ -138,7 +140,7 @@ export const EditorToolBar: React.FC<QuillToolbarProps> = ({ toolbarId }) => {
 							<option value="4">Heading 4</option>
 							<option value="5">Heading 5</option>
 							<option value="6">Heading 6</option>
-							<option value="" selected>
+							<option selected value="">
 								Normal
 							</option>
 						</select>

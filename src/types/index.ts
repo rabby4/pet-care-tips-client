@@ -44,4 +44,5 @@ export type PostActionsProps = {
 	downVote: number
 	userId: string | null
 	comments: TComment[]
+	user: TUser
 }

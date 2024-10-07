@@ -55,8 +55,8 @@ const RegisterPage = () => {
 					</CardHeader>
 					<CardBody>
 						<form
-							onSubmit={handleSubmit(onSubmit)}
 							className="flex flex-col gap-2"
+							onSubmit={handleSubmit(onSubmit)}
 						>
 							<div className="grid grid-cols-2 gap-5">
 								<Controller
@@ -165,7 +165,7 @@ const RegisterPage = () => {
 								)}
 							</div>
 
-							<Button type="submit" color="primary" className="rounded-md">
+							<Button className="rounded-md" color="primary" type="submit">
 								Register
 							</Button>
 						</form>
@@ -173,23 +173,23 @@ const RegisterPage = () => {
 					<CardFooter className="flex-col gap-5">
 						<div className="flex gap-5">
 							<Button
-								variant="bordered"
 								className="rounded-md hover:text-[#d62d20]"
-								startContent={<Mail size={16} color="#d62d20" />}
+								startContent={<Mail color="#d62d20" size={16} />}
+								variant="bordered"
 							>
 								Login With Google
 							</Button>
 							<Button
-								variant="bordered"
 								className="rounded-md hover:text-[#2b3137]"
-								startContent={<Mail size={16} color="#2b3137" />}
+								startContent={<Mail color="#2b3137" size={16} />}
+								variant="bordered"
 							>
 								Login With Github
 							</Button>
 						</div>
 						<p className="text-sm text-center">
 							Already have an account?
-							<Link href="/login" className="underline hover:text-primary-500">
+							<Link className="underline hover:text-primary-500" href="/login">
 								Login
 							</Link>
 						</p>

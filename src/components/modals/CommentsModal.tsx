@@ -18,9 +18,9 @@ const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 		<>
 			<div className="flex flex-col gap-2">
 				<Button
+					startContent={<MessageCircle color="#006fee" size={18} />}
 					variant="light"
 					onPress={onOpen}
-					startContent={<MessageCircle size={18} color="#006fee" />}
 				>
 					All comments
 				</Button>

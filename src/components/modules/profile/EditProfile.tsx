@@ -71,8 +71,8 @@ const EditProfile = () => {
 					</CardHeader>
 					<CardBody>
 						<form
-							onSubmit={handleSubmit(onSubmit)}
 							className="flex flex-col gap-2"
+							onSubmit={handleSubmit(onSubmit)}
 						>
 							<div className="grid grid-cols-2 gap-5">
 								<Controller
@@ -189,7 +189,7 @@ const EditProfile = () => {
 								)}
 							</div>
 
-							<Button type="submit" color="primary" className="rounded-md">
+							<Button className="rounded-md" color="primary" type="submit">
 								Update Profile
 							</Button>
 						</form>

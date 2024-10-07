@@ -1,17 +1,14 @@
 import { getAllPosts } from "@/src/services/postServices"
 import PostCard from "./PostCard"
 import { TPost } from "@/src/types"
-import { getCurrentUser } from "@/src/services/authServices"
 
 const NewsFeed = async () => {
 	const { data: allPosts } = await getAllPosts()
-	const user = await getCurrentUser()
 
 	return (
 		<>
-			{user ? (
-				<div className="grid gap-5">
-					{/* <InfiniteScroll
+			<div className="grid gap-5">
+				{/* <InfiniteScroll
 				dataLength={allPosts?.length} //This is important field to render the next data
 				next={allPosts}
 				hasMore={true}
@@ -38,13 +35,10 @@ const NewsFeed = async () => {
 					<PostCard key={post?._id} post={post} />
 				))}
 			</InfiniteScroll> */}
-					{allPosts?.map((post: TPost) => (
-						<PostCard key={post?._id} post={post} />
-					))}
-				</div>
-			) : (
-				<h2>you are not logged in</h2>
-			)}
+				{allPosts?.map((post: TPost) => (
+					<PostCard key={post?._id} post={post} />
+				))}
+			</div>
 		</>
 	)
 }

@@ -49,8 +49,8 @@ const UserMenu = () => {
 				className="hover:border-0 border-0 p-2"
 				color="danger"
 				startContent={<User size={20} />}
-				onClick={() => handleLogout()}
 				textValue="logout"
+				onClick={() => handleLogout()}
 			>
 				<p className="p-0">Logout</p>
 			</ListboxItem>

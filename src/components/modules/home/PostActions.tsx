@@ -13,6 +13,7 @@ import {
 } from "react-hook-form"
 import CommentsModal from "../../modals/CommentsModal"
 import { PostActionsProps } from "@/src/types"
+import { toast } from "sonner"
 
 const PostActions = ({
 	id,
@@ -20,6 +21,7 @@ const PostActions = ({
 	downVote,
 	userId,
 	comments,
+	user,
 }: PostActionsProps) => {
 	const { handleSubmit, control, reset } = useForm({})
 	const { mutate: handleAddUpVote } = useUpVote()
@@ -27,9 +29,15 @@ const PostActions = ({
 	const { mutate: handleAddComment, isPending } = useCommentOnPost()
 
 	const handleUpVote = (id: string) => {
+		if (!user) {
+			return toast.error("Please login first!")
+		}
 		handleAddUpVote(id)
 	}
 	const handleDownVote = (id: string) => {
+		if (!user) {
+			return toast.error("Please login first!")
+		}
 		handleAddDownVote(id)
 	}
 
@@ -38,6 +46,10 @@ const PostActions = ({
 			...data,
 			post: id,
 			user: userId,
+		}
+
+		if (!user) {
+			return toast.error("Please login first!")
 		}
 
 		handleAddComment(formData)
@@ -50,6 +62,7 @@ const PostActions = ({
 				<Button
 					isIconOnly
 					color="primary"
+					// disabled={user ? false : true}
 					variant="light"
 					// className="flex justify-center items-center"
 					onClick={() => handleUpVote(id)}

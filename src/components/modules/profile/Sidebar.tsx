@@ -7,7 +7,7 @@ import { Link } from "@nextui-org/link"
 import Image from "next/image"
 import ProfileNavbar from "./ProfileNavbar"
 import { Button } from "@nextui-org/button"
-import { Mail, PenBoxIcon } from "lucide-react"
+import { PenBoxIcon } from "lucide-react"
 
 const Sidebar = async () => {
 	const user: TUser = await getCurrentUser()

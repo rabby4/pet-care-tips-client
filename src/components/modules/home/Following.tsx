@@ -28,6 +28,7 @@ const Following = ({
 			if (fetchFollowingStatus) {
 				try {
 					const actualStatus = await fetchFollowingStatus(follower, following)
+
 					console.log(actualStatus)
 					setIsFollowing(actualStatus)
 				} catch (error) {
@@ -62,8 +63,8 @@ const Following = ({
 	return (
 		<button
 			className="text-primary-500 text-sm"
-			onClick={handleToggleFollow}
 			disabled={isFollowPending || isUnFollowPending}
+			onClick={handleToggleFollow}
 		>
 			{isFollowPending || isUnFollowPending
 				? "Loading..."
