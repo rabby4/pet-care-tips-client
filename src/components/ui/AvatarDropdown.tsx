@@ -1,5 +1,6 @@
 "use client"
 import { logOut } from "@/src/services/authServices"
+import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
 import {
 	Dropdown,
@@ -7,8 +8,9 @@ import {
 	DropdownMenu,
 	DropdownTrigger,
 } from "@nextui-org/dropdown"
+import Link from "next/link"
 
-const AvatarDropdown = () => {
+const AvatarDropdown = ({ user }: { user: TUser }) => {
 	const handleLogout = () => {
 		logOut()
 	}
@@ -20,20 +22,28 @@ const AvatarDropdown = () => {
 					<Avatar
 						as="button"
 						className="transition-transform"
-						src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+						src={
+							user?.image ? user.image : "https://i.ibb.co.com/H7zTvh7/user.png"
+						}
 					/>
 				</DropdownTrigger>
 				<DropdownMenu aria-label="Profile Actions" variant="flat">
-					<DropdownItem key="profile" className="h-14 gap-2">
+					<DropdownItem key="email" className="h-14 gap-2">
 						<p className="font-semibold">Signed in as</p>
-						<p className="font-semibold">zoey@example.com</p>
+						<p className="font-semibold">{user?.email}</p>
 					</DropdownItem>
-					<DropdownItem key="settings">My Settings</DropdownItem>
-					<DropdownItem key="team_settings">Team Settings</DropdownItem>
-					<DropdownItem key="analytics">Analytics</DropdownItem>
-					<DropdownItem key="system">System</DropdownItem>
-					<DropdownItem key="configurations">Configurations</DropdownItem>
-					<DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+					<DropdownItem key="profile">
+						<Link href={"/profile"}>Profile</Link>
+					</DropdownItem>
+					<DropdownItem key="feed">
+						<Link href={"/profile/feed"}>My Feed</Link>
+					</DropdownItem>
+					<DropdownItem key="add_post">
+						<Link href={"/profile/add-post"}>Add Post</Link>
+					</DropdownItem>
+					<DropdownItem key="edit_profile">
+						<Link href={"/profile/edit-profile"}>Edit Profile</Link>
+					</DropdownItem>
 					<DropdownItem key="logout" color="danger" onClick={handleLogout}>
 						Log Out
 					</DropdownItem>

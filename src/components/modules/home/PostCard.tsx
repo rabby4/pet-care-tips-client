@@ -8,6 +8,7 @@ import moment from "moment"
 import PostActions from "./PostActions"
 import {
 	getDownVoteCount,
+	getFollowingStatus,
 	getPostComments,
 	getUpVoteCount,
 } from "@/src/services/postServices"
@@ -21,6 +22,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 	const downVote = await getDownVoteCount(post?._id)
 	const downVotes = downVote.data.length
 	const allComments = await getPostComments(post?._id)
+	const followingStatus = await getFollowingStatus(post.user._id, user._id)
 
 	return (
 		<Card className="py-4 rounded-md">
@@ -38,7 +40,13 @@ const PostCard = async ({ post }: { post: TPost }) => {
 						<div className="text-base font-semibold capitalize">
 							{post?.user?.firstName} {post?.user?.lastName}
 						</div>
-						• <Following following={post!.user!._id} user={user?._id} />
+						•{" "}
+						<Following
+							following={post!.user!._id}
+							follower={user?._id}
+							isFollowingInitial={false}
+							fetchFollowingStatus={followingStatus.data.isFollowing}
+						/>
 					</div>
 					<small className=" text-default-500">
 						{moment(post.createdAt).fromNow()}

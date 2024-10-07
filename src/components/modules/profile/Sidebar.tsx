@@ -7,7 +7,7 @@ import { Link } from "@nextui-org/link"
 import Image from "next/image"
 import ProfileNavbar from "./ProfileNavbar"
 import { Button } from "@nextui-org/button"
-import { PenBoxIcon } from "lucide-react"
+import { Mail, PenBoxIcon } from "lucide-react"
 
 const Sidebar = async () => {
 	const user: TUser = await getCurrentUser()
@@ -54,7 +54,7 @@ const Sidebar = async () => {
 						</Button>
 					</div>
 				</CardHeader>
-				<CardBody className="overflow-visible py-2">
+				<CardBody className="overflow-visible py-2 mt-5">
 					<ProfileNavbar />
 				</CardBody>
 			</Card>

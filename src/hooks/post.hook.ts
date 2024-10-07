@@ -4,6 +4,7 @@ import {
 	commentOnPost,
 	createPost,
 	downVote,
+	unFollow,
 	upVote,
 } from "../services/postServices"
 import { toast } from "sonner"
@@ -59,6 +60,16 @@ export const useFollowing = () => {
 		mutationFn: async (formData) => await addFollowing(formData),
 		onSuccess: () => {
 			toast.success(`Follow successfully!`)
+		},
+		onError: (error) => toast.error(error.message),
+	})
+}
+export const useUnFollowing = () => {
+	return useMutation<any, Error, TFollowing>({
+		mutationKey: ["COMMENT"],
+		mutationFn: async (followData) => await unFollow(followData),
+		onSuccess: () => {
+			toast.success(`Unfollow successfully!`)
 		},
 		onError: (error) => toast.error(error.message),
 	})

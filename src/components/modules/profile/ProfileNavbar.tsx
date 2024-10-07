@@ -4,7 +4,7 @@ import React from "react"
 
 const ProfileNavbar = () => {
 	return (
-		<div>
+		<>
 			<Navbar
 				classNames={{
 					item: [
@@ -57,7 +57,7 @@ const ProfileNavbar = () => {
 					</NavbarItem>
 				</NavbarContent>
 			</Navbar>
-		</div>
+		</>
 	)
 }
 

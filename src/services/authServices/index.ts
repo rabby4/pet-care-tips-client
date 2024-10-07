@@ -1,5 +1,7 @@
 "use server"
+import envConfig from "@/src/config/envConfig"
 import axiosInstance from "@/src/lib/AxiosInstance"
+import { revalidateTag } from "next/cache"
 import { cookies } from "next/headers"
 import { FieldValues } from "react-hook-form"
 
@@ -10,6 +12,7 @@ export const registerUser = async (userData: FieldValues) => {
 		if (data.success) {
 			cookies().set("accessToken", data?.token)
 		}
+		revalidateTag("user")
 
 		return data
 	} catch (error: any) {
@@ -22,8 +25,9 @@ export const loginUser = async (userData: FieldValues) => {
 		const { data } = await axiosInstance.post("/auth/login", userData)
 
 		if (data.success) {
-			cookies().set("accessToken", data?.token)
+			cookies().set("accessToken", data?.data?.accessToken)
 		}
+		revalidateTag("user")
 
 		return data
 	} catch (error: any) {
@@ -31,19 +35,29 @@ export const loginUser = async (userData: FieldValues) => {
 	}
 }
 
-export const logOut = () => {
+export const logOut = async () => {
 	cookies().delete("accessToken")
 }
 
 export const getCurrentUser = async () => {
+	const fetchOptions: any = {
+		next: {
+			tags: ["user"],
+		},
+	}
 	const accessToken = cookies().get("accessToken")?.value
 
 	let user = null
 
 	if (accessToken) {
-		const currentUser = await axiosInstance.get(`/auth/me`)
+		const res = await fetch(`${envConfig.baseApi}/auth/me`, {
+			headers: { Authorization: accessToken },
+			...fetchOptions,
+		})
 
-		user = currentUser?.data?.data
+		const data = await res.json()
+
+		user = data?.data
 	}
 
 	return user
@@ -55,6 +69,8 @@ export const updateUser = async (userInfo: FieldValues) => {
 			`/auth/${userInfo.id}`,
 			userInfo.formData
 		)
+
+		revalidateTag("user")
 
 		return data
 	} catch (error: any) {

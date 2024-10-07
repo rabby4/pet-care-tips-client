@@ -20,7 +20,7 @@ const EditProfile = () => {
 	const [imageFile, setImageFile] = useState<File | undefined>()
 	const [imagePreviews, setImagePreviews] = useState<string | null>()
 	const { mutate: handleUpdateUser, isPending } = useUpdateUser()
-	const { handleSubmit, control } = useForm({})
+	const { handleSubmit, control, reset } = useForm({})
 	const { user } = useUser()
 	const router = useRouter()
 
@@ -41,7 +41,7 @@ const EditProfile = () => {
 		}
 
 		handleUpdateUser(userInfo)
-		router.push("/profile")
+		reset()
 	}
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
