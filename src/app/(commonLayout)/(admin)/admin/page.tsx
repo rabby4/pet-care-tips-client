@@ -1,4 +1,3 @@
-import Container from "@/src/components/ui/Container"
 import { getCurrentUser } from "@/src/services/authServices"
 import { TUser } from "@/src/types"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"

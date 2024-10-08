@@ -1,4 +1,3 @@
-"use client"
 import { getCurrentUser } from "@/src/services/authServices"
 import React from "react"
 

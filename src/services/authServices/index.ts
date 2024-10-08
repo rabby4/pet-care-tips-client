@@ -34,6 +34,33 @@ export const loginUser = async (userData: FieldValues) => {
 		throw new Error(error)
 	}
 }
+export const forgetPassword = async (userData: FieldValues) => {
+	try {
+		const { data } = await axiosInstance.post("/auth/forget-password", userData)
+
+		return data
+	} catch (error: any) {
+		throw new Error(error)
+	}
+}
+
+export const resetPassword = async (resetData: FieldValues) => {
+	try {
+		await fetch(`${envConfig.baseApi}/auth/reset-password`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: resetData.token,
+			},
+			body: JSON.stringify({
+				email: resetData.email,
+				newPassword: resetData.newPassword,
+			}),
+		})
+	} catch (error: any) {
+		console.log(error.response.data)
+	}
+}
 
 export const logOut = async () => {
 	cookies().delete("accessToken")

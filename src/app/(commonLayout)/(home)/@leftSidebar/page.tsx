@@ -81,7 +81,7 @@ const LeftSidebar = async () => {
 					<CardBody className="flex flex-col items-center py-10 gap-3">
 						<h2 className="text-xl font-semibold">You are not logged in</h2>
 						<p className="text-sm">Please login</p>
-						<Button color="primary" variant="flat" className="rounded-md px-10">
+						<Button className="rounded-md px-10" color="primary" variant="flat">
 							<Link href="/login">Login</Link>
 						</Button>
 					</CardBody>

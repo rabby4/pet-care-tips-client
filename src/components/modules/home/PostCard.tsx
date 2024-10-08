@@ -91,8 +91,8 @@ const PostCard = async ({ post }: { post: TPost }) => {
 					downVote={downVotes}
 					id={post?._id}
 					upVotes={upVotes}
-					userId={user?._id}
 					user={user}
+					userId={user?._id}
 				/>
 			</CardFooter>
 		</Card>

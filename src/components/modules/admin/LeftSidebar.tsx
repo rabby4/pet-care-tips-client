@@ -1,4 +1,3 @@
-import UserMenu from "@/src/components/modules/leftSidebar/UserMenu"
 import { getCurrentUser } from "@/src/services/authServices"
 import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"

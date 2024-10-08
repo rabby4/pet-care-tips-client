@@ -6,7 +6,6 @@ import {
 	TableBody,
 	TableRow,
 	TableCell,
-	getKeyValue,
 } from "@nextui-org/table"
 import { columns, users } from "../../../../../../public/data"
 import React from "react"
@@ -16,7 +15,6 @@ import { ChipVariantProps } from "@nextui-org/theme"
 import { DeleteIcon } from "@/src/components/icons"
 import { User } from "@nextui-org/user"
 import { Chip } from "@nextui-org/chip"
-import { getAllUsers } from "@/src/services/authServices"
 
 const statusColorMap: Record<string, ChipVariantProps["color"]> = {
 	active: "success",

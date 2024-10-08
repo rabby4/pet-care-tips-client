@@ -23,6 +23,12 @@ export const useCreatePost = () => {
 		},
 	})
 }
+// export const useGetPosts = (params: any) => {
+// 	return useQuery<any>({
+// 		queryKey: ["POSTS", params],
+// 		queryFn: async () => await getAllPosts(params),
+// 	})
+// }
 
 export const useUpVote = () => {
 	return useMutation<any, Error, string>({
@@ -64,6 +70,7 @@ export const useFollowing = () => {
 		onError: (error) => toast.error(error.message),
 	})
 }
+
 export const useUnFollowing = () => {
 	return useMutation<any, Error, TFollowing>({
 		mutationKey: ["COMMENT"],

@@ -3,11 +3,9 @@ import { Listbox, ListboxItem } from "@nextui-org/listbox"
 import React from "react"
 import Link from "next/link"
 import {
-	BellRing,
 	Cog,
 	LayoutDashboard,
 	LayoutList,
-	MessagesSquare,
 	User,
 	Users,
 } from "lucide-react"

@@ -6,6 +6,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Input } from "@nextui-org/input"
 import { Mail } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { ChangeEvent, useState } from "react"
 import {
 	Controller,
@@ -17,8 +18,13 @@ import {
 const RegisterPage = () => {
 	const [imageFile, setImageFile] = useState<File | undefined>()
 	const [imagePreviews, setImagePreviews] = useState<string | null>()
-	const { mutate: handleRegistration, isPending } = useRegistrations()
+	const {
+		mutate: handleRegistration,
+		isPending,
+		isSuccess,
+	} = useRegistrations()
 	const { handleSubmit, control } = useForm({})
+	const router = useRouter()
 
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		const formData = new FormData()
@@ -40,6 +46,10 @@ const RegisterPage = () => {
 			}
 			reader.readAsDataURL(file)
 		}
+	}
+
+	if (isSuccess) {
+		router.push("/login")
 	}
 
 	return (

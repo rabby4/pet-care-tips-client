@@ -17,9 +17,6 @@ import clsx from "clsx"
 import { siteConfig } from "@/src/config/site"
 
 import {
-	TwitterIcon,
-	GithubIcon,
-	DiscordIcon,
 	SearchIcon,
 } from "@/src/components/icons"
 import { ThemeSwitch } from "./theme-switch"
@@ -120,8 +117,8 @@ export const Navbar = async () => {
 						<Button
 							as={Link}
 							className="text-sm font-normal rounded-md px-10"
-							href={`/login`}
 							color="primary"
+							href={`/login`}
 						>
 							Login
 						</Button>

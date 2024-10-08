@@ -29,6 +29,14 @@ export const getAllPosts = async () => {
 	}
 
 	try {
+		// 		const params = new URLSearchParams()
+		//
+		// 		if (args) {
+		// 			args.forEach((item: any) => {
+		// 				params.append(item.name, item.value as string)
+		// 			})
+		// 		}
+
 		const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
 
 		if (!res.ok) {
@@ -62,6 +70,21 @@ export const getPostsForUser = async (userId: string) => {
 
 	return data
 }
+
+// export const getSearchPosts = async (search: string) => {
+// 	const fetchOptions = {
+// 		next: {
+// 			tags: ["posts"],
+// 		},
+// 	}
+// 	const res = await fetch(
+// 		`${envConfig.baseApi}/posts?search=${search}`,
+// 		fetchOptions
+// 	)
+// 	const data = await res.json()
+//
+// 	return data
+// }
 
 export const getSinglePost = async (postId: string) => {
 	let fetchOptions = {}
