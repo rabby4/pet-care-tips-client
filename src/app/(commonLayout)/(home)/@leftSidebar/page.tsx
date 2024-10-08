@@ -7,6 +7,7 @@ import {
 } from "@/src/services/postServices"
 import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
+import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Divider } from "@nextui-org/divider"
 import { Link } from "@nextui-org/link"
@@ -76,7 +77,15 @@ const LeftSidebar = async () => {
 					</CardBody>
 				</Card>
 			) : (
-				<h2>You are not logged in</h2>
+				<Card className="rounded-md">
+					<CardBody className="flex flex-col items-center py-10 gap-3">
+						<h2 className="text-xl font-semibold">You are not logged in</h2>
+						<p className="text-sm">Please login</p>
+						<Button color="primary" variant="flat" className="rounded-md px-10">
+							<Link href="/login">Login</Link>
+						</Button>
+					</CardBody>
+				</Card>
 			)}
 
 			<div className="flex gap-4 flex-wrap p-5 justify-center">

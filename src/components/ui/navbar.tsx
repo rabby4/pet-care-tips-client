@@ -104,7 +104,7 @@ export const Navbar = async () => {
 					))}
 				</ul>
 				<NavbarItem className="hidden sm:flex gap-2">
-					<Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
+					{/* <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
 						<TwitterIcon className="text-default-500" />
 					</Link>
 					<Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
@@ -112,16 +112,16 @@ export const Navbar = async () => {
 					</Link>
 					<Link isExternal aria-label="Github" href={siteConfig.links.github}>
 						<GithubIcon className="text-default-500" />
-					</Link>
+					</Link> */}
 					<ThemeSwitch />
 					{user ? (
 						<AvatarDropdown user={user} />
 					) : (
 						<Button
 							as={Link}
-							className="text-sm font-normal text-default-600 bg-default-100"
+							className="text-sm font-normal rounded-md px-10"
 							href={`/login`}
-							variant="flat"
+							color="primary"
 						>
 							Login
 						</Button>

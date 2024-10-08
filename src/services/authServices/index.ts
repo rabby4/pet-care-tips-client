@@ -77,3 +77,14 @@ export const updateUser = async (userInfo: FieldValues) => {
 		throw new Error(error)
 	}
 }
+
+export const getAllUsers = async () => {
+	try {
+		const res = await fetch(`${envConfig.baseApi}/auth`)
+		const data = await res.json()
+
+		return data.data
+	} catch (error) {
+		console.log(error)
+	}
+}

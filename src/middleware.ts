@@ -8,8 +8,7 @@ type Role = keyof typeof roleBaseRoutes
 
 const roleBaseRoutes = {
 	user: [/^\/profile/],
-	admin: [/^\/admin/],
-	superAdmin: [/^\/admin/],
+	admin: [/^\/admin/, /^\/profile/],
 }
 
 // This function can be marked `async` if using `await` inside

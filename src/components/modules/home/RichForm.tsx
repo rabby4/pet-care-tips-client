@@ -7,6 +7,7 @@ import dynamic from "next/dynamic"
 import { ChangeEvent, useEffect, useState } from "react"
 // import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
+import { toast } from "sonner"
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
 const RichForm = () => {
@@ -20,6 +21,9 @@ const RichForm = () => {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
+		if (!user) {
+			return toast.error("You are not logged in!")
+		}
 		const formData = new FormData()
 
 		const post = { user: user?._id, content: value, category: selectedValue }

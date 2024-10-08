@@ -1,5 +1,10 @@
 import { useMutation } from "@tanstack/react-query"
-import { loginUser, registerUser, updateUser } from "../services/authServices"
+import {
+	getAllUsers,
+	loginUser,
+	registerUser,
+	updateUser,
+} from "../services/authServices"
 import { FieldValues } from "react-hook-form"
 import { toast } from "sonner"
 
