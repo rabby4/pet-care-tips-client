@@ -11,7 +11,7 @@ const Feed = async () => {
 
 	return (
 		<div className="grid gap-5">
-			{allPosts.length > 0 ? (
+			{allPosts?.length > 0 ? (
 				allPosts.map((post: TPost) => <PostCard key={post?._id} post={post} />)
 			) : (
 				<Card className="py-10 rounded-md">

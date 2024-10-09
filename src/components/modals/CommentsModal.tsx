@@ -35,7 +35,7 @@ const CommentsModal = ({ comments }: { comments: TComment[] }) => {
 							All Comments
 						</ModalHeader>
 						<ModalBody>
-							{comments.length > 0
+							{comments?.length > 0
 								? comments?.map((comment) => (
 										<div key={comment?._id}>
 											<div className="flex gap-3">

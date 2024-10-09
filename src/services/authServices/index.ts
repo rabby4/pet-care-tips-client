@@ -115,3 +115,15 @@ export const getAllUsers = async () => {
 		console.log(error)
 	}
 }
+
+export const deleteUser = async (userId: string) => {
+	try {
+		const res = await axiosInstance.delete(`/auth/${userId}`)
+
+		revalidateTag("user")
+
+		return res.data
+	} catch (error) {
+		console.log(error)
+	}
+}

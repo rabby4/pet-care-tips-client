@@ -1,10 +1,13 @@
-import React from "react"
+import NewsFeed from "@/src/components/modules/home/NewsFeed"
+import Container from "@/src/components/ui/Container"
 
 const PostsPage = () => {
 	return (
-		<div>
-			<h1>this is posts page</h1>
-		</div>
+		<Container>
+			<div className="w-2/3 mx-auto">
+				<NewsFeed />
+			</div>
+		</Container>
 	)
 }
 

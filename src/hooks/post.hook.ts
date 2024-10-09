@@ -1,10 +1,12 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import {
 	addFollowing,
 	commentOnPost,
 	createPost,
 	downVote,
+	getAllPosts,
 	unFollow,
+	updatePostPON,
 	upVote,
 } from "../services/postServices"
 import { toast } from "sonner"
@@ -23,6 +25,30 @@ export const useCreatePost = () => {
 		},
 	})
 }
+
+export const useUpdatePost = () => {
+	return useMutation<any>({
+		mutationKey: ["UPDATE_POST"],
+		mutationFn: async (postData) => await updatePostPON(postData),
+		onSuccess: () => {
+			toast.success("Post updated successfully")
+		},
+		onError: (error) => {
+			toast.error(error.message)
+		},
+	})
+}
+
+export const useGetPosts = (
+	category: string | undefined,
+	searchQuery: string | undefined
+) => {
+	return useQuery<any>({
+		queryKey: ["POSTS", { category, searchQuery }],
+		queryFn: async () => await getAllPosts(category, searchQuery),
+	})
+}
+
 // export const useGetPosts = (params: any) => {
 // 	return useQuery<any>({
 // 		queryKey: ["POSTS", params],

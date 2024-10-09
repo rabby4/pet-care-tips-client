@@ -7,58 +7,66 @@ import {
 	TableRow,
 	TableCell,
 } from "@nextui-org/table"
-import { columns, users } from "../../../../../../public/data"
 import React from "react"
 import { Eye, PencilLine } from "lucide-react"
 import { Tooltip } from "@nextui-org/tooltip"
-import { ChipVariantProps } from "@nextui-org/theme"
 import { DeleteIcon } from "@/src/components/icons"
 import { User } from "@nextui-org/user"
 import { Chip } from "@nextui-org/chip"
-
-const statusColorMap: Record<string, ChipVariantProps["color"]> = {
-	active: "success",
-	paused: "danger",
-	vacation: "warning",
-}
-
-type User = (typeof users)[0]
+import { useEffect, useState } from "react"
+import { getAllUsers } from "@/src/services/authServices"
+import { TUser } from "@/src/types"
+import { useDeleteUser } from "@/src/hooks/auth.hooks"
 
 const UsersPage = () => {
-	// const allUsers = await getAllUsers()
+	const [users, setUsers] = useState<TUser[]>([])
+	const { mutate: handleDeleteUser } = useDeleteUser()
 
-	const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-		const cellValue = user[columnKey as keyof User]
+	useEffect(() => {
+		const fetchUsers = async () => {
+			const response = await getAllUsers()
+
+			setUsers(response)
+		}
+
+		fetchUsers()
+	}, [])
+
+	const handleDelete = (id: string) => {
+		handleDeleteUser(id)
+	}
+
+	const renderCell = React.useCallback((user: TUser, columnKey: React.Key) => {
+		const cellValue = user[columnKey as keyof TUser]
 
 		switch (columnKey) {
 			case "name":
 				return (
-					<User
-						avatarProps={{ radius: "lg", src: user.avatar }}
-						description={user.email}
-						name={cellValue}
-					>
-						{user.email}
-					</User>
+					<div>
+						<User
+							name={`${user.firstName} ${user.lastName}`}
+							description={user?.occupation}
+							avatarProps={{
+								src: `${user.image}`,
+							}}
+						/>
+					</div>
 				)
 			case "role":
 				return (
 					<div className="flex flex-col">
-						<p className="text-bold text-sm capitalize">{cellValue}</p>
-						<p className="text-bold text-sm capitalize text-default-400">
-							{user.team}
-						</p>
+						<p className="font-bold text-sm capitalize">{user.role}</p>
 					</div>
 				)
-			case "status":
+			case "premium":
 				return (
 					<Chip
 						className="capitalize"
-						color={statusColorMap[user.status]}
+						color={user.premium ? "success" : "default"}
 						size="sm"
 						variant="flat"
 					>
-						{cellValue}
+						{user.premium ? "Premium" : "Standard"}
 					</Chip>
 				)
 			case "actions":
@@ -75,9 +83,12 @@ const UsersPage = () => {
 							</span>
 						</Tooltip>
 						<Tooltip color="danger" content="Delete user">
-							<span className="text-lg text-danger cursor-pointer active:opacity-50">
+							<button
+								onClick={() => handleDelete(user._id)}
+								className="text-lg text-danger cursor-pointer active:opacity-50"
+							>
 								<DeleteIcon />
-							</span>
+							</button>
 						</Tooltip>
 					</div>
 				)
@@ -86,9 +97,19 @@ const UsersPage = () => {
 		}
 	}, [])
 
+	if (!users?.length) return <p>Loading...</p>
+
+	const columns = [
+		{ uid: "name", name: "Name" },
+		{ uid: "email", name: "Email" },
+		{ uid: "role", name: "Role" },
+		{ uid: "premium", name: "Premium Status" },
+		{ uid: "actions", name: "Actions" },
+	]
+
 	return (
 		<>
-			<Table aria-label="Example table with custom cells">
+			<Table aria-label="Users table">
 				<TableHeader columns={columns}>
 					{(column) => (
 						<TableColumn
@@ -101,7 +122,7 @@ const UsersPage = () => {
 				</TableHeader>
 				<TableBody items={users}>
 					{(item) => (
-						<TableRow key={item.id}>
+						<TableRow key={item._id}>
 							{(columnKey) => (
 								<TableCell>{renderCell(item, columnKey)}</TableCell>
 							)}

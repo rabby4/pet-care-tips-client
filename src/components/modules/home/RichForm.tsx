@@ -66,8 +66,8 @@ const RichForm = () => {
 				<CardBody>
 					<form className="flex flex-col" onSubmit={handleSubmit}>
 						<ReactQuill theme="snow" value={value} onChange={setValue} />
-						<div className="flex gap-3 justify-between items-center mt-5">
-							<div className="w-1/2">
+						<div className="flex md:flex-row flex-col gap-3 justify-between items-center mt-5">
+							<div className="md:w-1/2 w-full">
 								<select
 									className="w-full border-[1px] size-full rounded-md block p-3 cursor-pointer border-default-300"
 									id="category"
@@ -80,7 +80,7 @@ const RichForm = () => {
 									<option value="story">Story</option>
 								</select>
 							</div>
-							<div className="w-1/2">
+							<div className="md:w-1/2 w-full">
 								<label
 									className="size-full rounded-md block text-center p-3 cursor-pointer border border-dashed border-default-300"
 									htmlFor="itemImages"

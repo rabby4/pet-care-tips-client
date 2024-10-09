@@ -21,23 +21,42 @@ export const createPost = async (formData: FormData): Promise<any> => {
 	}
 }
 
-export const getAllPosts = async () => {
+export const updatePostPON = async (formData: any) => {
+	try {
+		const { data } = await axiosInstance.patch(
+			`/posts/${formData.id}`,
+			formData.postData
+		)
+
+		revalidateTag("posts")
+
+		return data
+	} catch (error: any) {
+		throw new Error("Failed to update post")
+	}
+}
+
+export const getAllPosts = async (category?: string, searchQuery?: string) => {
 	const fetchOptions = {
 		next: {
 			tags: ["posts"],
 		},
 	}
 
-	try {
-		// 		const params = new URLSearchParams()
-		//
-		// 		if (args) {
-		// 			args.forEach((item: any) => {
-		// 				params.append(item.name, item.value as string)
-		// 			})
-		// 		}
+	const params = new URLSearchParams()
 
-		const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
+	if (category) {
+		params.append("category", category)
+	}
+	if (searchQuery) {
+		params.append("search", searchQuery)
+	}
+
+	try {
+		const res = await fetch(
+			`${envConfig.baseApi}/posts?${params.toString()}`,
+			fetchOptions
+		)
 
 		if (!res.ok) {
 			throw new Error(`Failed to fetch posts: ${res.statusText}`)
@@ -51,13 +70,50 @@ export const getAllPosts = async () => {
 			return data
 		} else {
 			await res.text()
-
 			throw new Error("Response was not JSON")
 		}
 	} catch (error: any) {
 		return { error: error.message }
 	}
 }
+
+// export const getAllPosts = async () => {
+// 	const fetchOptions = {
+// 		next: {
+// 			tags: ["posts"],
+// 		},
+// 	}
+//
+// 	try {
+// 		// 		const params = new URLSearchParams()
+// 		//
+// 		// 		if (args) {
+// 		// 			args.forEach((item: any) => {
+// 		// 				params.append(item.name, item.value as string)
+// 		// 			})
+// 		// 		}
+//
+// 		const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
+//
+// 		if (!res.ok) {
+// 			throw new Error(`Failed to fetch posts: ${res.statusText}`)
+// 		}
+//
+// 		const contentType = res.headers.get("content-type")
+//
+// 		if (contentType && contentType.includes("application/json")) {
+// 			const data = await res.json()
+//
+// 			return data
+// 		} else {
+// 			await res.text()
+//
+// 			throw new Error("Response was not JSON")
+// 		}
+// 	} catch (error: any) {
+// 		return { error: error.message }
+// 	}
+// }
 
 export const getPostsForUser = async (userId: string) => {
 	const fetchOptions = {
@@ -93,13 +149,17 @@ export const getSinglePost = async (postId: string) => {
 		cache: "no-store",
 	}
 
-	const res = await fetch(`${envConfig.baseApi}/posts/${postId}`, fetchOptions)
+	const res = await fetch(
+		`${envConfig.baseApi}/posts/post/${postId}`,
+		fetchOptions
+	)
 
 	if (!res.ok) {
 		throw new Error("Failed to fetch data")
 	}
+	const data = await res.json()
 
-	return res.json()
+	return data.data
 }
 
 export const upVote = async (postId: string) => {

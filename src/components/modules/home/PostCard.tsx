@@ -18,9 +18,9 @@ import Following from "./Following"
 const PostCard = async ({ post }: { post: TPost }) => {
 	const user = await getCurrentUser()
 	const upVote = await getUpVoteCount(post?._id)
-	const upVotes = upVote.data.length
+	const upVotes = upVote.data?.length
 	const downVote = await getDownVoteCount(post?._id)
-	const downVotes = downVote.data.length
+	const downVotes = downVote.data?.length
 	const allComments = await getPostComments(post?._id)
 	const followingStatus = await getFollowingStatus(post.user?._id, user?._id)
 
@@ -30,8 +30,8 @@ const PostCard = async ({ post }: { post: TPost }) => {
 				<Avatar
 					className="transition-transform"
 					src={
-						post.user.image
-							? post.user.image
+						post?.user?.image
+							? post?.user?.image
 							: "https://i.ibb.co.com/H7zTvh7/user.png"
 					}
 				/>
@@ -49,37 +49,41 @@ const PostCard = async ({ post }: { post: TPost }) => {
 						/>
 					</div>
 					<small className=" text-default-500">
-						{moment(post.createdAt).fromNow()}
+						{moment(post?.createdAt).fromNow()}
 					</small>
 				</div>
 			</CardHeader>
 
 			<CardBody className="overflow-visible py-2 gap-5">
 				<div className="text-sm">
-					{post.content.length > 100 ? (
+					{post.content?.length > 100 ? (
 						<>
 							<div
-								dangerouslySetInnerHTML={{ __html: post.content.slice(0, 100) }}
+								dangerouslySetInnerHTML={{
+									__html: `${post?.content.slice(0, 100)}...`,
+								}}
 							/>
 
-							<Link
-								className="hover:text-[#2d5be3]"
-								href={`/posts/${post?._id}`}
-							>
+							<Link className="text-[#2d5be3]" href={`/posts/${post?._id}`}>
 								Read more
 							</Link>
 						</>
 					) : (
-						<div dangerouslySetInnerHTML={{ __html: post.content }} />
+						<>
+							<div dangerouslySetInnerHTML={{ __html: post.content }} />
+							<Link className="text-[#2d5be3]" href={`/posts/${post?._id}`}>
+								Read more
+							</Link>
+						</>
 					)}
 				</div>
 				{post.image && (
 					<Image
-						alt={post.image && "post image"}
+						alt={post?.image && "post image"}
 						className="rounded-xl size-full"
 						height={0}
 						sizes="100vw"
-						src={post?.image && post.image}
+						src={post?.image && post?.image}
 						width={0}
 					/>
 				)}
@@ -87,7 +91,7 @@ const PostCard = async ({ post }: { post: TPost }) => {
 			<Divider />
 			<CardFooter className="grid grid-cols-2 justify-between">
 				<PostActions
-					comments={allComments.data}
+					comments={allComments?.data}
 					downVote={downVotes}
 					id={post?._id}
 					upVotes={upVotes}

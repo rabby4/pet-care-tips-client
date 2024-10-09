@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query"
 import {
+	deleteUser,
 	forgetPassword,
 	loginUser,
 	registerUser,
@@ -61,6 +62,17 @@ export const useUpdateUser = () => {
 		mutationFn: async (userInfo) => await updateUser(userInfo),
 		onSuccess: () => {
 			toast.success(`user info updated successfully!`)
+		},
+		onError: (error) => toast.error(error.message),
+	})
+}
+
+export const useDeleteUser = () => {
+	return useMutation<any, Error, string>({
+		mutationKey: ["USER_DELETE"],
+		mutationFn: async (userId) => await deleteUser(userId),
+		onSuccess: () => {
+			toast.success(`User deleted successfully!`)
 		},
 		onError: (error) => toast.error(error.message),
 	})

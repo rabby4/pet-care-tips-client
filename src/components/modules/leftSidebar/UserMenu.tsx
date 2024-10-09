@@ -4,8 +4,9 @@ import React from "react"
 import Link from "next/link"
 import { BellRing, Cog, MessagesSquare, User } from "lucide-react"
 import { logOut } from "@/src/services/authServices"
+import { TUser } from "@/src/types"
 
-const UserMenu = () => {
+const UserMenu = ({ user }: { user: TUser }) => {
 	const handleLogout = () => {
 		logOut()
 	}

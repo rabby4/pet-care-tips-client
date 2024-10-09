@@ -29,6 +29,8 @@ export type TPost = {
 	premium: boolean
 	createdAt: string
 	updatedAt: string
+	upvoteCount: number
+	publish: boolean
 }
 
 export type TComment = {

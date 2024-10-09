@@ -39,7 +39,7 @@ const LeftSidebar = async () => {
 							size="lg"
 							src={
 								user?.image
-									? user.image
+									? user?.image
 									: "https://i.ibb.co.com/H7zTvh7/user.png"
 							}
 						/>
@@ -73,7 +73,7 @@ const LeftSidebar = async () => {
 							</div>
 							<Divider className="my-4" />
 						</div>
-						<UserMenu />
+						<UserMenu user={user} />
 					</CardBody>
 				</Card>
 			) : (
@@ -88,27 +88,29 @@ const LeftSidebar = async () => {
 				</Card>
 			)}
 
-			<div className="flex gap-4 flex-wrap p-5 justify-center">
-				<Link href="#" size="sm">
-					About
-				</Link>
-				<Link href="#" size="sm">
-					Settings
-				</Link>
-				<Link href="#" size="sm">
-					Docs
-				</Link>
-				<Link href="#" size="sm">
-					Support
-				</Link>
-				<Link href="#" size="sm">
-					Help
-				</Link>
-				<Link href="#" size="sm">
-					Privacy and Policy
-				</Link>
+			<div className="hidden lg:block">
+				<div className="flex gap-4 flex-wrap p-5 justify-center">
+					<Link href="#" size="sm">
+						About
+					</Link>
+					<Link href="#" size="sm">
+						Settings
+					</Link>
+					<Link href="#" size="sm">
+						Docs
+					</Link>
+					<Link href="#" size="sm">
+						Support
+					</Link>
+					<Link href="#" size="sm">
+						Help
+					</Link>
+					<Link href="#" size="sm">
+						Privacy and Policy
+					</Link>
+				</div>
+				<p className="text-sm text-center">@{date}</p>
 			</div>
-			<p className="text-sm text-center">@{date}</p>
 		</div>
 	)
 }

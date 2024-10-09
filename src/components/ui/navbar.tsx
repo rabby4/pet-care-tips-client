@@ -16,9 +16,7 @@ import clsx from "clsx"
 
 import { siteConfig } from "@/src/config/site"
 
-import {
-	SearchIcon,
-} from "@/src/components/icons"
+import { SearchIcon } from "@/src/components/icons"
 import { ThemeSwitch } from "./theme-switch"
 import AvatarDropdown from "./AvatarDropdown"
 import { getCurrentUser } from "@/src/services/authServices"
@@ -156,7 +154,7 @@ export const Navbar = async () => {
 								color={
 									index === 2
 										? "primary"
-										: index === siteConfig.navMenuItems.length - 1
+										: index === siteConfig?.navMenuItems?.length - 1
 											? "danger"
 											: "foreground"
 								}

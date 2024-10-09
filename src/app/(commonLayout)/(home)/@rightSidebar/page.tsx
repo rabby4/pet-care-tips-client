@@ -12,8 +12,8 @@ const RightSidebar = async () => {
 	const followers = data?.data?.map((item: any) => item.follower)
 
 	return (
-		<div>
-			<Card className="p-3 rounded-md">
+		<>
+			<Card className="p-3 rounded-md w-full">
 				<CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
 					<h4 className="font-bold text-large">My Followers</h4>
 				</CardHeader>
@@ -51,7 +51,7 @@ const RightSidebar = async () => {
 					))}
 				</CardBody>
 			</Card>
-		</div>
+		</>
 	)
 }
 
