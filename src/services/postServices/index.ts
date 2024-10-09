@@ -77,6 +77,16 @@ export const getAllPosts = async (category?: string, searchQuery?: string) => {
 	}
 }
 
+export const searchItems = async (searchTerm: string) => {
+	try {
+		const res = await axiosInstance.get(`/posts?search=${searchTerm}`)
+
+		return res.data
+	} catch (error) {
+		throw new Error("Failed to search items")
+	}
+}
+
 // export const getAllPosts = async () => {
 // 	const fetchOptions = {
 // 		next: {

@@ -21,25 +21,10 @@ import { ThemeSwitch } from "./theme-switch"
 import AvatarDropdown from "./AvatarDropdown"
 import { getCurrentUser } from "@/src/services/authServices"
 import Image from "next/image"
+import Search from "./Search"
 
 export const Navbar = async () => {
 	const user = await getCurrentUser()
-
-	const searchInput = (
-		<Input
-			aria-label="Search"
-			classNames={{
-				inputWrapper: "bg-default-100",
-				input: "text-sm",
-			}}
-			labelPlacement="outside"
-			placeholder="Search..."
-			startContent={
-				<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-			}
-			type="search"
-		/>
-	)
 
 	return (
 		<NextUINavbar maxWidth="xl" position="sticky">
@@ -59,7 +44,25 @@ export const Navbar = async () => {
 						<p className="font-bold text-inherit">ACME</p> */}
 					</NextLink>
 				</NavbarBrand>
-				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+				<NavbarItem className="hidden lg:flex">
+					<Search />
+					{/* <form>
+						<Input
+							{...register("search")}
+							aria-label="Search"
+							classNames={{
+								inputWrapper: "bg-default-100",
+								input: "text-sm",
+							}}
+							labelPlacement="outside"
+							placeholder="Search..."
+							startContent={
+								<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+							}
+							type="search"
+						/>
+					</form> */}
+				</NavbarItem>
 				{/* <ul className="hidden lg:flex gap-4 justify-start ml-2">
 					{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href}>
@@ -146,7 +149,19 @@ export const Navbar = async () => {
 			</NavbarContent>
 
 			<NavbarMenu>
-				{searchInput}
+				<Input
+					aria-label="Search"
+					classNames={{
+						inputWrapper: "bg-default-100",
+						input: "text-sm",
+					}}
+					labelPlacement="outside"
+					placeholder="Search..."
+					startContent={
+						<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
+					}
+					type="search"
+				/>
 				<div className="mx-4 mt-2 flex flex-col gap-2">
 					{siteConfig?.navMenuItems?.map((item, index) => (
 						<NavbarMenuItem key={`${item}-${index}`}>

@@ -26,7 +26,7 @@ const RegisterPage = () => {
 	const { handleSubmit, control } = useForm({})
 	const router = useRouter()
 
-	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		const formData = new FormData()
 
 		formData.append("data", JSON.stringify(data))

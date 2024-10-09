@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<div className="mb-10">
 			<RichForm />
-			<NewsFeed />
+			<NewsFeed searchParams={""} />
 		</div>
 	)
 }

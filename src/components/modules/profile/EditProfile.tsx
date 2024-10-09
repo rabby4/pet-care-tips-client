@@ -24,7 +24,7 @@ const EditProfile = () => {
 	const { user } = useUser()
 	const router = useRouter()
 
-	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		const formData = new FormData()
 
 		const userData = {

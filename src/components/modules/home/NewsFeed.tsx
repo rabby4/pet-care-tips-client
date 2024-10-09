@@ -1,47 +1,23 @@
-// "use client"
 import { TPost } from "@/src/types"
 import PostCard from "./PostCard"
-// import { useEffect, useState } from "react"
-// import { useGetPosts } from "@/src/hooks/post.hook"
 import { getAllPosts } from "@/src/services/postServices"
+import axiosInstance from "@/src/lib/AxiosInstance"
 
-const NewsFeed = async () => {
-	// const [category, setCategory] = useState<string | undefined>(undefined)
-	// const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined)
-	// const [publishedPosts, setPublishedPosts] = useState<TPost[]>([])
-	const { data: allPosts } = await getAllPosts()
-	// const { data: allPosts } = useGetPosts(category, searchQuery)
-	// console.log(publishedPosts)
+const NewsFeed = async ({ searchParams }: { searchParams: any }) => {
+	// const { data: allPosts } = await getAllPosts()
 
-	// useEffect(() => {
-	// 	if (allPosts) {
-	// 		const filteredPosts = allPosts.filter(
-	// 			(post: TPost) => post.publish === true
-	// 		)
-	// 		setPublishedPosts(filteredPosts)
-	// 	}
-	// }, [allPosts])
+	const params = new URLSearchParams(searchParams)
 
-	const publishedPosts = allPosts?.filter(
+	const { data } = await axiosInstance.get(`/posts`, {
+		params: { search: params.get("search") },
+	})
+
+	const publishedPosts = data?.data?.filter(
 		(post: TPost) => post.publish === true
 	)
 
 	return (
 		<>
-			{/* <div>
-				<input
-					type="text"
-					placeholder="Search posts"
-					value={searchQuery}
-					onChange={(e) => setSearchQuery(e.target.value)}
-				/>
-				<select onChange={(e) => setCategory(e.target.value)} value={category}>
-					<option value="">All Categories</option>
-					<option value="tips">Tips</option>
-					<option value="story">Story</option>
-					
-				</select>
-			</div> */}
 			<div className="grid gap-5">
 				{publishedPosts?.map((post: TPost) => (
 					<PostCard key={post._id} post={post} />

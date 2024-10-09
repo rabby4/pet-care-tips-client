@@ -5,6 +5,7 @@ import {
 	createPost,
 	downVote,
 	getAllPosts,
+	searchItems,
 	unFollow,
 	updatePostPON,
 	upVote,
@@ -39,6 +40,16 @@ export const useUpdatePost = () => {
 	})
 }
 
+// export const useGetPosts = (
+// 	category: string | undefined,
+// 	searchQuery: string | undefined
+// ) => {
+// 	return useQuery<any>({
+// 		queryKey: ["POSTS", { category, searchQuery }],
+// 		queryFn: async () => await getAllPosts(category, searchQuery),
+// 	})
+// }
+
 export const useGetPosts = (
 	category: string | undefined,
 	searchQuery: string | undefined
@@ -46,6 +57,13 @@ export const useGetPosts = (
 	return useQuery<any>({
 		queryKey: ["POSTS", { category, searchQuery }],
 		queryFn: async () => await getAllPosts(category, searchQuery),
+	})
+}
+
+export const useSearchItems = () => {
+	return useMutation({
+		mutationKey: ["SEARCH_ITEMS"],
+		mutationFn: async (searchTerm: string) => await searchItems(searchTerm),
 	})
 }
 
