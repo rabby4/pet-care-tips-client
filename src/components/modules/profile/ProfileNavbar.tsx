@@ -27,7 +27,7 @@ const ProfileNavbar = () => {
 				<NavbarContent className="hidden sm:flex gap-8" justify="center">
 					<NavbarItem>
 						<Link color="foreground" href={"/profile/feed"}>
-							My Feed
+							My Posts
 						</Link>
 					</NavbarItem>
 					<NavbarItem>

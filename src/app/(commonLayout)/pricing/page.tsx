@@ -1,9 +1,12 @@
-import { title } from "@/src/components/primitives"
+import Payment from "@/src/components/modules/pricing/Payment"
+import { getCurrentUser } from "@/src/services/authServices"
 
-export default function PricingPage() {
+export default async function PricingPage() {
+	const user = await getCurrentUser()
+
 	return (
-		<div>
-			<h1 className={title()}>Pricing</h1>
-		</div>
+		<>
+			<Payment user={user} />
+		</>
 	)
 }

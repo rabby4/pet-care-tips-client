@@ -14,7 +14,6 @@ const Search = () => {
 	const { mutate: handleSearch, data, isPending, isSuccess } = useSearchItems()
 	const [searchResults, setSearchResults] = useState([])
 	const router = useRouter()
-	console.log(data)
 
 	const searchTerm = useDebounce(watch("search"))
 

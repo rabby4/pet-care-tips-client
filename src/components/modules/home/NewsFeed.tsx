@@ -1,11 +1,8 @@
 import { TPost } from "@/src/types"
 import PostCard from "./PostCard"
-import { getAllPosts } from "@/src/services/postServices"
 import axiosInstance from "@/src/lib/AxiosInstance"
 
 const NewsFeed = async ({ searchParams }: { searchParams: any }) => {
-	// const { data: allPosts } = await getAllPosts()
-
 	const params = new URLSearchParams(searchParams)
 
 	const { data } = await axiosInstance.get(`/posts`, {

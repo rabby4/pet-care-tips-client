@@ -1,9 +1,12 @@
 import Feed from "@/src/components/modules/profile/Feed"
+import { getCurrentUser } from "@/src/services/authServices"
 
-const FeedPage = () => {
+const FeedPage = async () => {
+	const user = await getCurrentUser()
+
 	return (
 		<>
-			<Feed />
+			<Feed user={user} />
 		</>
 	)
 }
