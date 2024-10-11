@@ -44,21 +44,21 @@ export default function AboutPage() {
 					</div>
 					<div className="grid md:grid-cols-3 grid-cols-1 mt-20 justify-between border border-gray-200 md:py-5 p-10 rounded-md">
 						<div className="flex gap-4 mt-5 md:justify-center">
-							<MapPin size={30} className="text-primary" />
+							<MapPin className="text-primary" size={30} />
 							<div className="-mt-1">
 								<h3 className="text-lg font-bold font-orbitron">Address:</h3>
 								<p className="italic font-inter">Mirpur, Dhaka, Bangladesh</p>
 							</div>
 						</div>
 						<div className="flex gap-4 mt-5 md:justify-center">
-							<PhoneCall size={30} className="text-primary" />
+							<PhoneCall className="text-primary" size={30} />
 							<div className="-mt-1">
 								<h3 className="text-lg font-bold font-orbitron">Phone:</h3>
 								<p className="italic font-inter">+880123456789</p>
 							</div>
 						</div>
 						<div className="flex gap-4 mt-5 md:justify-center">
-							<Mail size={30} className="text-primary" />
+							<Mail className="text-primary" size={30} />
 							<div className="-mt-1">
 								<h3 className="text-lg font-bold font-orbitron">Email:</h3>
 								<p className="italic font-inter">help@gmail.com</p>
@@ -87,8 +87,8 @@ export default function AboutPage() {
 						</div>
 						<div className="order-1">
 							<img
-								src="https://cdn.pixabay.com/photo/2023/10/25/07/02/lecturer-8339699_1280.jpg"
 								alt=""
+								src="https://cdn.pixabay.com/photo/2023/10/25/07/02/lecturer-8339699_1280.jpg"
 							/>
 						</div>
 					</div>
@@ -115,8 +115,8 @@ export default function AboutPage() {
 						</div>
 						<div className="order-1">
 							<img
-								src="https://cdn.pixabay.com/photo/2024/06/22/20/12/robot-8846964_960_720.jpg"
 								alt=""
+								src="https://cdn.pixabay.com/photo/2024/06/22/20/12/robot-8846964_960_720.jpg"
 							/>
 						</div>
 					</div>
@@ -138,8 +138,8 @@ export default function AboutPage() {
 							<div className="flex gap-4 mt-5 justify-center flex-col text-center">
 								<div className="member-img relative cursor-pointer">
 									<img
-										src="https://cdn.pixabay.com/photo/2017/05/31/06/49/model-2359322_1280.jpg"
 										alt=""
+										src="https://cdn.pixabay.com/photo/2017/05/31/06/49/model-2359322_1280.jpg"
 									/>
 									<TeamSocial />
 								</div>
@@ -155,8 +155,8 @@ export default function AboutPage() {
 							<div className="flex gap-4 mt-5 justify-center flex-col text-center">
 								<div className="member-img relative cursor-pointer">
 									<img
-										src="https://cdn.pixabay.com/photo/2019/08/11/11/28/man-4398724_960_720.jpg"
 										alt=""
+										src="https://cdn.pixabay.com/photo/2019/08/11/11/28/man-4398724_960_720.jpg"
 									/>
 									<TeamSocial />
 								</div>
@@ -172,8 +172,8 @@ export default function AboutPage() {
 							<div className="flex gap-4 mt-5 justify-center flex-col text-center">
 								<div className="member-img relative cursor-pointer">
 									<img
-										src="	https://cdn.pixabay.com/photo/2019/12/16/14/46/black-man-4699506_960_720.jpg"
 										alt=""
+										src="	https://cdn.pixabay.com/photo/2019/12/16/14/46/black-man-4699506_960_720.jpg"
 									/>
 									<TeamSocial />
 								</div>
@@ -189,8 +189,8 @@ export default function AboutPage() {
 							<div className="flex gap-4 mt-5 justify-center flex-col text-center">
 								<div className="member-img relative cursor-pointer">
 									<img
-										src="https://cdn.pixabay.com/photo/2021/12/23/16/47/people-6889599_1280.jpg"
 										alt=""
+										src="https://cdn.pixabay.com/photo/2021/12/23/16/47/people-6889599_1280.jpg"
 									/>
 									<TeamSocial />
 								</div>
@@ -245,8 +245,8 @@ export default function AboutPage() {
 						</div>
 						<div className="order-1">
 							<img
-								src="	https://cdn.pixabay.com/photo/2017/01/14/10/56/people-1979261_960_720.jpg"
 								alt=""
+								src="	https://cdn.pixabay.com/photo/2017/01/14/10/56/people-1979261_960_720.jpg"
 							/>
 						</div>
 					</div>

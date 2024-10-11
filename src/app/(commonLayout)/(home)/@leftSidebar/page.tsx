@@ -11,6 +11,8 @@ import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Divider } from "@nextui-org/divider"
 import { Link } from "@nextui-org/link"
+import { Tooltip } from "@nextui-org/tooltip"
+import { BadgeCheck } from "lucide-react"
 import Image from "next/image"
 
 const LeftSidebar = async () => {
@@ -43,8 +45,15 @@ const LeftSidebar = async () => {
 									: "https://i.ibb.co.com/H7zTvh7/user.png"
 							}
 						/>
-						<h4 className="font-bold text-large">
+						<h4 className="font-bold text-large flex gap-1 items-center">
 							{user?.firstName} {user?.lastName}
+							{user?.premium && (
+								<Tooltip content="Premium User">
+									<span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+										<BadgeCheck color="#006fee" size={18} />
+									</span>
+								</Tooltip>
+							)}
 						</h4>
 						<small className="text-default-500 capitalize">
 							{user?.occupation}

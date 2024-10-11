@@ -3,16 +3,28 @@ import {
 	addFollowing,
 	commentOnPost,
 	createPost,
+	deleteComment,
+	deletePost,
 	downVote,
 	getAllPosts,
 	searchItems,
 	unFollow,
+	updateComment,
 	updatePostPON,
 	upVote,
 } from "../services/postServices"
 import { toast } from "sonner"
 import { FieldValues } from "react-hook-form"
 import { TFollowing } from "../components/modules/home/Following"
+
+type UpdatePostParams = {
+	id: string
+	formData: FormData
+}
+type TVote = {
+	user: string
+	post: string
+}
 
 export const useCreatePost = () => {
 	return useMutation<any, Error, FormData>({
@@ -28,15 +40,26 @@ export const useCreatePost = () => {
 }
 
 export const useUpdatePost = () => {
-	return useMutation<any>({
+	return useMutation<any, Error, UpdatePostParams>({
 		mutationKey: ["UPDATE_POST"],
-		mutationFn: async (postData) => await updatePostPON(postData),
+		mutationFn: async ({ id, formData }) => await updatePostPON(id, formData),
 		onSuccess: () => {
 			toast.success("Post updated successfully")
 		},
 		onError: (error) => {
 			toast.error(error.message)
 		},
+	})
+}
+
+export const useDeletePost = () => {
+	return useMutation<any, Error, string>({
+		mutationKey: ["USER_DELETE"],
+		mutationFn: async (postId) => await deletePost(postId),
+		onSuccess: () => {
+			toast.success(`Post deleted successfully!`)
+		},
+		onError: (error) => toast.error(error.message),
 	})
 }
 
@@ -75,9 +98,9 @@ export const useSearchItems = () => {
 // }
 
 export const useUpVote = () => {
-	return useMutation<any, Error, string>({
+	return useMutation<any, Error, TVote>({
 		mutationKey: ["UPVOTE"],
-		mutationFn: async (postId) => await upVote(postId),
+		mutationFn: async (votesInfo) => await upVote(votesInfo),
 		onSuccess: () => {
 			toast.success(`upvote successfully!`)
 		},
@@ -85,15 +108,18 @@ export const useUpVote = () => {
 	})
 }
 export const useDownVote = () => {
-	return useMutation<any, Error, string>({
+	return useMutation<any, Error, TVote>({
 		mutationKey: ["DOWNVOTE"],
-		mutationFn: async (postId) => await downVote(postId),
-		onSuccess: () => {
-			toast.success(`DownVote successfully!`)
+		mutationFn: async (votesInfo) => await downVote(votesInfo),
+		onSuccess: (response) => {
+			toast.success(response.message)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: () => {
+			toast.error("You already voted on this post")
+		},
 	})
 }
+
 export const useCommentOnPost = () => {
 	return useMutation<any, Error, FieldValues>({
 		mutationKey: ["COMMENT"],
@@ -104,6 +130,29 @@ export const useCommentOnPost = () => {
 		onError: (error) => toast.error(error.message),
 	})
 }
+
+export const useUpdateComment = () => {
+	return useMutation<any, Error, FieldValues>({
+		mutationKey: ["COMMENT"],
+		mutationFn: async (formData) => await updateComment(formData),
+		onSuccess: () => {
+			toast.success(`Your comment updated!`)
+		},
+		onError: (error) => toast.error(error.message),
+	})
+}
+
+export const useDeleteComment = () => {
+	return useMutation<any, Error, string>({
+		mutationKey: ["USER_DELETE"],
+		mutationFn: async (commentId) => await deleteComment(commentId),
+		onSuccess: () => {
+			toast.success(`Comment deleted successfully!`)
+		},
+		onError: (error) => toast.error(error.message),
+	})
+}
+
 export const useFollowing = () => {
 	return useMutation<any, Error, TFollowing>({
 		mutationKey: ["COMMENT"],

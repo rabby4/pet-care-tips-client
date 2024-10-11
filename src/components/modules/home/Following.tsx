@@ -1,5 +1,6 @@
 "use client"
 import { useFollowing, useUnFollowing } from "@/src/hooks/post.hook"
+import { getFollowingStatus } from "@/src/services/postServices"
 import { useEffect, useState } from "react"
 
 export type TFollowing = {
@@ -27,9 +28,8 @@ const Following = ({
 		const checkFollowingStatus = async () => {
 			if (fetchFollowingStatus) {
 				try {
-					const actualStatus = await fetchFollowingStatus(follower, following)
+					const actualStatus = await getFollowingStatus(follower, following)
 
-					console.log(actualStatus)
 					setIsFollowing(actualStatus)
 				} catch (error) {
 					console.error("Error fetching follow status:", error)

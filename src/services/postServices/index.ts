@@ -21,12 +21,9 @@ export const createPost = async (formData: FormData): Promise<any> => {
 	}
 }
 
-export const updatePostPON = async (formData: any) => {
+export const updatePostPON = async (id: string, formData: FormData) => {
 	try {
-		const { data } = await axiosInstance.patch(
-			`/posts/${formData.id}`,
-			formData.postData
-		)
+		const { data } = await axiosInstance.patch(`/posts/${id}`, formData)
 
 		revalidateTag("posts")
 
@@ -172,11 +169,21 @@ export const getSinglePost = async (postId: string) => {
 	return data.data
 }
 
-export const upVote = async (postId: string) => {
+export const deletePost = async (postId: string) => {
 	try {
-		await axiosInstance.post(`${envConfig.baseApi}/upvote`, {
-			post: postId,
-		})
+		const res = await axiosInstance.delete(`/posts/${postId}`)
+
+		revalidateTag("posts")
+
+		return res.data
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+export const upVote = async (votesInfo: any) => {
+	try {
+		await axiosInstance.post(`${envConfig.baseApi}/upvote`, votesInfo)
 		revalidateTag("upvotes")
 	} catch (error: any) {
 		throw new Error(error)
@@ -196,11 +203,10 @@ export const getUpVoteCount = async (postId: string) => {
 	return data
 }
 
-export const downVote = async (postId: string) => {
+export const downVote = async (votesInfo: any) => {
 	try {
-		await axiosInstance.post(`${envConfig.baseApi}/downvote`, {
-			post: postId,
-		})
+		await axiosInstance.post(`${envConfig.baseApi}/downvote`, votesInfo)
+
 		revalidateTag("downvote")
 	} catch (error: any) {
 		throw new Error(error)
@@ -249,6 +255,30 @@ export const getPostComments = async (postId: string) => {
 	return data
 }
 
+export const updateComment = async (formData: any) => {
+	try {
+		await axiosInstance.patch(`/comments/${formData.id}`, {
+			content: formData.content,
+		})
+
+		revalidateTag("comments")
+	} catch (error: any) {
+		throw new Error(error)
+	}
+}
+
+export const deleteComment = async (commentId: string) => {
+	try {
+		const res = await axiosInstance.delete(`/comments/${commentId}`)
+
+		revalidateTag("comments")
+
+		return res.data
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 export const addFollowing = async (formData: TFollowing) => {
 	try {
 		await axiosInstance.post(`/following`, formData)
@@ -287,7 +317,7 @@ export const getFollowingStatus = async (
 
 	const data = await res.json()
 
-	return data
+	return data.data
 }
 
 export const getFollowing = async (userId: string) => {
@@ -305,6 +335,7 @@ export const getFollowing = async (userId: string) => {
 
 	return data
 }
+
 export const getFollower = async (userId: string) => {
 	const fetchOptions = {
 		next: {

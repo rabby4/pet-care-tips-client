@@ -7,7 +7,8 @@ import { Link } from "@nextui-org/link"
 import Image from "next/image"
 import ProfileNavbar from "./ProfileNavbar"
 import { Button } from "@nextui-org/button"
-import { PenBoxIcon } from "lucide-react"
+import { BadgeCheck, PenBoxIcon } from "lucide-react"
+import { Tooltip } from "@nextui-org/tooltip"
 
 const Sidebar = async () => {
 	const user: TUser = await getCurrentUser()
@@ -36,8 +37,15 @@ const Sidebar = async () => {
 
 					<div className="self-end flex justify-between flex-1">
 						<div>
-							<h4 className="font-bold text-large">
+							<h4 className="font-bold text-large flex gap-1 items-center">
 								{user?.firstName} {user?.lastName}
+								{user?.premium && (
+									<Tooltip content="Premium User">
+										<span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+											<BadgeCheck color="#006fee" size={18} />
+										</span>
+									</Tooltip>
+								)}
 							</h4>
 
 							<p>{follower?.data?.length} Followers</p>

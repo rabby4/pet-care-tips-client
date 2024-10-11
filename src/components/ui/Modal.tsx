@@ -9,7 +9,7 @@ const Modal = () => {
 
 	return (
 		<div>
-			<Button onPress={onOpen} className="p-0 bg-transparent text-primary-600">
+			<Button className="p-0 bg-transparent text-primary-600" onPress={onOpen}>
 				Read more
 			</Button>
 			<MyModal isOpen={isOpen} onOpenChange={onOpenChange}>

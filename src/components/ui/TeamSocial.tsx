@@ -8,32 +8,32 @@ const TeamSocial = () => {
 			<ul className="flex gap-1 justify-center">
 				<li>
 					<Link
-						href="#"
 						className="flex justify-center items-center text-xl size-10 bg-white rounded-full text-gray-500 hover:text-white hover:bg-primary"
+						href="#"
 					>
 						<Facebook />
 					</Link>
 				</li>
 				<li>
 					<Link
-						href="#"
 						className="flex justify-center items-center text-xl size-10 bg-white rounded-full text-gray-500 hover:text-white hover:bg-primary"
+						href="#"
 					>
 						<Twitter />
 					</Link>
 				</li>
 				<li>
 					<Link
-						href="#"
 						className="flex justify-center items-center text-xl size-10 bg-white rounded-full text-gray-500 hover:text-white hover:bg-primary"
+						href="#"
 					>
 						<Instagram />
 					</Link>
 				</li>
 				<li>
 					<Link
-						href="#"
 						className="flex justify-center items-center text-xl size-10 bg-white rounded-full text-gray-500 hover:text-white hover:bg-primary"
+						href="#"
 					>
 						<Linkedin />
 					</Link>

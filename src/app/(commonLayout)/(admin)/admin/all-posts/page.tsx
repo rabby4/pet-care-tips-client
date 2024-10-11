@@ -72,11 +72,11 @@ const AllPosts = () => {
 				return (
 					<div>
 						<User
-							name={`${post?.user?.firstName} ${post?.user?.lastName}`}
-							description={post?.user?.email}
 							avatarProps={{
 								src: `${post?.user?.image}`,
 							}}
+							description={post?.user?.email}
+							name={`${post?.user?.firstName} ${post?.user?.lastName}`}
 						/>
 					</div>
 				)
@@ -97,10 +97,10 @@ const AllPosts = () => {
 					<div className="relative flex items-center gap-2">
 						<Tooltip content={post.publish ? "Unpublish Post" : "Publish Post"}>
 							<button
-								onClick={() => handlePublishToggle(post._id, post.publish)}
 								className={`text-lg ${
 									post.publish ? "text-warning" : "text-success"
 								} cursor-pointer active:opacity-50`}
+								onClick={() => handlePublishToggle(post._id, post.publish)}
 							>
 								{post.publish ? <Eye /> : <EyeOff />}
 							</button>

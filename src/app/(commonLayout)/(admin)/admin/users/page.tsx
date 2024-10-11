@@ -44,11 +44,11 @@ const UsersPage = () => {
 				return (
 					<div>
 						<User
-							name={`${user.firstName} ${user.lastName}`}
-							description={user?.occupation}
 							avatarProps={{
 								src: `${user.image}`,
 							}}
+							description={user?.occupation}
+							name={`${user.firstName} ${user.lastName}`}
 						/>
 					</div>
 				)
@@ -62,11 +62,11 @@ const UsersPage = () => {
 				return (
 					<Chip
 						className="capitalize"
-						color={user.premium ? "success" : "default"}
+						color={user?.premium ? "success" : "warning"}
 						size="sm"
 						variant="flat"
 					>
-						{user.premium ? "Premium" : "Standard"}
+						{user?.premium ? "Premium" : "Ordinary"}
 					</Chip>
 				)
 			case "actions":
@@ -84,8 +84,8 @@ const UsersPage = () => {
 						</Tooltip>
 						<Tooltip color="danger" content="Delete user">
 							<button
-								onClick={() => handleDelete(user._id)}
 								className="text-lg text-danger cursor-pointer active:opacity-50"
+								onClick={() => handleDelete(user._id)}
 							>
 								<DeleteIcon />
 							</button>

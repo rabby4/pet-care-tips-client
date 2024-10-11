@@ -65,9 +65,9 @@ const ContactPage = () => {
 													First Name
 												</Label> */}
 													<Input
-														type="text"
 														id="firsName"
 														label="First Name"
+														type="text"
 														variant="underlined"
 													/>
 												</div>
@@ -79,9 +79,9 @@ const ContactPage = () => {
 													Last Name
 												</Label> */}
 													<Input
-														type="text"
 														id="lastName"
 														label="Last Name"
+														type="text"
 														variant="underlined"
 													/>
 												</div>
@@ -92,9 +92,9 @@ const ContactPage = () => {
 													Phone Number
 												</Label> */}
 													<Input
-														type="phone"
 														id="phone"
 														label="Phone Number"
+														type="phone"
 														variant="underlined"
 													/>
 												</div>
@@ -103,9 +103,9 @@ const ContactPage = () => {
 													Email
 												</Label> */}
 													<Input
-														type="email"
 														id="email"
 														label="Email"
+														type="email"
 														variant="underlined"
 													/>
 												</div>
@@ -115,13 +115,13 @@ const ContactPage = () => {
 												Your message
 											</Label> */}
 												<Textarea
+													id="message"
 													label="What's on your mind"
 													variant="underlined"
-													id="message"
 												/>
 											</div>
 											<div>
-												<Button color="primary" className="rounded-md">
+												<Button className="rounded-md" color="primary">
 													Send Message
 												</Button>
 											</div>

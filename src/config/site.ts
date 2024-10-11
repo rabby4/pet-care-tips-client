@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-	name: "Social - Network and Community",
+	name: "Cirkel - Network and Community Social Media",
 	description: "Make beautiful websites regardless of your design experience.",
 	navItems: [
 		{

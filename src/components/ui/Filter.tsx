@@ -10,7 +10,7 @@ const Filter = ({ setCategory }: FilterProps) => {
 	return (
 		<div className="filter-section">
 			<form>
-				<select onChange={handleCategoryChange} className="category-select">
+				<select className="category-select" onChange={handleCategoryChange}>
 					<option value="">All Categories</option>
 					<option value="tips">Tips</option>
 					<option value="story">Story</option>

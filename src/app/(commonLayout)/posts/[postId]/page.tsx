@@ -1,6 +1,7 @@
 import Following from "@/src/components/modules/home/Following"
 import PostActions from "@/src/components/modules/home/PostActions"
 import Container from "@/src/components/ui/Container"
+import PostComments from "@/src/components/ui/PostComments"
 import { getCurrentUser } from "@/src/services/authServices"
 import {
 	getDownVoteCount,
@@ -33,8 +34,8 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 
 	return (
 		<Container>
-			<div className="w-2/3 mx-auto">
-				<Card className="py-4 rounded-md">
+			<div className="grid grid-cols-2 gap-10 my-20">
+				<Card className="py-4 rounded-md p-7">
 					<CardHeader className="flex gap-3">
 						<Avatar
 							className="transition-transform"
@@ -51,10 +52,10 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 								</div>
 								•{" "}
 								<Following
-									fetchFollowingStatus={followingStatus?.data?.isFollowing}
+									fetchFollowingStatus={followingStatus?.isFollowing}
 									follower={user?._id}
 									following={post!.user!?._id}
-									isFollowingInitial={false}
+									isFollowingInitial={followingStatus?.isFollowing}
 								/>
 							</div>
 							<small className=" text-default-500">
@@ -63,16 +64,22 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 						</div>
 					</CardHeader>
 
-					<CardBody className="overflow-visible py-2 gap-5">
-						<div className="text-sm">{post.content}</div>
+					<CardBody className="overflow-visible gap-5">
+						<div className="">
+							<div
+								dangerouslySetInnerHTML={{
+									__html: `${post?.content}`,
+								}}
+							/>
+						</div>
+
 						{post.image && (
 							<Image
 								alt={post?.image && "post image"}
-								className="rounded-xl size-full"
-								height={0}
-								sizes="100vw"
+								className="rounded-xl mx-auto"
+								height={400}
 								src={post?.image && post?.image}
-								width={0}
+								width={400}
 							/>
 						)}
 					</CardBody>
@@ -88,6 +95,7 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 						/>
 					</CardFooter>
 				</Card>
+				<PostComments allComments={allComments} user={user} />
 			</div>
 		</Container>
 	)

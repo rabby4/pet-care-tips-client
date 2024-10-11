@@ -16,6 +16,7 @@ export type TUser = {
 	image: string
 	role: "superAdmin" | "admin" | "user"
 	premium: boolean
+
 	__v: number
 	createdAt: string
 	updatedAt: string
@@ -31,6 +32,7 @@ export type TPost = {
 	updatedAt: string
 	upvoteCount: number
 	publish: boolean
+	category: string
 }
 
 export type TComment = {

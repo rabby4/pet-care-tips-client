@@ -46,12 +46,12 @@ const ProfileNavbar = () => {
 						</Link>
 					</NavbarItem>
 					<NavbarItem>
-						<Link color="foreground" href="#">
+						<Link color="foreground" href="/profile/followers">
 							Followers
 						</Link>
 					</NavbarItem>
 					<NavbarItem>
-						<Link color="foreground" href="#">
+						<Link color="foreground" href="/profile/following">
 							Following
 						</Link>
 					</NavbarItem>

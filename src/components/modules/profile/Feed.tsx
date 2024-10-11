@@ -1,9 +1,7 @@
 "use client"
-import { useUser } from "@/src/context/user.provider"
-import { useUpdatePost } from "@/src/hooks/post.hook"
-import { getAllPosts, getPostsForUser } from "@/src/services/postServices"
+import { useDeletePost } from "@/src/hooks/post.hook"
+import { getPostsForUser } from "@/src/services/postServices"
 import { TPost, TUser } from "@/src/types"
-import { Button } from "@nextui-org/button"
 import { Chip } from "@nextui-org/chip"
 import {
 	Table,
@@ -14,8 +12,7 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { Tooltip } from "@nextui-org/tooltip"
-import { User } from "@nextui-org/user"
-import { Eye, EyeIcon, EyeOff, PencilLine } from "lucide-react"
+import { Eye, PencilLine } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { DeleteIcon } from "../../icons"
 import Link from "next/link"
@@ -23,7 +20,7 @@ import { Avatar } from "@nextui-org/avatar"
 
 const Feed = ({ user }: { user: TUser }) => {
 	const [posts, setPosts] = useState<TPost[]>([])
-	const { mutate: handleUpdatePost } = useUpdatePost()
+	const { mutate: handleDeletePost } = useDeletePost()
 
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -45,7 +42,7 @@ const Feed = ({ user }: { user: TUser }) => {
 						{post?.content?.length > 50 ? (
 							<div
 								dangerouslySetInnerHTML={{
-									__html: `${post?.content.slice(0, 50)}...`,
+									__html: `${post?.content.slice(0, 150)}...`,
 								}}
 							/>
 						) : (
@@ -60,55 +57,58 @@ const Feed = ({ user }: { user: TUser }) => {
 				return (
 					<div>
 						<Avatar
-							src={post.image}
 							className="w-20 h-20 text-large"
 							radius="sm"
+							src={post.image}
 						/>
 					</div>
 				)
 
-			case "upvoteCount":
+			case "category":
+				return (
+					<Chip color={"success"} size="sm" variant="flat">
+						# {post.category}
+					</Chip>
+				)
+			case "premium":
 				return (
 					<Chip
-						color={post.upvoteCount > 0 ? "success" : "warning"}
+						color={post.premium === true ? "success" : "warning"}
 						size="sm"
 						variant="flat"
 					>
-						{post.upvoteCount} Upvotes
+						{post.premium ? "Premium" : "Ordinary"}
 					</Chip>
 				)
 
 			case "actions":
 				return (
 					<div className="relative flex items-center gap-2">
-						{/* <Tooltip content={post.publish ? "Unpublish Post" : "Publish Post"}>
-							<button
-								// onClick={() => handlePublishToggle(post._id, post.publish)}
-								className={`text-lg ${
-									post.publish ? "text-warning" : "text-success"
-								} cursor-pointer active:opacity-50`}
-							>
-								{post.publish ? <Eye /> : <EyeOff />}
-							</button>
-						</Tooltip> */}
 						<div className="relative flex items-center gap-2">
 							<Tooltip content="Details">
 								<Link
-									href={`/posts/${post._id}`}
 									className="text-lg text-default-400 cursor-pointer active:opacity-50"
+									href={`/posts/${post._id}`}
 								>
 									<Eye />
 								</Link>
 							</Tooltip>
 							<Tooltip content="Edit user">
-								<span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+								<Link
+									href={`/posts/${post._id}/edit`}
+									className="text-lg text-default-400 cursor-pointer active:opacity-50"
+								>
 									<PencilLine />
-								</span>
+									{/* <UpdatePost /> */}
+								</Link>
 							</Tooltip>
 							<Tooltip color="danger" content="Delete user">
-								<span className="text-lg text-danger cursor-pointer active:opacity-50">
+								<button
+									className="text-lg text-danger cursor-pointer active:opacity-50"
+									onClick={() => handleDeletePost(post._id)}
+								>
 									<DeleteIcon />
-								</span>
+								</button>
 							</Tooltip>
 						</div>
 					</div>
@@ -126,7 +126,8 @@ const Feed = ({ user }: { user: TUser }) => {
 	const columns = [
 		{ uid: "image", name: "Image" },
 		{ uid: "content", name: "Content" },
-		{ uid: "upvoteCount", name: "Upvotes" },
+		{ uid: "category", name: "Category" },
+		{ uid: "premium", name: "Premium" },
 		{ uid: "actions", name: "Actions" },
 	]
 

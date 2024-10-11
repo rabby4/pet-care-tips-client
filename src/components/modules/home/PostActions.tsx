@@ -32,13 +32,13 @@ const PostActions = ({
 		if (!user) {
 			return toast.error("Please login first!")
 		}
-		handleAddUpVote(id)
+		handleAddUpVote({ user: user._id, post: id })
 	}
 	const handleDownVote = (id: string) => {
 		if (!user) {
 			return toast.error("Please login first!")
 		}
-		handleAddDownVote(id)
+		handleAddDownVote({ user: user._id, post: id })
 	}
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -69,21 +69,21 @@ const PostActions = ({
 				>
 					<UpArrow />
 				</Button>
-				<p className="text-sm">{upVotes} Up Votes</p>
+				<p className="font-medium">{upVotes}</p>
 				<Button
 					isIconOnly
 					className="ml-3"
-					color="primary"
+					color="danger"
 					variant="light"
 					onClick={() => handleDownVote(id)}
 				>
 					<DownArrow />
 				</Button>
-				<p className="text-sm">{downVote} Down Votes</p>
+				<p className="font-medium">{downVote}</p>
 			</div>
 
 			<div className="flex justify-end">
-				<CommentsModal comments={comments} />
+				<CommentsModal comments={comments} user={user} />
 			</div>
 			<form className="col-span-2 mt-2" onSubmit={handleSubmit(onSubmit)}>
 				<div>

@@ -78,22 +78,22 @@ const Calculator = () => {
 				<div className="p-2 lg:p-6 lg:w-1/2 bg-white shadow-lg rounded-md">
 					<h1 className="text-center my-2 font-bold text-2xl"> Calculator</h1>
 					<form
-						onSubmit={handleSubmit(onSubmit)}
 						className="flex flex-col space-y-6 max-w-md mx-auto"
+						onSubmit={handleSubmit(onSubmit)}
 					>
 						{/* Pet Type Dropdown */}
-						<label htmlFor="petType" className="text-sm font-medium">
+						<label className="text-sm font-medium" htmlFor="petType">
 							Pet Type <span className="text-red-500">*</span>
 						</label>
 						<select
 							{...register("petType", {
 								required: "Please select a pet type.",
 							})}
-							id="petType"
 							className={`border p-2 rounded ${errors.petType ? "border-red-500" : ""}`}
 							defaultValue=""
+							id="petType"
 						>
-							<option value="" disabled>
+							<option disabled value="">
 								Select Pet Type
 							</option>
 							<option value="dog">Dog</option>
@@ -104,7 +104,7 @@ const Calculator = () => {
 						)}
 
 						{/* Age Input */}
-						<label htmlFor="age" className="text-sm font-medium">
+						<label className="text-sm font-medium" htmlFor="age">
 							Pet Age (years) <span className="text-red-500">*</span>
 						</label>
 						<Input
@@ -116,18 +116,18 @@ const Calculator = () => {
 									message: "Age must be less than or equal to 30.",
 								},
 							})}
-							type="number"
-							placeholder="Age in years"
-							id="age"
-							className={`border p-2 rounded ${errors.age ? "border-red-500" : ""}`}
 							required
+							className={`border p-2 rounded ${errors.age ? "border-red-500" : ""}`}
+							id="age"
+							placeholder="Age in years"
+							type="number"
 						/>
 						{errors.age && (
 							<p className="text-red-500 text-xs">{errors.age.message}</p>
 						)}
 
 						{/* Weight Input */}
-						<label htmlFor="weight" className="text-sm font-medium">
+						<label className="text-sm font-medium" htmlFor="weight">
 							Pet Weight (kg) <span className="text-red-500">*</span>
 						</label>
 						<Input
@@ -139,18 +139,18 @@ const Calculator = () => {
 									message: "Weight must be less than or equal to 100 kg.",
 								},
 							})}
-							type="number"
-							placeholder="Weight in kg"
-							id="weight"
-							className={`border p-2 rounded ${errors.weight ? "border-red-500" : ""}`}
 							required
+							className={`border p-2 rounded ${errors.weight ? "border-red-500" : ""}`}
+							id="weight"
+							placeholder="Weight in kg"
+							type="number"
 						/>
 						{errors.weight && (
 							<p className="text-red-500 text-xs">{errors.weight.message}</p>
 						)}
 
 						{/* Submit Button */}
-						<Button type="submit" className="bg-[#148d8c] text-white">
+						<Button className="bg-[#148d8c] text-white" type="submit">
 							Download PDF
 						</Button>
 					</form>
@@ -165,7 +165,7 @@ const Calculator = () => {
 									'url("https://img.freepik.com/premium-photo/cat-food-graphs_23-2151537804.jpg?w=826")',
 								height: "350px",
 							}}
-						></div>
+						 />
 
 						<div
 							className="bg-center bg-no-repeat bg-cover aspect-auto rounded"
@@ -174,7 +174,7 @@ const Calculator = () => {
 									'url("https://img.freepik.com/premium-photo/happy-dog-posing-full-bowl-dry-food_695242-19744.jpg?w=1380")',
 								height: "170px",
 							}}
-						></div>
+						 />
 
 						<div
 							className="bg-center bg-no-repeat bg-cover aspect-auto rounded"
@@ -183,7 +183,7 @@ const Calculator = () => {
 									'url("https://img.freepik.com/premium-photo/cat-food-graphs_23-2151537822.jpg?w=1380")',
 								height: "170px",
 							}}
-						></div>
+						 />
 					</div>
 				</div>
 			</div>
