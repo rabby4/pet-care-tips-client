@@ -17,11 +17,11 @@ export default function AboutPage() {
 					<div className="grid lg:grid-cols-2 grid-cols-1 justify-between items-center gap-20 my-28">
 						<div>
 							<Image
-								alt="Card background"
+								alt="About image"
 								className="w-full h-full object-cover"
 								height={0}
 								sizes="100vw"
-								src="	https://cdn.pixabay.com/photo/2017/06/02/17/47/friendship-2366955_960_720.jpg"
+								src="https://cdn.pixabay.com/photo/2020/07/03/06/12/people-5365324_960_720.jpg"
 								width={0}
 							/>
 						</div>

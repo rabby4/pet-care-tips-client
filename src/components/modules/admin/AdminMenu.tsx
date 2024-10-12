@@ -11,10 +11,14 @@ import {
 	Wallet,
 } from "lucide-react"
 import { logOut } from "@/src/services/authServices"
+import { useRouter } from "next/navigation"
 
 const AdminMenu = () => {
-	const handleLogout = () => {
-		logOut()
+	const router = useRouter()
+
+	const handleLogout = async () => {
+		await logOut()
+		router.push("/")
 	}
 
 	return (
