@@ -13,6 +13,7 @@ const Search = () => {
 	const { register, handleSubmit, watch } = useForm({})
 	const { mutate: handleSearch, data, isPending, isSuccess } = useSearchItems()
 	const [searchResults, setSearchResults] = useState([])
+	const [isModalOpen, setIsModalOpen] = useState(false)
 	const router = useRouter()
 
 	const searchTerm = useDebounce(watch("search"))
@@ -20,6 +21,7 @@ const Search = () => {
 	useEffect(() => {
 		if (searchTerm) {
 			handleSearch(searchTerm)
+			setIsModalOpen(true)
 		}
 	}, [searchTerm])
 
@@ -31,11 +33,13 @@ const Search = () => {
 		const queryString = query.trim().split(" ").join("+")
 
 		router.push(`/posts?search=${queryString}`)
+		setIsModalOpen(false)
 	}
 
 	useEffect(() => {
 		if (!searchTerm) {
 			setSearchResults([])
+			setIsModalOpen(false)
 		}
 		if (!isPending && isSuccess && data && searchTerm) {
 			setSearchResults(data?.data ?? [])
@@ -60,14 +64,15 @@ const Search = () => {
 					type="search"
 				/>
 			</form>
-			{searchResults.length > 0 && (
-				<div className="mt-80 rounded-xl bg-default-100 p-3">
+			{isModalOpen && searchResults.length > 0 && (
+				<div className="mt-56 rounded-xl bg-default-100 p-3">
 					<div className="space-y-3">
 						{searchResults.map((item: TPost) => (
 							<Link
 								key={item._id}
 								className="text-default-900 block rounded-md from-default-200 p-2 transition-all hover:bg-gradient-to-l"
 								href={`/posts/${item._id}`}
+								onClick={() => setIsModalOpen(false)}
 							>
 								<div>
 									<div className="flex items-center gap-2">

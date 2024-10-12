@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use client"
 import { useFollowing, useUnFollowing } from "@/src/hooks/post.hook"
 import { getFollowingStatus } from "@/src/services/postServices"

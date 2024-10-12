@@ -4,7 +4,6 @@ import { useUpdateUser } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Input, Textarea } from "@nextui-org/input"
-import { useRouter } from "next/navigation"
 import { ChangeEvent, useState } from "react"
 import {
 	Controller,
@@ -22,7 +21,6 @@ const EditProfile = () => {
 	const { mutate: handleUpdateUser, isPending } = useUpdateUser()
 	const { handleSubmit, control, reset } = useForm({})
 	const { user } = useUser()
-	const router = useRouter()
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		const formData = new FormData()

@@ -10,8 +10,11 @@ import {
 import Feed from "./Feed"
 import EditProfile from "./EditProfile"
 import About from "./About"
+import { useUser } from "@/src/context/user.provider"
 
 const ProfileTabs = () => {
+	const { user } = useUser()
+
 	return (
 		<div className="flex w-full flex-col">
 			<Tabs aria-label="Options" color="primary" variant="underlined">
@@ -24,7 +27,7 @@ const ProfileTabs = () => {
 						</div>
 					}
 				>
-					<Feed />
+					<Feed user={user} />
 				</Tab>
 				<Tab
 					key="about"

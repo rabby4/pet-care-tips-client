@@ -4,8 +4,8 @@ import { useCreatePost } from "@/src/hooks/post.hook"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody } from "@nextui-org/card"
 import dynamic from "next/dynamic"
+import Link from "next/link"
 import { ChangeEvent, useEffect, useState } from "react"
-// import ReactQuill from "react-quill"
 import "react-quill/dist/quill.snow.css"
 import { toast } from "sonner"
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
@@ -18,6 +18,7 @@ const RichForm = () => {
 	const [imagePreviews, setImagePreviews] = useState<string | null>()
 	const [selectedValue, setSelectedValue] = useState("")
 	const { mutate: handleCreatePost } = useCreatePost()
+	const [isPremium, setIsPremium] = useState(false)
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
@@ -50,6 +51,10 @@ const RichForm = () => {
 			}
 			reader.readAsDataURL(file)
 		}
+	}
+
+	const handlePremiumChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setIsPremium(e.target.checked) // Update state based on checkbox
 	}
 
 	useEffect(() => {
@@ -106,6 +111,33 @@ const RichForm = () => {
 								/>
 							)}
 						</div>
+
+						{/* Checkbox for premium status */}
+						<div className="mb-5">
+							<label className="flex items-center gap-2">
+								<input
+									checked={isPremium}
+									disabled={!user?.premium} // Disable checkbox if user is not premium
+									type="checkbox"
+									onChange={handlePremiumChange}
+								/>
+								<span>Mark as Premium</span>
+							</label>
+							{!user?.premium && (
+								<>
+									<p className="text-red-500 text-sm">
+										Only premium users can mark a post as premium.
+									</p>
+									<p className="text-sm">
+										To be a premium member to click{" "}
+										<Link className="text-primary underline" href={"/pricing"}>
+											here
+										</Link>
+									</p>
+								</>
+							)}
+						</div>
+
 						<Button className="rounded-md" color="primary" type="submit">
 							Post
 						</Button>

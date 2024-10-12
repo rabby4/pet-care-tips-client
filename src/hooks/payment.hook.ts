@@ -9,8 +9,8 @@ export const usePayment = () => {
 		onSuccess: (data) => {
 			toast.success(data.message || "Payment successful")
 		},
-		onError: (error: any) => {
-			toast.error("Payment failed")
+		onError: (error) => {
+			toast.error(error.message || "Payment failed")
 		},
 	})
 }

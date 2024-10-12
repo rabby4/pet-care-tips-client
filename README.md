@@ -1,53 +1,49 @@
-# Next.js & NextUI Template
+# Cirkel Frontend | Network and Community Social Media
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+## Introduction
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+Welcome to the frontend of Cirkel, a basic social media platform designed to facilitate networking and community engagement. This repository contains the Next.js application that allows users to create profiles, connect with friends, share posts, and interact with content in an engaging environment.
 
-## Technologies Used
+## Technology Stack
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+The Cirkel frontend is built using the following technologies:
 
-## How to Use
+- **Next.js** (for server-side rendering and routing)
+- **TypeScript** (for type safety and improved developer experience)
+- **Axios** (for making API requests)
+- **TanStack Query** (for data fetching and state management)
+- **Tailwind CSS** (for styling and responsive design)
+- **Next UI** (for pre-built UI components)
+- **JWT** (for authentication)
+- **React Hook Form** (for form management)
 
-### Use the template with create-next-app
+## Installation Guidelines
 
-To create a new project based on this template using `create-next-app`, run the following command:
+Follow the steps below to set up and run the Cirkel project on your local machine:
+
+### Setup Instructions
+
+- **Clone the repository:**
 
 ```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
+git clone https://github.com/rabby4/pet-care-tips-client.git
+cd pet-care-tips-client
 ```
 
-### Install dependencies
+- Set Up Environment Variables Create a `.env` file in the root directory of the project and add the necessary environment variables. Here’s an example:
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+```bash
+NEXT_PUBLIC_BASE_API=http://localhost:5000/api
+```
+
+- Install Dependencies Navigate to the project directory and install the required dependencies.
 
 ```bash
 npm install
 ```
 
-### Run the development server
+- Run the Development Server Start the development server to run the frontend application
 
 ```bash
 npm run dev
 ```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).

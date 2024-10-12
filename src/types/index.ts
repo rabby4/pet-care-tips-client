@@ -50,3 +50,12 @@ export type PostActionsProps = {
 	comments: TComment[]
 	user: TUser
 }
+
+export type TPayment = {
+	_id: string
+	userId: string
+	trxId: string
+	email: string
+	amount: number
+	__v: number
+}

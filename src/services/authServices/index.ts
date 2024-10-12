@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use server"
 import envConfig from "@/src/config/envConfig"
 import axiosInstance from "@/src/lib/AxiosInstance"

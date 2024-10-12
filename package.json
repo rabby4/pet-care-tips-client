@@ -26,6 +26,7 @@
 		"@nextui-org/navbar": "2.0.37",
 		"@nextui-org/select": "^2.2.7",
 		"@nextui-org/snippet": "2.0.43",
+		"@nextui-org/spinner": "^2.0.34",
 		"@nextui-org/switch": "^2.0.34",
 		"@nextui-org/system": "2.2.6",
 		"@nextui-org/table": "^2.0.40",
@@ -55,8 +56,9 @@
 		"sonner": "^1.5.0"
 	},
 	"devDependencies": {
+		"@types/aos": "^3.0.7",
 		"@types/node": "20.5.7",
-		"@types/react": "18.3.3",
+		"@types/react": "^18.3.11",
 		"@types/react-dom": "18.3.0",
 		"@types/react-query": "^1.2.9",
 		"@typescript-eslint/eslint-plugin": "7.2.0",
@@ -75,6 +77,6 @@
 		"postcss": "8.4.38",
 		"tailwind-variants": "0.1.20",
 		"tailwindcss": "3.4.3",
-		"typescript": "5.0.4"
+		"typescript": "^5.6.3"
 	}
 }

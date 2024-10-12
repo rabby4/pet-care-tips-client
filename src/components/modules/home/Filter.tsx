@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Input } from "@nextui-org/input"

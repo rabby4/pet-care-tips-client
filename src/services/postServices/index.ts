@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 "use server"
 import { TFollowing } from "@/src/components/modules/home/Following"
 import envConfig from "@/src/config/envConfig"
@@ -74,9 +75,29 @@ export const getAllPosts = async (category?: string, searchQuery?: string) => {
 	}
 }
 
-export const searchItems = async (searchTerm: string) => {
+// export const searchItems = async (searchTerm: string) => {
+// 	try {
+// 		const res = await axiosInstance.get(`/posts?search=${searchTerm}`)
+//
+// 		return res.data
+// 	} catch (error) {
+// 		throw new Error("Failed to search items")
+// 	}
+// }
+export const searchItems = async (searchTerm?: string, category?: string) => {
 	try {
-		const res = await axiosInstance.get(`/posts?search=${searchTerm}`)
+		// Create query parameters dynamically
+		const params = new URLSearchParams()
+
+		if (searchTerm) {
+			params.append("search", searchTerm) // Add search term if provided
+		}
+
+		if (category) {
+			params.append("category", category) // Add category if provided
+		}
+
+		const res = await axiosInstance.get(`/posts?${params.toString()}`)
 
 		return res.data
 	} catch (error) {

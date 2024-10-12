@@ -119,8 +119,9 @@ import { Button } from "@nextui-org/button"
 import { Card, CardBody } from "@nextui-org/card"
 import Link from "next/link"
 import { ChangeEvent, useEffect, useState } from "react"
-import ReactQuill from "react-quill"
+import dynamic from "next/dynamic"
 import { toast } from "sonner"
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
 const EditForm = ({ id }: { id: string }) => {
 	const [isClient, setIsClient] = useState(false)
@@ -129,7 +130,7 @@ const EditForm = ({ id }: { id: string }) => {
 	const [imageFile, setImageFiles] = useState<File | undefined>()
 	const [imagePreviews, setImagePreviews] = useState<string | null>(null)
 	const [selectedValue, setSelectedValue] = useState("")
-	const [isPremium, setIsPremium] = useState(false) // State for premium checkbox
+	const [isPremium, setIsPremium] = useState(false)
 	const { mutate: handleUpdatePost } = useUpdatePost()
 
 	const handleSubmit = (e: any) => {
@@ -240,10 +241,10 @@ const EditForm = ({ id }: { id: string }) => {
 					<div className="mt-5">
 						<label className="flex items-center gap-2">
 							<input
-								type="checkbox"
 								checked={isPremium}
-								onChange={handlePremiumChange}
 								disabled={!user?.premium} // Disable checkbox if user is not premium
+								type="checkbox"
+								onChange={handlePremiumChange}
 							/>
 							<span>Mark as Premium</span>
 						</label>
@@ -254,7 +255,7 @@ const EditForm = ({ id }: { id: string }) => {
 								</p>
 								<p className="text-sm">
 									To be a premium member to click{" "}
-									<Link href={"/pricing"} className="text-primary underline">
+									<Link className="text-primary underline" href={"/pricing"}>
 										here
 									</Link>
 								</p>

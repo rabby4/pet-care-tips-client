@@ -32,11 +32,12 @@ const AllPosts = () => {
 	}, [])
 
 	const handlePublishToggle = (id: string, currentPublishState: boolean) => {
+		const formData = new FormData()
 		const postData = {
 			publish: !currentPublishState,
 		}
 
-		const data: any = { id, postData }
+		formData.append("data", JSON.stringify(postData))
 
 		setPosts((prevPosts) =>
 			prevPosts.map((post) =>
@@ -44,7 +45,7 @@ const AllPosts = () => {
 			)
 		)
 
-		handleUpdatePost(data)
+		handleUpdatePost({ id, formData })
 	}
 
 	const renderCell = React.useCallback((post: TPost, columnKey: React.Key) => {

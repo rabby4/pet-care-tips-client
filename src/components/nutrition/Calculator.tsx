@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -165,7 +166,7 @@ const Calculator = () => {
 									'url("https://img.freepik.com/premium-photo/cat-food-graphs_23-2151537804.jpg?w=826")',
 								height: "350px",
 							}}
-						 />
+						/>
 
 						<div
 							className="bg-center bg-no-repeat bg-cover aspect-auto rounded"
@@ -174,7 +175,7 @@ const Calculator = () => {
 									'url("https://img.freepik.com/premium-photo/happy-dog-posing-full-bowl-dry-food_695242-19744.jpg?w=1380")',
 								height: "170px",
 							}}
-						 />
+						/>
 
 						<div
 							className="bg-center bg-no-repeat bg-cover aspect-auto rounded"
@@ -183,7 +184,7 @@ const Calculator = () => {
 									'url("https://img.freepik.com/premium-photo/cat-food-graphs_23-2151537822.jpg?w=1380")',
 								height: "170px",
 							}}
-						 />
+						/>
 					</div>
 				</div>
 			</div>

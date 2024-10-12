@@ -15,9 +15,10 @@ export const useRegistrations = () => {
 		mutationKey: ["USER_REGISTER"],
 		mutationFn: async (userData) => await registerUser(userData),
 		onSuccess: () => {
-			toast.success(`user registration success!`)
+			toast.success(`User registration success!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) =>
+			toast.error(error.message || "User registration failed"),
 	})
 }
 
@@ -28,7 +29,7 @@ export const useLogin = () => {
 		onSuccess: () => {
 			toast.success(`user logged in success!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "User logged in failed"),
 	})
 }
 
@@ -50,8 +51,8 @@ export const useResetPassword = () => {
 		onSuccess: () => {
 			toast.success("Password Reset successful")
 		},
-		onError: (error: any) => {
-			toast.error("Password Reset failed")
+		onError: (error) => {
+			toast.error(error.message || "Password Reset failed")
 		},
 	})
 }
@@ -61,9 +62,10 @@ export const useUpdateUser = () => {
 		mutationKey: ["USER_REGISTER"],
 		mutationFn: async (userInfo) => await updateUser(userInfo),
 		onSuccess: () => {
-			toast.success(`user info updated successfully!`)
+			toast.success(`User info updated successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) =>
+			toast.error(error.message || "User info updated failed"),
 	})
 }
 
@@ -74,6 +76,6 @@ export const useDeleteUser = () => {
 		onSuccess: () => {
 			toast.success(`User deleted successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "User deleted failed"),
 	})
 }

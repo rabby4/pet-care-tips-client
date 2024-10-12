@@ -34,7 +34,7 @@ export const useCreatePost = () => {
 			toast.success("Post created successfully")
 		},
 		onError: (error) => {
-			toast.error(error.message)
+			toast.error(error.message || "Post creation failed")
 		},
 	})
 }
@@ -47,7 +47,7 @@ export const useUpdatePost = () => {
 			toast.success("Post updated successfully")
 		},
 		onError: (error) => {
-			toast.error(error.message)
+			toast.error(error.message || "Post update failed")
 		},
 	})
 }
@@ -59,7 +59,7 @@ export const useDeletePost = () => {
 		onSuccess: () => {
 			toast.success(`Post deleted successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "Post delete failed"),
 	})
 }
 
@@ -90,6 +90,20 @@ export const useSearchItems = () => {
 	})
 }
 
+// interface SearchParams {
+// 	searchTerm?: string
+// 	category?: string
+// }
+//
+// export const useSearchItems = () => {
+// 	return useMutation({
+// 		mutationKey: ["SEARCH_ITEMS"],
+// 		// Modify the mutation function to accept both searchTerm and category
+// 		mutationFn: async ({ searchTerm, category }: SearchParams) =>
+// 			await searchItems(searchTerm, category),
+// 	})
+// }
+
 // export const useGetPosts = (params: any) => {
 // 	return useQuery<any>({
 // 		queryKey: ["POSTS", params],
@@ -102,7 +116,7 @@ export const useUpVote = () => {
 		mutationKey: ["UPVOTE"],
 		mutationFn: async (votesInfo) => await upVote(votesInfo),
 		onSuccess: () => {
-			toast.success(`upvote successfully!`)
+			toast.success(`Upvote successfully!`)
 		},
 		onError: (error) => toast.error(error.message),
 	})
@@ -114,8 +128,8 @@ export const useDownVote = () => {
 		onSuccess: (response) => {
 			toast.success(response.message)
 		},
-		onError: () => {
-			toast.error("You already voted on this post")
+		onError: (error) => {
+			toast.error(error.message || "You already voted on this post")
 		},
 	})
 }
@@ -127,7 +141,7 @@ export const useCommentOnPost = () => {
 		onSuccess: () => {
 			toast.success(`Comment successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "Comment publish failed"),
 	})
 }
 
@@ -138,7 +152,7 @@ export const useUpdateComment = () => {
 		onSuccess: () => {
 			toast.success(`Your comment updated!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "Comment update failed"),
 	})
 }
 
@@ -149,7 +163,7 @@ export const useDeleteComment = () => {
 		onSuccess: () => {
 			toast.success(`Comment deleted successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "Comment deleted failed"),
 	})
 }
 
@@ -160,7 +174,7 @@ export const useFollowing = () => {
 		onSuccess: () => {
 			toast.success(`Follow successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "Follow failed"),
 	})
 }
 
@@ -171,6 +185,6 @@ export const useUnFollowing = () => {
 		onSuccess: () => {
 			toast.success(`Unfollow successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: (error) => toast.error(error.message || "Unfollow failed"),
 	})
 }

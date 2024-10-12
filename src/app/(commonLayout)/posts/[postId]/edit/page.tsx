@@ -9,7 +9,7 @@ import {
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Avatar } from "@nextui-org/avatar"
 import { Tooltip } from "@nextui-org/tooltip"
-import { BadgeCheck, Hash, Link } from "lucide-react"
+import { BadgeCheck, Hash } from "lucide-react"
 import moment from "moment"
 import { Chip } from "@nextui-org/chip"
 import Image from "next/image"
@@ -38,7 +38,7 @@ const EditPost = async ({ params: { postId } }: TProps) => {
 			<div className="py-20 text-center">
 				<h2 className={title()}>Edit your this post</h2>
 			</div>
-			<div className="grid grid-cols-2 gap-10">
+			<div className="grid grid-cols-2 gap-10 mb-20">
 				<Card
 					className={`p-4 rounded-md ${!user?.premium && post.premium ? "blur-sm" : ""}`}
 				>

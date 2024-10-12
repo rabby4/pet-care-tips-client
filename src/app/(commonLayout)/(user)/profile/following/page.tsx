@@ -1,10 +1,6 @@
 import Following from "@/src/components/modules/home/Following"
 import { getCurrentUser } from "@/src/services/authServices"
-import {
-	getFollower,
-	getFollowing,
-	getFollowingStatus,
-} from "@/src/services/postServices"
+import { getFollowing, getFollowingStatus } from "@/src/services/postServices"
 import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
@@ -38,7 +34,7 @@ const FollowingPage = async () => {
 				</CardHeader>
 				<CardBody className="flex flex-col gap-3">
 					{followersWithStatus && followersWithStatus.length > 0 ? (
-						followersWithStatus.map((follower: any) => (
+						followersWithStatus?.map((follower: any) => (
 							<div key={follower?._id}>
 								<div className="flex gap-3 items-start mb-3">
 									<Avatar
@@ -73,8 +69,8 @@ const FollowingPage = async () => {
 						<>
 							<Chip
 								color="warning"
-								variant="flat"
 								startContent={<ShieldAlert size={18} />}
+								variant="flat"
 							>
 								No followers found
 							</Chip>

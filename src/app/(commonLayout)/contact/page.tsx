@@ -21,11 +21,7 @@ const ContactPage = () => {
 				<div className=" py-36 z-20 relative">
 					<Container>
 						<div className="grid lg:grid-cols-2 grid-cols-1 gap-20 mt-10 lg:px-0 md:px-10 px-5">
-							<div
-								className="space-y-10 order-2"
-								data-aos="fade-left"
-								data-aos-duration="1000"
-							>
+							<div className="space-y-10 order-2">
 								<div>
 									<div className="space-y-3 md:px-0 px-5 text-white">
 										<h1 className="text-4xl font-orbitron font-bold">
@@ -41,11 +37,7 @@ const ContactPage = () => {
 								</div>
 							</div>
 
-							<div
-								className="space-y-10 order-1"
-								data-aos="fade-right"
-								data-aos-duration="1000"
-							>
+							<div className="space-y-10 order-1">
 								<Card className="rounded-md p-5">
 									<CardHeader>
 										<div>

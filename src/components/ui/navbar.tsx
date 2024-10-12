@@ -10,18 +10,15 @@ import {
 import { Button } from "@nextui-org/button"
 import { Link } from "@nextui-org/link"
 import { Input } from "@nextui-org/input"
-import { link as linkStyles } from "@nextui-org/theme"
 import NextLink from "next/link"
-import clsx from "clsx"
-
 import { siteConfig } from "@/src/config/site"
-
 import { SearchIcon } from "@/src/components/icons"
 import { ThemeSwitch } from "./theme-switch"
 import AvatarDropdown from "./AvatarDropdown"
-import { getCurrentUser } from "@/src/services/authServices"
 import Image from "next/image"
 import Search from "./Search"
+import HeaderNavItem from "./HeaderNavItem"
+import { getCurrentUser } from "@/src/services/authServices"
 
 export const Navbar = async () => {
 	const user = await getCurrentUser()
@@ -40,45 +37,11 @@ export const Navbar = async () => {
 							}
 							width={200}
 						/>
-						{/* <Logo />
-						<p className="font-bold text-inherit">ACME</p> */}
 					</NextLink>
 				</NavbarBrand>
 				<NavbarItem className="hidden lg:flex">
 					<Search />
-					{/* <form>
-						<Input
-							{...register("search")}
-							aria-label="Search"
-							classNames={{
-								inputWrapper: "bg-default-100",
-								input: "text-sm",
-							}}
-							labelPlacement="outside"
-							placeholder="Search..."
-							startContent={
-								<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-							}
-							type="search"
-						/>
-					</form> */}
 				</NavbarItem>
-				{/* <ul className="hidden lg:flex gap-4 justify-start ml-2">
-					{siteConfig.navItems.map((item) => (
-						<NavbarItem key={item.href}>
-							<NextLink
-								className={clsx(
-									linkStyles({ color: "foreground" }),
-									"data-[active=true]:text-primary data-[active=true]:font-medium"
-								)}
-								color="foreground"
-								href={item.href}
-							>
-								{item.label}
-							</NextLink>
-						</NavbarItem>
-					))}
-				</ul> */}
 			</NavbarContent>
 
 			<NavbarContent
@@ -86,31 +49,9 @@ export const Navbar = async () => {
 				justify="end"
 			>
 				<ul className="hidden md:flex gap-4 justify-start ml-2">
-					{siteConfig?.navItems?.map((item) => (
-						<NavbarItem key={item.href}>
-							<NextLink
-								className={clsx(
-									linkStyles({ color: "foreground" }),
-									"data-[active=true]:text-primary data-[active=true]:font-medium"
-								)}
-								color="foreground"
-								href={item.href}
-							>
-								{item.label}
-							</NextLink>
-						</NavbarItem>
-					))}
+					<HeaderNavItem />
 				</ul>
 				<NavbarItem className="hidden sm:flex gap-2">
-					{/* <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-						<TwitterIcon className="text-default-500" />
-					</Link>
-					<Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-						<DiscordIcon className="text-default-500" />
-					</Link>
-					<Link isExternal aria-label="Github" href={siteConfig.links.github}>
-						<GithubIcon className="text-default-500" />
-					</Link> */}
 					<ThemeSwitch />
 					{user ? (
 						<AvatarDropdown user={user} />
@@ -125,25 +66,9 @@ export const Navbar = async () => {
 						</Button>
 					)}
 				</NavbarItem>
-				{/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
-				{/* <NavbarItem className="hidden md:flex">
-					<Button
-						isExternal
-						as={Link}
-						className="text-sm font-normal text-default-600 bg-default-100"
-						href={siteConfig.links.sponsor}
-						startContent={<HeartFilledIcon className="text-danger" />}
-						variant="flat"
-					>
-						Sponsor
-					</Button>
-				</NavbarItem> */}
 			</NavbarContent>
 
 			<NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-				{/* <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-					<GithubIcon className="text-default-500" />
-				</Link> */}
 				<ThemeSwitch />
 				<NavbarMenuToggle />
 			</NavbarContent>

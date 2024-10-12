@@ -1,7 +1,7 @@
 "use client"
 import { useDeletePost } from "@/src/hooks/post.hook"
 import { getPostsForUser } from "@/src/services/postServices"
-import { TPost, TUser } from "@/src/types"
+import { TPost } from "@/src/types"
 import { Chip } from "@nextui-org/chip"
 import {
 	Table,
@@ -18,7 +18,7 @@ import { DeleteIcon } from "../../icons"
 import Link from "next/link"
 import { Avatar } from "@nextui-org/avatar"
 
-const Feed = ({ user }: { user: TUser }) => {
+const Feed = ({ user }: { user: any }) => {
 	const [posts, setPosts] = useState<TPost[]>([])
 	const { mutate: handleDeletePost } = useDeletePost()
 
@@ -95,8 +95,8 @@ const Feed = ({ user }: { user: TUser }) => {
 							</Tooltip>
 							<Tooltip content="Edit user">
 								<Link
-									href={`/posts/${post._id}/edit`}
 									className="text-lg text-default-400 cursor-pointer active:opacity-50"
+									href={`/posts/${post._id}/edit`}
 								>
 									<PencilLine />
 									{/* <UpdatePost /> */}

@@ -8,6 +8,7 @@ import {
 	LayoutList,
 	User,
 	Users,
+	Wallet,
 } from "lucide-react"
 import { logOut } from "@/src/services/authServices"
 
@@ -49,6 +50,14 @@ const AdminMenu = () => {
 				textValue="posts"
 			>
 				<Link href={"/admin/all-posts"}>All Posts</Link>
+			</ListboxItem>
+			<ListboxItem
+				key="payments"
+				className="hover:border-0 border-0 p-2"
+				startContent={<Wallet size={20} />}
+				textValue="payments"
+			>
+				<Link href={"/admin/payments"}>Payment History</Link>
 			</ListboxItem>
 			<ListboxItem
 				key="settings"

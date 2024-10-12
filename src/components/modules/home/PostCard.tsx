@@ -15,7 +15,6 @@ import {
 import { getCurrentUser } from "@/src/services/authServices"
 import Following from "./Following"
 import { Chip } from "@nextui-org/chip"
-import Modal from "../../ui/Modal"
 import { Tooltip } from "@nextui-org/tooltip"
 import { BadgeCheck, FileLock, Hash } from "lucide-react"
 import { Button } from "@nextui-org/button"

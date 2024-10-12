@@ -147,8 +147,8 @@ const RightSidebar = async () => {
 						<>
 							<Chip
 								color="warning"
-								variant="flat"
 								startContent={<ShieldAlert size={18} />}
+								variant="flat"
 							>
 								No followers found
 							</Chip>
@@ -197,8 +197,8 @@ const RightSidebar = async () => {
 						<>
 							<Chip
 								color="warning"
-								variant="flat"
 								startContent={<ShieldAlert size={18} />}
+								variant="flat"
 							>
 								No followers found
 							</Chip>

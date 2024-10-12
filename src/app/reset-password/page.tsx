@@ -14,7 +14,7 @@ import {
 } from "react-hook-form"
 
 const ResetPassword = () => {
-	const { mutate: handleReset, isPending } = useResetPassword()
+	const { mutate: handleReset } = useResetPassword()
 	const searchParams = useSearchParams()
 	const { handleSubmit, control } = useForm({})
 	const [isVisible, setIsVisible] = useState(false)

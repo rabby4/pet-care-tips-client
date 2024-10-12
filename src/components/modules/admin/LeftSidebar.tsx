@@ -1,12 +1,12 @@
-import { getCurrentUser } from "@/src/services/authServices"
-import { TUser } from "@/src/types"
+"use client"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import Image from "next/image"
 import AdminMenu from "./AdminMenu"
+import { useUser } from "@/src/context/user.provider"
 
-const LeftSidebar = async () => {
-	const user: TUser = await getCurrentUser()
+const LeftSidebar = () => {
+	const { user } = useUser()
 
 	return (
 		<>
