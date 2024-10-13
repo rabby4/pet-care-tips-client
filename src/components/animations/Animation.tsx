@@ -5,9 +5,14 @@ import { motion } from "framer-motion"
 type AnimationProps = {
 	children: ReactNode
 	direction?: "left" | "right" | "down" | "up"
+	className?: string
 }
 
-const Animation = ({ children, direction = "left" }: AnimationProps) => {
+const Animation = ({
+	children,
+	direction = "left",
+	className,
+}: AnimationProps) => {
 	let initial, animate
 
 	switch (direction) {
@@ -33,6 +38,7 @@ const Animation = ({ children, direction = "left" }: AnimationProps) => {
 	return (
 		<motion.div
 			animate={animate}
+			className={className}
 			initial={initial}
 			transition={{ duration: 1 }}
 		>

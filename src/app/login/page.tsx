@@ -23,8 +23,9 @@ const LoginPage = () => {
 
 	const toggleVisibility = () => setIsVisible(!isVisible)
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		handleLogin(data)
+	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+		await handleLogin(data)
+		router.push("/")
 	}
 
 	if (!isPending && isSuccess) {
@@ -34,7 +35,6 @@ const LoginPage = () => {
 	return (
 		<>
 			{isPending && <Loading />}
-
 			<div className=" flex justify-center items-center h-screen w-screen">
 				<Card className="p-10 w-1/4">
 					<CardHeader className=" flex-col items-start gap-2">
