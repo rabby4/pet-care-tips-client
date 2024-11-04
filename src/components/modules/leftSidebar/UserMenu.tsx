@@ -4,9 +4,12 @@ import React from "react"
 import Link from "next/link"
 import {
 	BellRing,
+	Calculator,
+	CircleDollarSign,
 	Cog,
 	LayoutDashboard,
 	MessagesSquare,
+	PenBox,
 	User,
 } from "lucide-react"
 import { logOut } from "@/src/services/authServices"
@@ -39,20 +42,30 @@ const UserMenu = ({ user }: { user: TUser }) => {
 							<Link href={"/profile"}>Profile</Link>
 						</ListboxItem>
 						<ListboxItem
-							key="messages"
-							className="hover:border-0 border-0 p-2"
-							startContent={<MessagesSquare size={20} />}
-							textValue="messages"
+							key="nutrition"
+							className="hover:border-0 border-0 py-2"
+							startContent={<User size={20} />}
+							textValue="nutrition"
 						>
-							<Link href={"/profile"}>Messages</Link>
+							<Link href={"/nutrition"}>Calculate Nutrition</Link>
 						</ListboxItem>
 						<ListboxItem
-							key="notifications"
+							key="edit-profile"
 							className="hover:border-0 border-0 p-2"
-							startContent={<BellRing size={20} />}
-							textValue="notifications"
+							startContent={<PenBox size={20} />}
+							textValue="edit-profile"
 						>
-							<Link href={"/profile"}>Notifications</Link>
+							<Link aria-current="page" href="/profile/edit-profile">
+								Edit Profile
+							</Link>
+						</ListboxItem>
+						<ListboxItem
+							key="pricing"
+							className="hover:border-0 border-0 p-2"
+							startContent={<CircleDollarSign size={20} />}
+							textValue="pricing"
+						>
+							<Link href={"/pricing"}>Pricing</Link>
 						</ListboxItem>
 						<ListboxItem
 							key="settings"
@@ -86,20 +99,30 @@ const UserMenu = ({ user }: { user: TUser }) => {
 							<Link href={"/profile"}>Profile</Link>
 						</ListboxItem>
 						<ListboxItem
-							key="messages"
-							className="hover:border-0 border-0 p-2"
-							startContent={<MessagesSquare size={20} />}
-							textValue="messages"
+							key="nutrition"
+							className="hover:border-0 border-0 py-2"
+							startContent={<Calculator size={20} />}
+							textValue="nutrition"
 						>
-							<Link href={"/profile"}>Messages</Link>
+							<Link href={"/nutrition"}>Calculate Nutrition</Link>
 						</ListboxItem>
 						<ListboxItem
-							key="notifications"
+							key="edit-profile"
 							className="hover:border-0 border-0 p-2"
-							startContent={<BellRing size={20} />}
-							textValue="notifications"
+							startContent={<PenBox size={20} />}
+							textValue="edit-profile"
 						>
-							<Link href={"/profile"}>Notifications</Link>
+							<Link aria-current="page" href="/profile/edit-profile">
+								Edit Profile
+							</Link>
+						</ListboxItem>
+						<ListboxItem
+							key="pricing"
+							className="hover:border-0 border-0 p-2"
+							startContent={<CircleDollarSign size={20} />}
+							textValue="pricing"
+						>
+							<Link href={"/pricing"}>Pricing</Link>
 						</ListboxItem>
 						<ListboxItem
 							key="settings"

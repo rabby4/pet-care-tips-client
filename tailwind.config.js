@@ -17,6 +17,8 @@ module.exports = {
 		backgroundImage: {
 			"about-us":
 				"url('https://cdn.pixabay.com/photo/2023/03/19/08/09/network-7862066_1280.jpg')",
+			nutrition:
+				"url('https://cdn.pixabay.com/photo/2023/12/08/05/41/cat-8436848_960_720.jpg')",
 			contact:
 				"url('https://cdn.pixabay.com/photo/2019/09/25/09/36/team-4503157_960_720.jpg')",
 			"discount-1": "url(https://i.ibb.co/Br96pXJ/icon2.png)",

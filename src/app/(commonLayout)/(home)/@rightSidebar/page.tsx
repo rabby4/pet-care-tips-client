@@ -157,7 +157,7 @@ const RightSidebar = async () => {
 					)}
 				</CardBody>
 			</Card>
-			<Card className="p-3 rounded-md w-full mt-5">
+			{/* <Card className="p-3 rounded-md w-full mt-5">
 				<CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
 					<h4 className="font-bold text-large">Find Friends</h4>
 				</CardHeader>
@@ -200,7 +200,7 @@ const RightSidebar = async () => {
 						</Chip>
 					)}
 				</CardBody>
-			</Card>
+			</Card> */}
 		</>
 	)
 }
