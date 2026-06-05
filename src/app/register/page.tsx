@@ -4,7 +4,6 @@ import { useRegistrations } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Input } from "@nextui-org/input"
-import { Mail } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, useState } from "react"
@@ -181,7 +180,7 @@ const RegisterPage = () => {
 						</form>
 					</CardBody>
 					<CardFooter className="flex-col gap-5">
-						<div className="flex gap-5">
+						{/* <div className="flex gap-5">
 							<Button
 								className="rounded-md hover:text-[#d62d20]"
 								startContent={<Mail color="#d62d20" size={16} />}
@@ -196,7 +195,7 @@ const RegisterPage = () => {
 							>
 								Login With Github
 							</Button>
-						</div>
+						</div> */}
 						<p className="text-sm text-center">
 							Already have an account?
 							<Link className="underline hover:text-primary-500" href="/login">

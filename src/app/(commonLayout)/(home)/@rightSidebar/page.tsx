@@ -50,7 +50,7 @@ const RightSidebar = async () => {
 
 			return {
 				...follower,
-				isFollowing: status?.isFollowing, // True or False
+				isFollowing: status?.isFollowing,
 			}
 		}) || []
 	)
@@ -157,32 +157,36 @@ const RightSidebar = async () => {
 					)}
 				</CardBody>
 			</Card>
-			{/* <Card className="p-3 rounded-md w-full mt-5">
+			<Card className="p-3 rounded-md w-full mt-5">
 				<CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
 					<h4 className="font-bold text-large">Find Friends</h4>
 				</CardHeader>
 				<CardBody className="flex flex-col gap-3">
 					{userFollowingStatus?.length > 0 ? (
-						userFollowingStatus.map((user: any) => (
-							<div key={user?._id}>
+						userFollowingStatus.map((potentialFriend: any) => (
+							<div key={potentialFriend?._id}>
 								<div className="flex gap-3 items-start mb-3">
 									<Avatar
 										className="transition-transform"
-										src={user?.image || "https://i.ibb.co.com/H7zTvh7/user.png"}
+										src={
+											potentialFriend?.image ||
+											"https://i.ibb.co.com/H7zTvh7/user.png"
+										}
 									/>
 									<div className="flex flex-col flex-1">
 										<div className="flex gap-2 items-start justify-between">
 											<div>
 												<p className="text-sm font-semibold capitalize">
-													{user?.firstName} {user?.lastName}
+													{potentialFriend?.firstName}{" "}
+													{potentialFriend?.lastName}
 												</p>
-												<p className="text-xs">{user?.occupation}</p>
+												<p className="text-xs">{potentialFriend?.occupation}</p>
 											</div>
 											<Following
-												fetchFollowingStatus={user.isFollowing}
+												fetchFollowingStatus={potentialFriend.isFollowing}
 												follower={user?._id}
-												following={user?._id}
-												isFollowingInitial={user.isFollowing}
+												following={potentialFriend?._id}
+												isFollowingInitial={potentialFriend.isFollowing}
 											/>
 										</div>
 									</div>
@@ -200,7 +204,7 @@ const RightSidebar = async () => {
 						</Chip>
 					)}
 				</CardBody>
-			</Card> */}
+			</Card>
 		</>
 	)
 }

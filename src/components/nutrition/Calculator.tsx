@@ -155,7 +155,7 @@ const Calculator = () => {
 							)}
 
 							{/* Submit Button */}
-							<Button color="primary" className="rounded-md" type="submit">
+							<Button className="rounded-md" color="primary" type="submit">
 								Download PDF
 							</Button>
 						</form>

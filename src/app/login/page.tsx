@@ -4,7 +4,7 @@ import { useLogin } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Input } from "@nextui-org/input"
-import { EyeIcon, EyeOffIcon, Mail } from "lucide-react"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
@@ -94,7 +94,7 @@ const LoginPage = () => {
 						</form>
 					</CardBody>
 					<CardFooter className="flex-col gap-5">
-						<div className="flex gap-5">
+						{/* <div className="flex gap-5">
 							<Button
 								className="rounded-md hover:text-[#d62d20]"
 								startContent={<Mail color="#d62d20" size={16} />}
@@ -109,7 +109,7 @@ const LoginPage = () => {
 							>
 								Login With Github
 							</Button>
-						</div>
+						</div> */}
 						<p className="text-sm text-center">
 							Don&rsquo;t have an account?
 							<Link

@@ -118,7 +118,7 @@ export const useUpVote = () => {
 		onSuccess: () => {
 			toast.success(`Upvote successfully!`)
 		},
-		onError: (error) => toast.error(error.message),
+		onError: () => toast.error("You already voted this post."),
 	})
 }
 export const useDownVote = () => {
@@ -129,7 +129,7 @@ export const useDownVote = () => {
 			toast.success(response.message)
 		},
 		onError: (error) => {
-			toast.error(error.message || "You already voted on this post")
+			toast.error("You already voted on this post")
 		},
 	})
 }

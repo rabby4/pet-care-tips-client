@@ -1,4 +1,3 @@
-import NewsFeed from "@/src/components/modules/home/NewsFeed"
 import PostCard from "@/src/components/modules/home/PostCard"
 import RichForm from "@/src/components/modules/home/RichForm"
 import Loading from "@/src/components/ui/Loading"
