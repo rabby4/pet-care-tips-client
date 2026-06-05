@@ -6,27 +6,26 @@ import Link from "next/link"
 import { TPost, TUser } from "@/src/types"
 import moment from "moment"
 import PostActions from "./PostActions"
-import {
-	getDownVoteCount,
-	getFollowingStatus,
-	getPostComments,
-	getUpVoteCount,
-} from "@/src/services/postServices"
-import { getCurrentUser } from "@/src/services/authServices"
 import Following from "./Following"
 import { Chip } from "@nextui-org/chip"
 import { Tooltip } from "@nextui-org/tooltip"
 import { BadgeCheck, FileLock, Hash } from "lucide-react"
 import { Button } from "@nextui-org/button"
 
-const PostCard = async ({ post }: { post: TPost }) => {
-	const user: TUser = await getCurrentUser()
-	const upVote = await getUpVoteCount(post?._id)
-	const upVotes = upVote.data?.length
-	const downVote = await getDownVoteCount(post?._id)
-	const downVotes = downVote.data?.length
-	const allComments = await getPostComments(post?._id)
-	const followingStatus = await getFollowingStatus(post.user?._id, user?._id)
+const PostCard = ({
+	post,
+	currentUser,
+	followingIds = [],
+}: {
+	post: TPost
+	currentUser?: TUser | null
+	followingIds?: string[]
+}) => {
+	const user = currentUser ?? null
+
+	// all counts + the viewer's vote now come embedded in the post from the
+	// API, so a card no longer makes any network request of its own
+	const isFollowingAuthor = followingIds.includes(post.user?._id)
 
 	return (
 		<div className="relative">
@@ -74,13 +73,16 @@ const PostCard = async ({ post }: { post: TPost }) => {
 										</Tooltip>
 									)}
 								</div>
-								•{" "}
-								<Following
-									fetchFollowingStatus={followingStatus?.isFollowing}
-									follower={user?._id}
-									following={post!.user!._id}
-									isFollowingInitial={followingStatus?.isFollowing}
-								/>
+								{user?._id && user._id !== post.user?._id && (
+									<>
+										•{" "}
+										<Following
+											follower={user?._id}
+											following={post!.user!._id}
+											isFollowingInitial={isFollowingAuthor}
+										/>
+									</>
+								)}
 							</div>
 							<small className=" text-default-500">
 								{moment(post?.createdAt).fromNow()}
@@ -147,12 +149,13 @@ const PostCard = async ({ post }: { post: TPost }) => {
 				<Divider />
 				<CardFooter className="grid grid-cols-2 justify-between">
 					<PostActions
-						comments={allComments?.data}
-						downVote={downVotes}
+						commentCount={post?.commentCount ?? 0}
+						downVote={post?.downvoteCount ?? 0}
 						id={post?._id}
-						upVotes={upVotes}
-						user={user}
-						userId={user?._id}
+						upVotes={post?.upvoteCount ?? 0}
+						user={user as TUser}
+						userId={user?._id ?? null}
+						userVote={post?.userVote}
 					/>
 				</CardFooter>
 			</Card>

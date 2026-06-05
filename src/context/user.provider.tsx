@@ -24,14 +24,23 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const handleUser = async () => {
-		const user = await getCurrentUser()
+		try {
+			const user = await getCurrentUser()
 
-		setUser(user)
-		setIsLoading(false)
+			setUser(user)
+		} catch {
+			setUser(null)
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
+	// runs on mount and again whenever someone sets isLoading back to true
+	// (e.g. after login/logout) to refresh the current user
 	useEffect(() => {
-		handleUser()
+		if (isLoading) {
+			handleUser()
+		}
 	}, [isLoading])
 
 	return (

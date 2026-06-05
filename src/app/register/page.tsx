@@ -1,5 +1,6 @@
 "use client"
 import Loading from "@/src/components/ui/Loading"
+import { useUser } from "@/src/context/user.provider"
 import { useRegistrations } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
@@ -17,11 +18,8 @@ import {
 const RegisterPage = () => {
 	const [imageFile, setImageFile] = useState<File | undefined>()
 	const [imagePreviews, setImagePreviews] = useState<string | null>()
-	const {
-		mutate: handleRegistration,
-		isPending,
-		isSuccess,
-	} = useRegistrations()
+	const { mutate: handleRegistration, isPending } = useRegistrations()
+	const { setIsLoading: refreshUser } = useUser()
 	const { handleSubmit, control } = useForm({})
 	const router = useRouter()
 
@@ -29,8 +27,17 @@ const RegisterPage = () => {
 		const formData = new FormData()
 
 		formData.append("data", JSON.stringify(data))
-		formData.append("image", imageFile as File)
-		handleRegistration(formData)
+		if (imageFile) {
+			formData.append("image", imageFile)
+		}
+		handleRegistration(formData, {
+			onSuccess: () => {
+				// registration also logs the user in, so go straight home
+				refreshUser(true)
+				router.push("/")
+				router.refresh()
+			},
+		})
 	}
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +52,6 @@ const RegisterPage = () => {
 			}
 			reader.readAsDataURL(file)
 		}
-	}
-
-	if (isSuccess) {
-		router.push("/login")
 	}
 
 	return (

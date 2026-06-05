@@ -1,6 +1,6 @@
 import Following from "@/src/components/modules/home/Following"
 import { getCurrentUser } from "@/src/services/authServices"
-import { getFollowing, getFollowingStatus } from "@/src/services/postServices"
+import { getFollowing } from "@/src/services/postServices"
 import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
@@ -14,17 +14,12 @@ const FollowingPage = async () => {
 	const data = await getFollowing(user?._id)
 	const following = data?.data?.map((item: any) => item.following)
 
-	// Fetch following status for each follower
-	const followersWithStatus = await Promise.all(
-		following?.map(async (follower: any) => {
-			const status = await getFollowingStatus(follower?._id, user?._id)
-
-			return {
-				...follower,
-				isFollowing: status?.isFollowing,
-			}
-		}) || []
-	)
+	// everyone in my "following" list is, by definition, followed by me
+	const followersWithStatus =
+		following?.map((person: any) => ({
+			...person,
+			isFollowing: true,
+		})) || []
 
 	return (
 		<>
@@ -54,10 +49,9 @@ const FollowingPage = async () => {
 												<p className="text-xs">{follower?.occupation}</p>
 											</div>
 											<Following
-												fetchFollowingStatus={follower.isFollowing}
-												follower={follower?._id}
-												following={user?._id}
-												isFollowingInitial={following.isFollowing}
+												follower={user?._id}
+												following={follower?._id}
+												isFollowingInitial={!!follower.isFollowing}
 											/>
 										</div>
 									</div>

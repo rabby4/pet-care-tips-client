@@ -1,7 +1,6 @@
 "use client"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
-import Image from "next/image"
 import AdminMenu from "./AdminMenu"
 import { useUser } from "@/src/context/user.provider"
 
@@ -11,13 +10,10 @@ const LeftSidebar = () => {
 	return (
 		<>
 			<Card className="pb-4 rounded-md">
-				<Image
-					alt="Card background"
+				<img
+					alt="Profile cover"
 					className="w-full h-20 object-cover"
-					height={0}
-					sizes="100vw"
-					src="https://social-react-sb.vercel.app/assets/01-DFkpitQe.jpg"
-					width={0}
+					src={user?.coverImage || "/cover-placeholder.svg"}
 				/>
 				<CardHeader className="pb-0 pt-0 px-4 flex-col items-center gap-2">
 					<Avatar

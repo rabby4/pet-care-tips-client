@@ -4,7 +4,7 @@ import { useUpdateUser } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Input, Textarea } from "@nextui-org/input"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import {
 	Controller,
 	FieldValues,
@@ -22,16 +22,38 @@ const EditProfile = () => {
 	const { handleSubmit, control, reset } = useForm({})
 	const { user } = useUser()
 
+	// pre-populate the form with the current profile so untouched
+	// fields are not submitted as empty values
+	useEffect(() => {
+		if (user) {
+			reset({
+				firstName: user.firstName ?? "",
+				lastName: user.lastName ?? "",
+				phone: user.phone ?? "",
+				occupation: user.occupation ?? "",
+				address: user.address ?? "",
+				about: user.about ?? "",
+			})
+		}
+	}, [user, reset])
+
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		const formData = new FormData()
 
-		const userData = {
-			...data,
-			dateOfBirth: dateToISO(data.dateOfBirth),
+		const userData: Record<string, unknown> = { ...data }
+		const dateOfBirth = dateToISO(data.dateOfBirth)
+
+		// only send a date of birth when one was actually picked
+		if (dateOfBirth) {
+			userData.dateOfBirth = dateOfBirth
+		} else {
+			delete userData.dateOfBirth
 		}
 
 		formData.append("data", JSON.stringify(userData))
-		formData.append("image", imageFile as File)
+		if (imageFile) {
+			formData.append("image", imageFile)
+		}
 
 		const userInfo = {
 			id: user?._id,
@@ -39,7 +61,6 @@ const EditProfile = () => {
 		}
 
 		handleUpdateUser(userInfo)
-		reset()
 	}
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {

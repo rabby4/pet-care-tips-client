@@ -13,13 +13,9 @@ const Payment = ({ user }: { user: TUser }) => {
 	const { mutate: handlePayment, data } = usePayment()
 	const router = useRouter()
 
+	// the price and the paying user are determined by the backend
 	const handleSubmit = () => {
-		const payData: any = {
-			email: user.email,
-			amount: 100,
-		}
-
-		handlePayment(payData)
+		handlePayment()
 	}
 
 	useEffect(() => {
@@ -41,6 +37,9 @@ const Payment = ({ user }: { user: TUser }) => {
 						<h1 className="text-3xl font-semibold text-primary mt-5">
 							<sup>$</sup>100
 						</h1>
+						{user?.email && (
+							<p className="text-xs text-default-500">Paying as {user.email}</p>
+						)}
 					</CardHeader>
 					<CardBody>
 						<Listbox aria-label="Listbox menu with descriptions" variant="flat">

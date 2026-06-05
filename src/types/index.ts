@@ -14,6 +14,7 @@ export type TUser = {
 	occupation: string
 	about: string
 	image: string
+	coverImage?: string
 	role: "superAdmin" | "admin" | "user"
 	premium: boolean
 
@@ -31,8 +32,12 @@ export type TPost = {
 	createdAt: string
 	updatedAt: string
 	upvoteCount: number
+	downvoteCount: number
+	commentCount: number
+	userVote: "up" | "down" | null
 	publish: boolean
 	category: string
+	isRedacted?: boolean
 }
 
 export type TComment = {
@@ -46,8 +51,9 @@ export type PostActionsProps = {
 	id: string
 	upVotes: number
 	downVote: number
+	commentCount: number
+	userVote?: "up" | "down" | null
 	userId: string | null
-	comments: TComment[]
 	user: TUser
 }
 

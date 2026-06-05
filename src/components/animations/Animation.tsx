@@ -40,7 +40,7 @@ const Animation = ({
 			animate={animate}
 			className={className}
 			initial={initial}
-			transition={{ duration: 1 }}
+			transition={{ duration: 0.3 }}
 		>
 			{children}
 		</motion.div>

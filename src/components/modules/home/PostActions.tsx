@@ -1,6 +1,6 @@
 "use client"
 import { Button } from "@nextui-org/button"
-import React from "react"
+import React, { useState } from "react"
 import { DownArrow, UpArrow } from "../../icons"
 import { useCommentOnPost, useDownVote, useUpVote } from "@/src/hooks/post.hook"
 
@@ -19,8 +19,9 @@ const PostActions = ({
 	id,
 	upVotes,
 	downVote,
+	commentCount,
+	userVote,
 	userId,
-	comments,
 	user,
 }: PostActionsProps) => {
 	const { handleSubmit, control, reset } = useForm({})
@@ -28,17 +29,50 @@ const PostActions = ({
 	const { mutate: handleAddDownVote } = useDownVote()
 	const { mutate: handleAddComment, isPending } = useCommentOnPost()
 
-	const handleUpVote = (id: string) => {
+	// local copies so the count + highlighted icon update instantly on vote
+	const [vote, setVote] = useState<"up" | "down" | null>(userVote ?? null)
+	const [upCount, setUpCount] = useState<number>(upVotes ?? 0)
+	const [downCount, setDownCount] = useState<number>(downVote ?? 0)
+
+	const handleUpVote = () => {
 		if (!user) {
 			return toast.error("Please login first!")
 		}
-		handleAddUpVote({ user: user._id, post: id })
+		if (vote) {
+			return toast.error("You already voted on this post.")
+		}
+		// optimistic: highlight + bump immediately, roll back if it fails
+		setVote("up")
+		setUpCount((c) => c + 1)
+		handleAddUpVote(
+			{ user: user._id, post: id },
+			{
+				onError: () => {
+					setVote(null)
+					setUpCount((c) => c - 1)
+				},
+			}
+		)
 	}
-	const handleDownVote = (id: string) => {
+
+	const handleDownVote = () => {
 		if (!user) {
 			return toast.error("Please login first!")
 		}
-		handleAddDownVote({ user: user._id, post: id })
+		if (vote) {
+			return toast.error("You already voted on this post.")
+		}
+		setVote("down")
+		setDownCount((c) => c + 1)
+		handleAddDownVote(
+			{ user: user._id, post: id },
+			{
+				onError: () => {
+					setVote(null)
+					setDownCount((c) => c - 1)
+				},
+			}
+		)
 	}
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -61,29 +95,32 @@ const PostActions = ({
 			<div className="flex gap-1 items-center">
 				<Button
 					isIconOnly
+					className={vote === "up" ? "bg-primary/15" : ""}
 					color="primary"
-					// disabled={user ? false : true}
-					variant="light"
-					// className="flex justify-center items-center"
-					onClick={() => handleUpVote(id)}
+					variant={vote === "up" ? "flat" : "light"}
+					onClick={handleUpVote}
 				>
-					<UpArrow />
+					<UpArrow {...(vote === "up" ? { fill: "currentColor" } : {})} />
 				</Button>
-				<p className="font-medium">{upVotes}</p>
+				<p className={`font-medium ${vote === "up" ? "text-primary" : ""}`}>
+					{upCount}
+				</p>
 				<Button
 					isIconOnly
-					className="ml-3"
+					className={`ml-3 ${vote === "down" ? "bg-danger/15" : ""}`}
 					color="danger"
-					variant="light"
-					onClick={() => handleDownVote(id)}
+					variant={vote === "down" ? "flat" : "light"}
+					onClick={handleDownVote}
 				>
-					<DownArrow />
+					<DownArrow {...(vote === "down" ? { fill: "currentColor" } : {})} />
 				</Button>
-				<p className="font-medium">{downVote}</p>
+				<p className={`font-medium ${vote === "down" ? "text-danger" : ""}`}>
+					{downCount}
+				</p>
 			</div>
 
 			<div className="flex justify-end">
-				<CommentsModal comments={comments} user={user} />
+				<CommentsModal commentCount={commentCount} postId={id} user={user} />
 			</div>
 			<form className="col-span-2 mt-2" onSubmit={handleSubmit(onSubmit)}>
 				<div>

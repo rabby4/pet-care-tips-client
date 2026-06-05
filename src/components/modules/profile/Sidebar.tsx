@@ -4,7 +4,6 @@ import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Link } from "@nextui-org/link"
-import Image from "next/image"
 import ProfileNavbar from "./ProfileNavbar"
 import { Button } from "@nextui-org/button"
 import { BadgeCheck, PenBoxIcon } from "lucide-react"
@@ -17,13 +16,10 @@ const Sidebar = async () => {
 	return (
 		<div className="flex flex-col gap-10">
 			<Card className="pb-4 rounded-md">
-				<Image
-					alt="Card background"
+				<img
+					alt="Profile cover"
 					className="w-full h-44 object-cover"
-					height={0}
-					sizes="100vw"
-					src="https://social-react-sb.vercel.app/assets/01-DFkpitQe.jpg"
-					width={0}
+					src={user?.coverImage || "/cover-placeholder.svg"}
 				/>
 				<CardHeader className="pb-0 pt-0 px-4 items-start gap-2">
 					<Avatar

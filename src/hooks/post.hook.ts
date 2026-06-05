@@ -125,11 +125,11 @@ export const useDownVote = () => {
 	return useMutation<any, Error, TVote>({
 		mutationKey: ["DOWNVOTE"],
 		mutationFn: async (votesInfo) => await downVote(votesInfo),
-		onSuccess: (response) => {
-			toast.success(response.message)
+		onSuccess: () => {
+			toast.success("Downvote successfully!")
 		},
 		onError: (error) => {
-			toast.error("You already voted on this post")
+			toast.error(error.message || "You already voted on this post")
 		},
 	})
 }

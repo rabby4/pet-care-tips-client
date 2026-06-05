@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5b8def"/>
+      <stop offset="0.55" stop-color="#3b5bdb"/>
+      <stop offset="1" stop-color="#7048e8"/>
+    </linearGradient>
+    <g id="paw">
+      <ellipse cx="0" cy="14" rx="15" ry="12" fill="#ffffff"/>
+      <ellipse cx="-15" cy="-6" rx="6" ry="8" fill="#ffffff"/>
+      <ellipse cx="-2" cy="-13" rx="6" ry="9" fill="#ffffff"/>
+      <ellipse cx="12" cy="-9" rx="6" ry="8" fill="#ffffff"/>
+      <ellipse cx="20" cy="6" rx="5" ry="7" fill="#ffffff"/>
+    </g>
+  </defs>
+  <rect width="1200" height="320" fill="url(#bg)"/>
+  <g opacity="0.12">
+    <use href="#paw" transform="translate(140 90) rotate(-20) scale(1.6)"/>
+    <use href="#paw" transform="translate(300 230) rotate(15) scale(1.1)"/>
+    <use href="#paw" transform="translate(980 80) rotate(25) scale(1.8)"/>
+    <use href="#paw" transform="translate(1080 240) rotate(-10) scale(1.2)"/>
+    <use href="#paw" transform="translate(640 280) rotate(10) scale(0.9)"/>
+  </g>
+  <text x="60" y="180" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="48" font-weight="700" fill="#ffffff" opacity="0.9">Pet Care Tips</text>
+  <text x="62" y="218" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#ffffff" opacity="0.7">Tips &amp; stories from our pet community</text>
+</svg>

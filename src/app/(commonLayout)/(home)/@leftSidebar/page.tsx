@@ -13,26 +13,27 @@ import { Divider } from "@nextui-org/divider"
 import { Link } from "@nextui-org/link"
 import { Tooltip } from "@nextui-org/tooltip"
 import { BadgeCheck } from "lucide-react"
-import Image from "next/image"
 
 const LeftSidebar = async () => {
 	const user: TUser = await getCurrentUser()
 	const date = new Date().getFullYear()
-	const following = await getFollowing(user?._id)
-	const follower = await getFollower(user?._id)
-	const myPosts = await getPostsForUser(user?._id)
+	// only fetch follow/post data when logged in, and in parallel
+	const [following, follower, myPosts] = user?._id
+		? await Promise.all([
+				getFollowing(user._id),
+				getFollower(user._id),
+				getPostsForUser(user._id),
+			])
+		: [null, null, null]
 
 	return (
 		<div>
 			{user ? (
 				<Card className="pb-4 rounded-md">
-					<Image
-						alt="Card background"
+					<img
+						alt="Profile cover"
 						className="w-full h-20 object-cover"
-						height={0}
-						sizes="100vw"
-						src="https://social-react-sb.vercel.app/assets/01-DFkpitQe.jpg"
-						width={0}
+						src={user?.coverImage || "/cover-placeholder.svg"}
 					/>
 					<CardHeader className="pb-0 pt-0 px-4 flex-col items-center gap-2">
 						<Avatar

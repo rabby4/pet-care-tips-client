@@ -4,17 +4,18 @@ import Container from "@/src/components/ui/Container"
 import PostComments from "@/src/components/ui/PostComments"
 import { getCurrentUser } from "@/src/services/authServices"
 import {
-	getDownVoteCount,
 	getFollowingStatus,
 	getPostComments,
 	getSinglePost,
-	getUpVoteCount,
 } from "@/src/services/postServices"
 import { Avatar } from "@nextui-org/avatar"
+import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Divider } from "@nextui-org/divider"
+import { FileLock } from "lucide-react"
 import moment from "moment"
 import Image from "next/image"
+import Link from "next/link"
 
 type TProps = {
 	params: {
@@ -25,12 +26,15 @@ type TProps = {
 const PostDetails = async ({ params: { postId } }: TProps) => {
 	const post = await getSinglePost(postId)
 	const user = await getCurrentUser()
-	const upVote = await getUpVoteCount(post?._id)
-	const upVotes = upVote.data?.length
-	const downVote = await getDownVoteCount(post?._id)
-	const downVotes = downVote.data?.length
-	const allComments = await getPostComments(post?._id)
-	const followingStatus = await getFollowingStatus(post.user?._id, user?._id)
+
+	// counts + the viewer's vote come embedded in the post; only the full
+	// comment list (for the inline panel) and follow status are fetched here
+	const [allComments, followingStatus] = await Promise.all([
+		getPostComments(post?._id),
+		user?._id && post?.user?._id
+			? getFollowingStatus(user._id, post.user._id)
+			: Promise.resolve(null),
+	])
 
 	return (
 		<Container>
@@ -50,13 +54,16 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 								<div className="text-base font-semibold capitalize">
 									{post?.user?.firstName} {post?.user?.lastName}
 								</div>
-								•{" "}
-								<Following
-									fetchFollowingStatus={followingStatus?.isFollowing}
-									follower={user?._id}
-									following={post!.user!?._id}
-									isFollowingInitial={followingStatus?.isFollowing}
-								/>
+								{user?._id !== post?.user?._id && (
+									<>
+										•{" "}
+										<Following
+											follower={user?._id}
+											following={post!.user!?._id}
+											isFollowingInitial={!!followingStatus?.isFollowing}
+										/>
+									</>
+								)}
 							</div>
 							<small className=" text-default-500">
 								{moment(post?.createdAt).fromNow()}
@@ -65,6 +72,22 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 					</CardHeader>
 
 					<CardBody className="overflow-visible gap-5">
+						{/* the API sends a short teaser instead of the full content
+						    when a premium post is viewed by a non-premium user */}
+						{post?.isRedacted && (
+							<div className="flex flex-col items-center gap-3 border border-warning rounded-md p-5 text-center">
+								<FileLock size={32} />
+								<h2 className="text-lg font-semibold">
+									This is premium content.
+								</h2>
+								<p className="text-sm">
+									Upgrade your plan to read the full post.
+								</p>
+								<Button className="rounded-md" color="primary">
+									<Link href={"/pricing"}>Upgrade Plans</Link>
+								</Button>
+							</div>
+						)}
 						<div className="">
 							<div
 								dangerouslySetInnerHTML={{
@@ -86,12 +109,13 @@ const PostDetails = async ({ params: { postId } }: TProps) => {
 					<Divider />
 					<CardFooter className="grid grid-cols-2 justify-between">
 						<PostActions
-							comments={allComments?.data}
-							downVote={downVotes}
+							commentCount={post?.commentCount ?? 0}
+							downVote={post?.downvoteCount ?? 0}
 							id={post?._id}
-							upVotes={upVotes}
+							upVotes={post?.upvoteCount ?? 0}
 							user={user}
 							userId={user?._id}
+							userVote={post?.userVote}
 						/>
 					</CardFooter>
 				</Card>

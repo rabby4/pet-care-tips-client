@@ -1,13 +1,14 @@
 "use client"
 import Loading from "@/src/components/ui/Loading"
+import { useUser } from "@/src/context/user.provider"
 import { useLogin } from "@/src/hooks/auth.hooks"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Input } from "@nextui-org/input"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import React, { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import React, { Suspense, useState } from "react"
 import {
 	Controller,
 	FieldValues,
@@ -15,21 +16,30 @@ import {
 	useForm,
 } from "react-hook-form"
 
-const LoginPage = () => {
-	const { mutate: handleLogin, isPending, isSuccess } = useLogin()
+const LoginForm = () => {
+	const { mutate: handleLogin, isPending } = useLogin()
+	const { setIsLoading: refreshUser } = useUser()
 	const router = useRouter()
+	const searchParams = useSearchParams()
 	const { handleSubmit, control } = useForm({})
 	const [isVisible, setIsVisible] = useState(false)
 
 	const toggleVisibility = () => setIsVisible(!isVisible)
 
-	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-		await handleLogin(data)
-		router.push("/")
-	}
+	const onSubmit: SubmitHandler<FieldValues> = (data) => {
+		handleLogin(data, {
+			onSuccess: () => {
+				// refresh the user context, then navigate
+				refreshUser(true)
+				// only follow same-site relative paths (prevents open redirects)
+				const raw = searchParams.get("redirect")
+				const redirect =
+					raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : "/"
 
-	if (!isPending && isSuccess) {
-		router.push("/")
+				router.push(redirect)
+				router.refresh()
+			},
+		})
 	}
 
 	return (
@@ -94,22 +104,6 @@ const LoginPage = () => {
 						</form>
 					</CardBody>
 					<CardFooter className="flex-col gap-5">
-						{/* <div className="flex gap-5">
-							<Button
-								className="rounded-md hover:text-[#d62d20]"
-								startContent={<Mail color="#d62d20" size={16} />}
-								variant="bordered"
-							>
-								Login With Google
-							</Button>
-							<Button
-								className="rounded-md hover:text-[#2b3137]"
-								startContent={<Mail color="#2b3137" size={16} />}
-								variant="bordered"
-							>
-								Login With Github
-							</Button>
-						</div> */}
 						<p className="text-sm text-center">
 							Don&rsquo;t have an account?
 							<Link
@@ -132,6 +126,14 @@ const LoginPage = () => {
 				</Card>
 			</div>
 		</>
+	)
+}
+
+const LoginPage = () => {
+	return (
+		<Suspense fallback={<Loading />}>
+			<LoginForm />
+		</Suspense>
 	)
 }
 

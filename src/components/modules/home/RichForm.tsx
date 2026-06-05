@@ -272,7 +272,13 @@ const RichForm = () => {
 			return toast.error("You are not logged in!")
 		}
 		const formData = new FormData()
-		const post = { user: user?._id, content: value, category: selectedValue }
+		// the author is set server-side from the token; premium is honored
+		// only when the backend confirms the user is premium
+		const post = {
+			content: value,
+			category: selectedValue,
+			premium: isPremium,
+		}
 
 		formData.append("data", JSON.stringify(post))
 		if (imageFile) formData.append("image", imageFile) // Only append image if it exists

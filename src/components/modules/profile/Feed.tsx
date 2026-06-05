@@ -24,13 +24,14 @@ const Feed = ({ user }: { user: any }) => {
 
 	useEffect(() => {
 		const fetchPosts = async () => {
-			const response = await getPostsForUser(user?._id)
+			if (!user?._id) return
+			const response = await getPostsForUser(user._id)
 
 			setPosts(response.data)
 		}
 
 		fetchPosts()
-	}, [])
+	}, [user?._id])
 
 	const renderCell = React.useCallback((post: TPost, columnKey: React.Key) => {
 		const cellValue = post[columnKey as keyof TPost]

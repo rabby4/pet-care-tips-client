@@ -1,11 +1,25 @@
-/* eslint-disable no-console */
 "use server"
 import { TFollowing } from "@/src/components/modules/home/Following"
 import envConfig from "@/src/config/envConfig"
 import axiosInstance from "@/src/lib/AxiosInstance"
 import { revalidateTag } from "next/cache"
+import { cookies } from "next/headers"
 import { FieldValues } from "react-hook-form"
 
+// pull the real message out of an axios/fetch error instead of "[object Object]"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getErrorMessage = (error: any, fallback: string) =>
+	error?.response?.data?.message || error?.message || fallback
+
+// attach the token to plain fetch calls so the backend can identify the viewer
+// (needed for premium content, own unpublished posts and admin data)
+const authHeaders = (): Record<string, string> => {
+	const accessToken = cookies().get("accessToken")?.value
+
+	return accessToken ? { Authorization: `Bearer ${accessToken}` } : {}
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createPost = async (formData: FormData): Promise<any> => {
 	try {
 		const { data } = await axiosInstance.post("/posts", formData, {
@@ -17,8 +31,9 @@ export const createPost = async (formData: FormData): Promise<any> => {
 		revalidateTag("posts")
 
 		return data
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error("Failed to create post")
+		throw new Error(getErrorMessage(error, "Failed to create post"))
 	}
 }
 
@@ -29,18 +44,13 @@ export const updatePostPON = async (id: string, formData: FormData) => {
 		revalidateTag("posts")
 
 		return data
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error("Failed to update post")
+		throw new Error(getErrorMessage(error, "Failed to update post"))
 	}
 }
 
 export const getAllPosts = async (category?: string, searchQuery?: string) => {
-	const fetchOptions = {
-		next: {
-			tags: ["posts"],
-		},
-	}
-
 	const params = new URLSearchParams()
 
 	if (category) {
@@ -53,7 +63,12 @@ export const getAllPosts = async (category?: string, searchQuery?: string) => {
 	try {
 		const res = await fetch(
 			`${envConfig.baseApi}/posts?${params.toString()}`,
-			fetchOptions
+			{
+				headers: authHeaders(),
+				next: {
+					tags: ["posts"],
+				},
+			}
 		)
 
 		if (!res.ok) {
@@ -70,20 +85,12 @@ export const getAllPosts = async (category?: string, searchQuery?: string) => {
 			await res.text()
 			throw new Error("Response was not JSON")
 		}
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		return { error: error.message }
 	}
 }
 
-// export const searchItems = async (searchTerm: string) => {
-// 	try {
-// 		const res = await axiosInstance.get(`/posts?search=${searchTerm}`)
-//
-// 		return res.data
-// 	} catch (error) {
-// 		throw new Error("Failed to search items")
-// 	}
-// }
 export const searchItems = async (searchTerm?: string, category?: string) => {
 	try {
 		// Create query parameters dynamically
@@ -101,86 +108,27 @@ export const searchItems = async (searchTerm?: string, category?: string) => {
 
 		return res.data
 	} catch (error) {
-		throw new Error("Failed to search items")
+		throw new Error(getErrorMessage(error, "Failed to search items"))
 	}
 }
 
-// export const getAllPosts = async () => {
-// 	const fetchOptions = {
-// 		next: {
-// 			tags: ["posts"],
-// 		},
-// 	}
-//
-// 	try {
-// 		// 		const params = new URLSearchParams()
-// 		//
-// 		// 		if (args) {
-// 		// 			args.forEach((item: any) => {
-// 		// 				params.append(item.name, item.value as string)
-// 		// 			})
-// 		// 		}
-//
-// 		const res = await fetch(`${envConfig.baseApi}/posts`, fetchOptions)
-//
-// 		if (!res.ok) {
-// 			throw new Error(`Failed to fetch posts: ${res.statusText}`)
-// 		}
-//
-// 		const contentType = res.headers.get("content-type")
-//
-// 		if (contentType && contentType.includes("application/json")) {
-// 			const data = await res.json()
-//
-// 			return data
-// 		} else {
-// 			await res.text()
-//
-// 			throw new Error("Response was not JSON")
-// 		}
-// 	} catch (error: any) {
-// 		return { error: error.message }
-// 	}
-// }
-
 export const getPostsForUser = async (userId: string) => {
-	const fetchOptions = {
+	const res = await fetch(`${envConfig.baseApi}/posts/${userId}`, {
+		headers: authHeaders(),
 		next: {
 			tags: ["posts"],
 		},
-	}
-	const res = await fetch(`${envConfig.baseApi}/posts/${userId}`, fetchOptions)
+	})
 	const data = await res.json()
 
 	return data
 }
 
-// export const getSearchPosts = async (search: string) => {
-// 	const fetchOptions = {
-// 		next: {
-// 			tags: ["posts"],
-// 		},
-// 	}
-// 	const res = await fetch(
-// 		`${envConfig.baseApi}/posts?search=${search}`,
-// 		fetchOptions
-// 	)
-// 	const data = await res.json()
-//
-// 	return data
-// }
-
 export const getSinglePost = async (postId: string) => {
-	let fetchOptions = {}
-
-	fetchOptions = {
+	const res = await fetch(`${envConfig.baseApi}/posts/post/${postId}`, {
+		headers: authHeaders(),
 		cache: "no-store",
-	}
-
-	const res = await fetch(
-		`${envConfig.baseApi}/posts/post/${postId}`,
-		fetchOptions
-	)
+	})
 
 	if (!res.ok) {
 		throw new Error("Failed to fetch data")
@@ -197,17 +145,19 @@ export const deletePost = async (postId: string) => {
 		revalidateTag("posts")
 
 		return res.data
-	} catch (error) {
-		console.log(error)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		throw new Error(getErrorMessage(error, "Failed to delete post"))
 	}
 }
 
-export const upVote = async (votesInfo: any) => {
+export const upVote = async (votesInfo: { user?: string; post: string }) => {
 	try {
-		await axiosInstance.post(`${envConfig.baseApi}/upvote`, votesInfo)
+		await axiosInstance.post(`/upvote`, votesInfo)
 		revalidateTag("upvotes")
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error(error)
+		throw new Error(getErrorMessage(error, "Failed to upvote"))
 	}
 }
 
@@ -224,13 +174,14 @@ export const getUpVoteCount = async (postId: string) => {
 	return data
 }
 
-export const downVote = async (votesInfo: any) => {
+export const downVote = async (votesInfo: { user?: string; post: string }) => {
 	try {
-		await axiosInstance.post(`${envConfig.baseApi}/downvote`, votesInfo)
+		await axiosInstance.post(`/downvote`, votesInfo)
 
 		revalidateTag("downvote")
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error(error)
+		throw new Error(getErrorMessage(error, "Failed to downvote"))
 	}
 }
 
@@ -255,8 +206,9 @@ export const commentOnPost = async (formData: FieldValues) => {
 		await axiosInstance.post("/comments", formData)
 
 		revalidateTag("comments")
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error(error)
+		throw new Error(getErrorMessage(error, "Failed to publish comment"))
 	}
 }
 
@@ -276,6 +228,7 @@ export const getPostComments = async (postId: string) => {
 	return data
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateComment = async (formData: any) => {
 	try {
 		await axiosInstance.patch(`/comments/${formData.id}`, {
@@ -283,8 +236,9 @@ export const updateComment = async (formData: any) => {
 		})
 
 		revalidateTag("comments")
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error(error)
+		throw new Error(getErrorMessage(error, "Failed to update comment"))
 	}
 }
 
@@ -295,18 +249,22 @@ export const deleteComment = async (commentId: string) => {
 		revalidateTag("comments")
 
 		return res.data
-	} catch (error) {
-		console.log(error)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		throw new Error(getErrorMessage(error, "Failed to delete comment"))
 	}
 }
 
 export const addFollowing = async (formData: TFollowing) => {
 	try {
-		await axiosInstance.post(`/following`, formData)
+		await axiosInstance.post(`/following`, {
+			following: formData.following,
+		})
 
 		revalidateTag("following")
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error("You already followed this user!")
+		throw new Error(getErrorMessage(error, "Failed to follow the user!"))
 	}
 }
 
@@ -317,8 +275,9 @@ export const unFollow = async (followData: TFollowing) => {
 		})
 
 		revalidateTag("following")
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		throw new Error("Failed to unfollow the user! Please try again!")
+		throw new Error(getErrorMessage(error, "Failed to unfollow the user!"))
 	}
 }
 

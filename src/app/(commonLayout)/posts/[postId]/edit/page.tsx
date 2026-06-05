@@ -1,11 +1,6 @@
 import Container from "@/src/components/ui/Container"
 import EditForm from "./_components/EditForm"
-import {
-	getDownVoteCount,
-	getPostComments,
-	getSinglePost,
-	getUpVoteCount,
-} from "@/src/services/postServices"
+import { getSinglePost } from "@/src/services/postServices"
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card"
 import { Avatar } from "@nextui-org/avatar"
 import { Tooltip } from "@nextui-org/tooltip"
@@ -27,11 +22,6 @@ type TProps = {
 const EditPost = async ({ params: { postId } }: TProps) => {
 	const post = await getSinglePost(postId)
 	const user = await getCurrentUser()
-	const upVote = await getUpVoteCount(post?._id)
-	const upVotes = upVote.data?.length
-	const downVote = await getDownVoteCount(post?._id)
-	const downVotes = downVote.data?.length
-	const allComments = await getPostComments(post?._id)
 
 	return (
 		<Container>
@@ -110,16 +100,17 @@ const EditPost = async ({ params: { postId } }: TProps) => {
 					<Divider />
 					<CardFooter className="grid grid-cols-2 justify-between">
 						<PostActions
-							comments={allComments?.data}
-							downVote={downVotes}
+							commentCount={post?.commentCount ?? 0}
+							downVote={post?.downvoteCount ?? 0}
 							id={post?._id}
-							upVotes={upVotes}
+							upVotes={post?.upvoteCount ?? 0}
 							user={user}
 							userId={user?._id}
+							userVote={post?.userVote}
 						/>
 					</CardFooter>
 				</Card>
-				<EditForm id={postId} />
+				<EditForm id={postId} post={post} />
 			</div>
 		</Container>
 	)

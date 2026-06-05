@@ -8,10 +8,12 @@ interface IDate {
 	year: number
 }
 
-const dateToISO = (date: IDate) => {
-	if (!date) return new Date().toISOString()
+// returns undefined when no date was picked so callers can omit the field
+const dateToISO = (date?: IDate | null) => {
+	if (!date?.year) return undefined
 
-	return new Date(`${date?.day}-${date?.month}-${date?.year}`).toISOString()
+	// build from parts; string parsing of "d-m-y" is unreliable
+	return new Date(date.year, date.month - 1, date.day).toISOString()
 }
 
 export default dateToISO

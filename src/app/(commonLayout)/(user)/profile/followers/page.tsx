@@ -1,6 +1,6 @@
 import Following from "@/src/components/modules/home/Following"
 import { getCurrentUser } from "@/src/services/authServices"
-import { getFollower, getFollowingStatus } from "@/src/services/postServices"
+import { getFollower, getFollowing } from "@/src/services/postServices"
 import { TUser } from "@/src/types"
 import { Avatar } from "@nextui-org/avatar"
 import { Card, CardBody, CardHeader } from "@nextui-org/card"
@@ -10,20 +10,23 @@ import { ShieldAlert } from "lucide-react"
 
 const Followers = async () => {
 	const user: TUser = await getCurrentUser()
-	const data = await getFollower(user?._id)
-	const followers = data?.data?.map((item: any) => item.follower)
 
-	// Fetch following status for each follower
-	const followersWithStatus = await Promise.all(
-		followers?.map(async (follower: any) => {
-			const status = await getFollowingStatus(user?._id, follower?._id)
+	// fetch my followers and my following in parallel, then derive
+	// "do I follow them back?" locally instead of one request per follower
+	const [followerRes, followingRes] = user?._id
+		? await Promise.all([getFollower(user._id), getFollowing(user._id)])
+		: [null, null]
 
-			return {
-				...follower,
-				isFollowing: status?.isFollowing,
-			}
-		}) || []
+	const followers = followerRes?.data?.map((item: any) => item.follower)
+	const followingIds = new Set(
+		followingRes?.data?.map((item: any) => item?.following?._id)
 	)
+
+	const followersWithStatus =
+		followers?.map((follower: any) => ({
+			...follower,
+			isFollowing: followingIds.has(follower?._id),
+		})) || []
 
 	return (
 		<Card className="p-3 rounded-md w-full">
@@ -52,10 +55,9 @@ const Followers = async () => {
 											<p className="text-xs">{follower?.occupation}</p>
 										</div>
 										<Following
-											fetchFollowingStatus={follower.isFollowing}
 											follower={user?._id}
 											following={follower?._id}
-											isFollowingInitial={follower.isFollowing}
+											isFollowingInitial={!!follower.isFollowing}
 										/>
 									</div>
 								</div>
